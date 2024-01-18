@@ -8,8 +8,6 @@ namespace LIForCars.Data.Interfaces
         IEnumerable<Coworker> GetAll();
         Coworker GetById(int id);
         bool Create(Coworker newCoworker);
-
-        // TODO
         bool Update(Coworker newCoworker);
         bool Delete(Coworker newCoworker);
     }

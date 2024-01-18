@@ -19,6 +19,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Create the database if it does not exist
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<MyLIForCarsDBContext>();
+    context.Database.EnsureCreated();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
