@@ -7,6 +7,6 @@ namespace LIForCars.Data
     {
         public MyLIForCarsDBContext(DbContextOptions<MyLIForCarsDBContext> opt) : base(opt) {}
 
-        public DbSet<Coworker> Coworker { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }

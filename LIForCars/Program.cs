@@ -12,7 +12,7 @@ builder.Services.AddDbContext<MyLIForCarsDBContext>(opt => opt.UseSqlServer(buil
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<ICoworkerRepository, CoworkerRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

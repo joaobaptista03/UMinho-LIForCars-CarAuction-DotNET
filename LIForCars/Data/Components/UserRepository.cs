@@ -6,27 +6,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LIForCars.Data.Components
 {
-    public class CoworkerRepository : ICoworkerRepository
+    public class UserRepository : IUserRepository
     {
         private readonly MyLIForCarsDBContext _context;
-        private IEnumerable<Coworker> _coworkers = new List<Coworker>();
+        private IEnumerable<User> _Users = new List<User>();
 
-        public CoworkerRepository(MyLIForCarsDBContext context)
+        public UserRepository(MyLIForCarsDBContext context)
         {
             _context = context;
         }
 
         public bool SaveChanges() => (_context.SaveChanges() >= 0);
 
-        public IEnumerable<Coworker> GetAll() => _context.Coworker.ToList();
+        public IEnumerable<User> GetAll() => _context.User.ToList();
 
-        public Coworker GetById(int id) => _context.Coworker.FirstOrDefault(c => c.Id == id);
+        public User GetById(int id) => _context.User.FirstOrDefault(c => c.Id == id);
 
-        public bool Create(Coworker newcoworker)
+        public bool Create(User newUser)
         {
             try
             {
-                _context.Coworker.Add(newcoworker);
+                _context.User.Add(newUser);
             } catch (Exception)
             {
                 return false;
@@ -34,11 +34,11 @@ namespace LIForCars.Data.Components
             return true;
         }
 
-        public bool Update(Coworker newcoworker)
+        public bool Update(User newUser)
         {
             try
             {
-                _context.Coworker.Update(newcoworker);
+                _context.User.Update(newUser);
             } catch (Exception)
             {
                 return false;
@@ -46,11 +46,11 @@ namespace LIForCars.Data.Components
             return true;
         }
 
-        public bool Delete(Coworker newcoworker)
+        public bool Delete(User newUser)
         {
             try
             {
-                _context.Coworker.Remove(newcoworker);
+                _context.User.Remove(newUser);
             } catch (Exception)
             {
                 return false;

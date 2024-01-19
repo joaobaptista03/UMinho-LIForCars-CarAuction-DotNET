@@ -4,13 +4,13 @@ using LIForCars.Data.Interfaces;
 
 namespace LIForCars.Controllers {
 
-    [Route("api/coworker")]
+    [Route("api/User")]
     [ApiController]
-    public class CoworkerController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly ICoworkerRepository _repository;
+        private readonly IUserRepository _repository;
 
-        public CoworkerController(ICoworkerRepository repository)
+        public UserController(IUserRepository repository)
         {
             _repository = repository;
         }
@@ -18,7 +18,7 @@ namespace LIForCars.Controllers {
         //GET aрі/cowerker
         [HttpGet]
 
-        public ActionResult<IEnumerable<Coworker>> GetAll()
+        public ActionResult<IEnumerable<User>> GetAll()
         {
             var result = _repository.GetAll();
 
@@ -26,48 +26,50 @@ namespace LIForCars.Controllers {
         }
             
 
-        //GET api/coworker/{id}
+        //GET api/User/{id}
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<Coworker>> GetById(int id)
+        public ActionResult<IEnumerable<User>> GetById(int id)
         {
             var result = _repository.GetById(id);
 
             return Ok(result);
         }
 
-        //POST api/coworker
+        //POST api/User
         [HttpPost("{id}")]
-        public ActionResult<Coworker> Create(Coworker newCoworker)
+        public ActionResult<User> Create(User newUser)
         {
             try
             {
-                _repository.Create(newCoworker);
+                _repository.Create(newUser);
                 _repository.SaveChanges();
 
-                return Ok(newCoworker);
+                return Ok(newUser);
             } catch (Exception)
             {
                 return BadRequest();
             }
         }
 
-        // PUT api/coworker/{id}
+        // PUT api/User/{id}
         [HttpPut("{id}")]
-        public ActionResult<Coworker> Update(int id, Coworker coworker)
+        public ActionResult<User> Update(int id, User User)
         {
             try
             {
-                var existingCoworker = _repository.GetById(id);
-                if (existingCoworker == null)
+                var existingUser = _repository.GetById(id);
+                if (existingUser == null)
                 {
                     return NotFound();
                 }
 
-                existingCoworker.FirstName = coworker.FirstName;
-                existingCoworker.LastName = coworker.LastName;
-                existingCoworker.Nif = coworker.Nif;
+                existingUser.Name = User.Name;
+                existingUser.Nif = User.Nif;
+                existingUser.Username = User.Username;
+                existingUser.Email = User.Email;
+                existingUser.Password = User.Password;
 
-                _repository.Update(existingCoworker);
+                _repository.Update(existingUser);
                 _repository.SaveChanges();
 
                 return NoContent();
@@ -78,17 +80,17 @@ namespace LIForCars.Controllers {
             }
         }
 
-        // DELETE api/coworker/{id}
+        // DELETE api/User/{id}
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            var coworker = _repository.GetById(id);
-            if (coworker == null)
+            var User = _repository.GetById(id);
+            if (User == null)
             {
                 return NotFound();
             }
 
-            _repository.Delete(coworker);
+            _repository.Delete(User);
             _repository.SaveChanges();
 
             return NoContent();
