@@ -12,8 +12,6 @@ builder.Services.AddDbContext<MyLIForCarsDBContext>(opt => opt.UseSqlServer(buil
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<ICoworkerRepository, CoworkerRepository>();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
