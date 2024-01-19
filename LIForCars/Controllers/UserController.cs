@@ -63,6 +63,11 @@ namespace LIForCars.Controllers {
 
                 existingUser.Name = User.Name;
                 existingUser.Nif = User.Nif;
+                existingUser.CC = User.CC;
+                existingUser.Address = User.Address;
+                existingUser.Phone = User.Phone;
+                existingUser.Gender = User.Gender;
+                existingUser.BirthDate = User.BirthDate;
                 existingUser.Username = User.Username;
                 existingUser.Email = User.Email;
                 existingUser.Password = User.Password;

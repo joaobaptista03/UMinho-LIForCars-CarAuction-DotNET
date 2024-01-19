@@ -88,7 +88,7 @@ footer {
     z-index: 1040;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Opacidade */
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {

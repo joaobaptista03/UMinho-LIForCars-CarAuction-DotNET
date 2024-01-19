@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', function(e) {
             var nif = document.getElementById('nif').value;
+            var cc = document.getElementById('cc').value;
+            var phone = document.getElementById('phone').value;
             var password = document.getElementById('password').value;
             var confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -43,11 +45,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Validação da senha
+            // Validação do CC
+            if (!/^\d+$/.test(cc)) {
+                alert('CC must be a number.');
+                e.preventDefault(); // Impede o envio do formulário
+                return;
+            }
+
+            // Validação do Telemóvel
+            if (!/^\d+$/.test(phone)) {
+                alert('Telemóvel must be a number.');
+                e.preventDefault(); // Impede o envio do formulário
+                return;
+            }
+
+            // Validação da Senha
             if (password !== confirmPassword) {
                 alert('Passwords do not match.');
                 e.preventDefault(); // Impede o envio do formulário
             }
+
+            // 
         });
     }
 });
