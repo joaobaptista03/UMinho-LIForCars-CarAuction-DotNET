@@ -25,7 +25,7 @@ namespace LIForCars.Controllers {
         }
 
         //GET api/User/{id} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpGet("byID/{id}")]
+        [HttpGet("{id}")]
         public ActionResult<IEnumerable<User>> GetById(int id)
         {
             var result = _repository.GetById(id);
@@ -33,44 +33,22 @@ namespace LIForCars.Controllers {
             return Ok(result);
         }
 
-        //GET API/USER/{nif} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpGet("byNIF/{nif}")]
-        public ActionResult<IEnumerable<User>> GetByNif(int nif)
-        {
-            var result = _repository.GetByNif(nif);
-
-            return Ok(result);
-        }
-
-        //GET API/USER/{cc} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpGet("byCC/{cc}")]
-        public ActionResult<IEnumerable<User>> GetByCC(int cc)
-        {
-            var result = _repository.GetByCC(cc);
-
-            return Ok(result);
-        }
-
-        //GET API/USER/{username} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpGet("byUsername/{username}")]
-        public ActionResult<IEnumerable<User>> GetByUsername(string username)
-        {
-            var result = _repository.GetByUsername(username);
-
-            return Ok(result);
-        }
-
-        //POST api/User
         [HttpPost]
         public ActionResult<User> Create([FromForm] User newUser)
         {
+            if (_repository.NifExists(newUser.Nif)) return BadRequest("NIF already exists.");
+            if (_repository.CcExists(newUser.CC)) return BadRequest("CC already exists.");
+            if (_repository.PhoneExists(newUser.Phone)) return BadRequest("Phone already exists.");
+            if (_repository.UsernameExists(newUser.Username)) return BadRequest("Username already exists.");
+            if (_repository.EmailExists(newUser.Email)) return BadRequest("Email already exists.");
+
             try
             {
                 _repository.Create(newUser);
                 _repository.SaveChanges();
-
                 return Ok(newUser);
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return BadRequest();
             }
@@ -126,5 +104,33 @@ namespace LIForCars.Controllers {
             return NoContent();
         }
 
+        [HttpGet("checkUnique")]
+        public ActionResult<bool> CheckUnique(string field, string value)
+        {
+            bool isUnique = false;
+
+            switch (field.ToLower())
+            {
+                case "nif":
+                    isUnique = !_repository.NifExists(int.Parse(value));
+                    break;
+                case "cc":
+                    isUnique = !_repository.CcExists(int.Parse(value));
+                    break;
+                case "phone":
+                    isUnique = !_repository.PhoneExists(int.Parse(value));
+                    break;
+                case "username":
+                    isUnique = !_repository.UsernameExists(value);
+                    break;
+                case "email":
+                    isUnique = !_repository.EmailExists(value);
+                    break;
+                default:
+                    return BadRequest("Invalid field specified.");
+            }
+
+            return Ok(isUnique);
+        }
     }
 }

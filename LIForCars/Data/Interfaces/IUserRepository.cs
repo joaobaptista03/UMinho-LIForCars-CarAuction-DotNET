@@ -7,9 +7,11 @@ namespace LIForCars.Data.Interfaces
         bool SaveChanges();
         IEnumerable<User> GetAll();
         User GetById(int id);
-        User GetByNif(int nif);
-        User GetByCC(int cc);
-        User GetByUsername(string username);
+        bool NifExists(int nif);
+        bool CcExists(int cc);
+        bool PhoneExists(int phone);
+        bool UsernameExists(string username);
+        bool EmailExists(string email);
         bool Create(User newUser);
         bool Update(User newUser);
         bool Delete(User newUser);
