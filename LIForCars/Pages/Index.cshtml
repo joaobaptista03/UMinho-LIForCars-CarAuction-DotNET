@@ -30,6 +30,19 @@
                 <form id="registrationForm" method="post" action="api/User">
                     <input type="text" name="Name" placeholder="Name" required />
                     <input type="text" id="nif" name="Nif" placeholder="NIF" required />
+                    <input type="text" id="cc" name="CC" placeholder="nº CC" required />
+                    <input type="text" name="Address" placeholder="Address" required />
+                    <input type="text" id = "phone" name="Phone" placeholder="Phone Number" required />
+                    
+                    <select name="Gender" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Other</option>
+                    </select>
+
+                    <input type="date" name="BirthDate" placeholder="Birth Date" required />
+
                     <input type="text" name="Username" placeholder="Username" required />
                     <input type="email" name="Email" placeholder="Email" required />
                     <input type="password" id="password" name="Password" placeholder="Password" required />

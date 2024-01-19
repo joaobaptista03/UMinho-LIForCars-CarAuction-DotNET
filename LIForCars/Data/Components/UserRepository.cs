@@ -21,6 +21,9 @@ namespace LIForCars.Data.Components
         public IEnumerable<User> GetAll() => _context.User.ToList();
 
         public User GetById(int id) => _context.User.FirstOrDefault(c => c.Id == id);
+        public User GetByUsername(string username) => _context.User.FirstOrDefault(c => c.Username == username);
+        public User GetByNif(int nif) => _context.User.FirstOrDefault(c => c.Nif == nif);
+        public User GetByCC(int cc) => _context.User.FirstOrDefault(c => c.CC == cc);
 
         public bool Create(User newUser)
         {

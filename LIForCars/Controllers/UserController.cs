@@ -25,10 +25,37 @@ namespace LIForCars.Controllers {
         }
 
         //GET api/User/{id} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpGet("{id}")]
+        [HttpGet("byID/{id}")]
         public ActionResult<IEnumerable<User>> GetById(int id)
         {
             var result = _repository.GetById(id);
+
+            return Ok(result);
+        }
+
+        //GET API/USER/{nif} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpGet("byNIF/{nif}")]
+        public ActionResult<IEnumerable<User>> GetByNif(int nif)
+        {
+            var result = _repository.GetByNif(nif);
+
+            return Ok(result);
+        }
+
+        //GET API/USER/{cc} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpGet("byCC/{cc}")]
+        public ActionResult<IEnumerable<User>> GetByCC(int cc)
+        {
+            var result = _repository.GetByCC(cc);
+
+            return Ok(result);
+        }
+
+        //GET API/USER/{username} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpGet("byUsername/{username}")]
+        public ActionResult<IEnumerable<User>> GetByUsername(string username)
+        {
+            var result = _repository.GetByUsername(username);
 
             return Ok(result);
         }
