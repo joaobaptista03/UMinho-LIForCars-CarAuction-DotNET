@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<MyLIForCarsDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyLIForCarsDBConnection")));
 
@@ -29,12 +30,20 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+} else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllers();
 
 app.Run();

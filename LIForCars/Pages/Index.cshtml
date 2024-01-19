@@ -1,0 +1,81 @@
+@page
+@model IndexModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIForCars</title>
+    <link href="~/css/home.css" rel="stylesheet" />
+    <script src="~/js/home.js"></script>
+</head>
+<body>
+    <header>
+        <h2>LIFORCARS</h2>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="#">ABOUT</a>
+            <a href="#">CONTACT</a>
+            <a href="#" data-target="login" class="signin">SIGN IN</a>
+        </nav>
+    </header>
+
+    <div id="register-page" style="display: none;">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
+                    <h2>REGISTER</h2>
+                </div>
+                <form method="post">
+                    <input type="text" placeholder="Name" />
+                    <input type="text" placeholder="NIF" />
+                    <input type="text" placeholder="Username" />
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Confirm Password" />
+                    <div class="modal-footer">
+                        <button type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-page" style="display: none;">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeLoginPage()">&times;</span>
+                    <h2>LOG IN</h2>
+                </div>
+                <form method="post">
+                    <input type="text" placeholder="Username / Email" />
+                    <input type="password" placeholder="Password" />
+                    <div class="modal-footer">
+                        <a href="#" data-target="register">Register New Account</a>
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Drive Your Dreams.<br> Bid, Win, Ride!</h1>
+    </div>
+
+    <footer>
+        <p>help@LIForCars.pt</p>
+        <div class="bottom-icons">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+            <br>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>
+</body>
+</html>
