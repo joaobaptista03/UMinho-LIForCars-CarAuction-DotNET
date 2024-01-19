@@ -28,6 +28,30 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('registrationForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            var nif = document.getElementById('nif').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validação do NIF
+            if (!/^\d+$/.test(nif)) {
+                alert('NIF must be a number.');
+                e.preventDefault(); // Impede o envio do formulário
+                return;
+            }
+
+            // Validação da senha
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                e.preventDefault(); // Impede o envio do formulário
+            }
+        });
+    }
+});
+
 function closeRegisterPage() {
     const registerPage = document.getElementById('register-page');
     registerPage.style.display = 'none'; // Oculta a página de registro

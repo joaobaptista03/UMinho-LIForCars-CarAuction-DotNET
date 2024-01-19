@@ -1,5 +1,4 @@
 @page
-@model IndexModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,13 +27,14 @@
                     <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
                     <h2>REGISTER</h2>
                 </div>
-                <form method="post">
-                    <input type="text" placeholder="Name" />
-                    <input type="text" placeholder="NIF" />
-                    <input type="text" placeholder="Username" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <input type="password" placeholder="Confirm Password" />
+                <form id="registrationForm" method="post" action="api/User">
+                    <input type="text" name="Name" placeholder="Name" required />
+                    <input type="text" id="nif" name="Nif" placeholder="NIF" required />
+                    <input type="text" name="Username" placeholder="Username" required />
+                    <input type="email" name="Email" placeholder="Email" required />
+                    <input type="password" id="password" name="Password" placeholder="Password" required />
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+
                     <div class="modal-footer">
                         <button type="submit">Register</button>
                     </div>

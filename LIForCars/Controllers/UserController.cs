@@ -15,18 +15,16 @@ namespace LIForCars.Controllers {
             _repository = repository;
         }
 
-        //GET aрі/cowerker
+        //GET aрі/User <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
         [HttpGet]
-
         public ActionResult<IEnumerable<User>> GetAll()
         {
             var result = _repository.GetAll();
 
             return Ok(result);
         }
-            
 
-        //GET api/User/{id}
+        //GET api/User/{id} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<User>> GetById(int id)
         {
@@ -36,8 +34,8 @@ namespace LIForCars.Controllers {
         }
 
         //POST api/User
-        [HttpPost("{id}")]
-        public ActionResult<User> Create(User newUser)
+        [HttpPost]
+        public ActionResult<User> Create([FromForm] User newUser)
         {
             try
             {
@@ -51,7 +49,7 @@ namespace LIForCars.Controllers {
             }
         }
 
-        // PUT api/User/{id}
+        // PUT api/User/{id}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
         [HttpPut("{id}")]
         public ActionResult<User> Update(int id, User User)
         {
@@ -80,7 +78,7 @@ namespace LIForCars.Controllers {
             }
         }
 
-        // DELETE api/User/{id}
+        // DELETE api/User/{id}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
