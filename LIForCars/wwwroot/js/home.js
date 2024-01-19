@@ -34,13 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async function(e) {
             e.preventDefault(); // Impede o envio imediato do formulário
 
-            var nif = document.getElementById('nif').value;
-            var cc = document.getElementById('cc').value;
-            var phone = document.getElementById('phone').value;
-            var username = document.getElementById('username').value;
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var confirmPassword = document.getElementById('confirmPassword').value;
+            var nif = document.getElementById('registerNif').value;
+            var cc = document.getElementById('registerCc').value;
+            var phone = document.getElementById('registerPhone').value;
+            var username = document.getElementById('registerUsername').value;
+            var email = document.getElementById('registerEmail').value;
+            var password = document.getElementById('registerPassword').value;
+            var confirmPassword = document.getElementById('registerConfirmPassword').value;
 
             let errors = [];
 
@@ -79,6 +79,46 @@ document.addEventListener('DOMContentLoaded', () => {
 async function isUnique(field, value) {
     try {
         const response = await fetch(`/api/User/checkUnique?field=${field}&value=${value}`);
+        if (!response.ok) {
+            throw new Error('Erro ao verificar a unicidade do campo');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Erro na verificação de unicidade:', error);
+        return false; // Considera não único em caso de erro
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('loginForm');
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Impede o envio imediato do formulário
+
+            var username = document.getElementById('loginUsername').value;
+            var password = document.getElementById('loginPassword').value;
+
+            console.log(username);
+            console.log(password);
+
+            let errors = [];
+
+            const check = await checkPassword(username, password);
+            if (!check) {
+                alert('Username or password incorrect.');
+                e.preventDefault();
+                return;
+            }
+
+
+            form.submit(); // Envie o formulário se não houver erros
+        });
+    }
+});
+
+async function checkPassword(username, password) {
+    try {
+        const response = await fetch(`/api/User/checkPassword?username=${username}&password=${password}`);
         if (!response.ok) {
             throw new Error('Erro ao verificar a unicidade do campo');
         }

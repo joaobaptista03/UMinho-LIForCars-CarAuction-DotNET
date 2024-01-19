@@ -33,27 +33,6 @@ namespace LIForCars.Controllers {
             return Ok(result);
         }
 
-        [HttpPost]
-        public ActionResult<User> Create([FromForm] User newUser)
-        {
-            if (_repository.NifExists(newUser.Nif)) return BadRequest("NIF already exists.");
-            if (_repository.CcExists(newUser.CC)) return BadRequest("CC already exists.");
-            if (_repository.PhoneExists(newUser.Phone)) return BadRequest("Phone already exists.");
-            if (_repository.UsernameExists(newUser.Username)) return BadRequest("Username already exists.");
-            if (_repository.EmailExists(newUser.Email)) return BadRequest("Email already exists.");
-
-            try
-            {
-                _repository.Create(newUser);
-                _repository.SaveChanges();
-                return Ok(newUser);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
         // PUT api/User/{id}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
         [HttpPut("{id}")]
         public ActionResult<User> Update(int id, User User)
@@ -131,6 +110,49 @@ namespace LIForCars.Controllers {
             }
 
             return Ok(isUnique);
+        }
+
+        [HttpGet("checkPassword")]
+        public ActionResult<bool> CheckPassword(string username, string password)
+        {
+            bool isCorrect = _repository.CheckPassword(username, password);
+
+            if (!isCorrect) return BadRequest("Incorrect password.");
+
+            return Ok(isCorrect);
+        }
+
+        [HttpPost("login")]
+        public ActionResult<User> Login([FromForm] string username, [FromForm] string password)
+        {
+            if (!_repository.CheckPassword(username, password)) return BadRequest("Incorrect password.");
+
+            var user = _repository.GetByUsername(username);
+            if (user == null) return BadRequest("User not found.");
+
+            return Ok(user);
+        }
+
+        [HttpPost("register")]
+        public ActionResult<User> Register([FromForm] User newUser)
+        {
+            if (_repository.NifExists(newUser.Nif)) return BadRequest("NIF already exists.");
+            if (_repository.CcExists(newUser.CC)) return BadRequest("CC already exists.");
+            if (_repository.PhoneExists(newUser.Phone)) return BadRequest("Phone already exists.");
+            if (_repository.UsernameExists(newUser.Username)) return BadRequest("Username already exists.");
+            if (_repository.EmailExists(newUser.Email)) return BadRequest("Email already exists.");
+            if (newUser.Password.Contains(' ')) return BadRequest("Username cannot contain spaces.");
+
+            try
+            {
+                _repository.Create(newUser);
+                _repository.SaveChanges();
+                return Ok(newUser);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
     }
 }

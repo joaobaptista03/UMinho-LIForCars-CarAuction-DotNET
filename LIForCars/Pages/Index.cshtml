@@ -27,12 +27,12 @@
                     <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
                     <h2>REGISTER</h2>
                 </div>
-                <form id="registrationForm" method="post" action="api/User">
+                <form id="registrationForm" method="post" action="api/User/register">
                     <input type="text" name="Name" placeholder="Name" required />
-                    <input type="text" id="nif" name="Nif" placeholder="NIF" required />
-                    <input type="text" id="cc" name="CC" placeholder="nº CC" required />
+                    <input type="text" id="registerNif" name="Nif" placeholder="NIF" required />
+                    <input type="text" id="registerCc" name="CC" placeholder="nº CC" required />
                     <input type="text" name="Address" placeholder="Address" required />
-                    <input type="text" id = "phone" name="Phone" placeholder="Phone Number" required />
+                    <input type="text" id = "registerPhone" name="Phone" placeholder="Phone Number" required />
                     
                     <select name="Gender" required>
                         <option value="" disabled selected>Select your gender</option>
@@ -43,10 +43,10 @@
 
                     <input type="date" name="BirthDate" placeholder="Birth Date" required />
 
-                    <input type="text" id="username" name="Username" placeholder="Username" required />
-                    <input type="email" id="email" name="Email" placeholder="Email" required />
-                    <input type="password" id="password" name="Password" placeholder="Password" required />
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+                    <input type="text" id="registerUsername" name="Username" placeholder="Username" required />
+                    <input type="email" id="registerEmail" name="Email" placeholder="Email" required />
+                    <input type="password" id="registerPassword" name="Password" placeholder="Password" required />
+                    <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" required />
 
                     <div class="modal-footer">
                         <button type="submit">Register</button>
@@ -63,9 +63,9 @@
                     <span class="close-btn" onclick="closeLoginPage()">&times;</span>
                     <h2>LOG IN</h2>
                 </div>
-                <form method="post">
-                    <input type="text" placeholder="Username / Email" />
-                    <input type="password" placeholder="Password" />
+                <form id="loginForm" method="post" action="api/User/login">
+                    <input type="text" id="loginUsername" name="Username" placeholder="Username / Email" required/>
+                    <input type="password" id="loginPassword" name="Password" placeholder="Password" required/>
                     <div class="modal-footer">
                         <a href="#" data-target="register">Register New Account</a>
                         <button type="submit">Login</button>
