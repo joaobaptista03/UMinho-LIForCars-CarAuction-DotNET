@@ -60,28 +60,25 @@ footer {
     width: 100%;
     background: #292b2c; /* Slightly lighter than the header for contrast */
     color: white;
-    text-align: center;
     padding: 15px 0;
     font-size: 0.9em;
-}
-
-footer p {
-    margin: 0;
-    padding: 5px 0; /* Minimal padding for better alignment */
-}
-
-footer a {
-    color: #d9534f; /* Matching the CTA section color */
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
+    display: flex;
+    justify-content: center;
 }
 
 .bottom-icons a {
-    display: inline-block;
+    text-decoration: none;
+    color: #ad8214;
     margin: 0 10px;
+}
+
+.bottom-icons a:hover {
+    text-decoration: underline;
+}
+
+.email {
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .modal-backdrop {
