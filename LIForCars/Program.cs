@@ -14,6 +14,9 @@ builder.Services.AddDbContext<MyLIForCarsDBContext>(opt => opt.UseSqlServer(buil
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

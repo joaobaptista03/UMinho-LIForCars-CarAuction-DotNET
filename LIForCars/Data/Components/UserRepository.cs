@@ -44,6 +44,7 @@ namespace LIForCars.Data.Components
             {
                 newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password, BCrypt.Net.BCrypt.GenerateSalt());
                 _context.User.Add(newUser);
+                _context.SaveChanges();
             } catch (Exception)
             {
                 return false;
@@ -56,6 +57,7 @@ namespace LIForCars.Data.Components
             try
             {
                 _context.User.Update(newUser);
+                _context.SaveChanges();
             } catch (Exception)
             {
                 return false;
@@ -68,6 +70,7 @@ namespace LIForCars.Data.Components
             try
             {
                 _context.User.Remove(newUser);
+                _context.SaveChanges();
             } catch (Exception)
             {
                 return false;
