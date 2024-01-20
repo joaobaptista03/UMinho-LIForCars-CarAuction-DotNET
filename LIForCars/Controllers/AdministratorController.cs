@@ -20,10 +20,10 @@ namespace LIForCars.Controllers
             return Ok(_repository.GetAll());
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Administrator> GetById(int id)
+        [HttpGet("{username}")]
+        public ActionResult<Administrator> GetByUsername(string username)
         {
-            var administrator = _repository.GetById(id);
+            var administrator = _repository.GetByUsername(username);
             if (administrator == null)
             {
                 return NotFound();
@@ -43,13 +43,13 @@ namespace LIForCars.Controllers
             if (administrator.Password.Contains(' ')) return BadRequest("Password cannot contain spaces");
 
             _repository.Create(administrator);
-            return CreatedAtAction(nameof(GetById), new { id = administrator.Id }, administrator);
+            return CreatedAtAction(nameof(GetByUsername), new { username = administrator.Username }, administrator);
         }
 
-        [HttpPut("{id}")]
-        public ActionResult Update(int id, [FromBody] Administrator administrator)
+        [HttpPut("{username}")]
+        public ActionResult Update(string username, [FromBody] Administrator administrator)
         {
-            if (id != administrator.Id)
+            if (username != administrator.Username)
             {
                 return BadRequest();
             }
@@ -58,10 +58,10 @@ namespace LIForCars.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        [HttpDelete("{username}")]
+        public ActionResult Delete(string username)
         {
-            _repository.Delete(id);
+            _repository.Delete(username);
             return NoContent();
         }
     }

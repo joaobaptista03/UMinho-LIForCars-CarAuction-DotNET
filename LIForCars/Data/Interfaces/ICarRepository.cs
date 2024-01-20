@@ -5,10 +5,10 @@ namespace LIForCars.Data.Interfaces
     public interface ICarRepository
     {
         IEnumerable<Car> GetAll();
-        Car? GetById(int id);
+        Car? GetByPlate(string plate);
         bool Create(Car car);
         bool Update(Car car);
-        bool Delete(int id);
+        bool Delete(string plate);
         bool PlateExists(string plate);
         bool CertificateNrExists(int certificateNr);
     }

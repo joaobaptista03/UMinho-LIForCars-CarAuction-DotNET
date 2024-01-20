@@ -6,7 +6,6 @@ namespace LIForCars.Data.Interfaces
     {
         bool SaveChanges();
         IEnumerable<User> GetAll();
-        User? GetById(int id);
         User? GetByUsername(string username);
         bool NifExists(int nif);
         bool CcExists(int cc);

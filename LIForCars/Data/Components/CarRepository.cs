@@ -17,9 +17,9 @@ namespace LIForCars.Data.Components
             return _context.Car.ToList();
         }
 
-        public Car? GetById(int id)
+        public Car? GetByPlate(string plate)
         {
-            return _context.Car.FirstOrDefault(c => c.Id == id);
+            return _context.Car.FirstOrDefault(c => c.Plate == plate);
         }
 
         public bool Create(Car car)
@@ -45,11 +45,11 @@ namespace LIForCars.Data.Components
 
         }
 
-        public bool Delete(int id)
+        public bool Delete(string plate)
         {
             try 
             {
-                var car = _context.Car.Find(id);
+                var car = _context.Car.FirstOrDefault(c => c.Plate == plate);
                 if (car != null)
                 {
                     _context.Car.Remove(car);

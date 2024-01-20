@@ -17,9 +17,9 @@ namespace LIForCars.Data.Components
             return _context.Administrators.ToList();
         }
 
-        public Administrator? GetById(int id)
+        public Administrator? GetByUsername(string username)
         {
-            return _context.Administrators.FirstOrDefault(a => a.Id == id);
+            return _context.Administrators.FirstOrDefault(a => a.Username == username);
         }
 
         public bool Create(Administrator admin)
@@ -44,10 +44,10 @@ namespace LIForCars.Data.Components
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(string username)
         {
             try {
-                var admin = _context.Administrators.Find(id);
+                var admin = _context.Administrators.FirstOrDefault(a => a.Username == username);
                 if (admin != null)
                 {
                     _context.Administrators.Remove(admin);

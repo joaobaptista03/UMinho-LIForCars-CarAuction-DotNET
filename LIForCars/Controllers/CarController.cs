@@ -21,10 +21,10 @@ namespace LIForCars.Controllers
             return Ok(_repository.GetAll());
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Car> GetById(int id)
+        [HttpGet("{plate}")]
+        public ActionResult<Car> GetByPlate(string plate)
         {
-            var car = _repository.GetById(id);
+            var car = _repository.GetByPlate(plate);
             if (car == null)
             {
                 return NotFound();
@@ -39,13 +39,13 @@ namespace LIForCars.Controllers
             if (_repository.CertificateNrExists(car.CertificateNr)) return BadRequest("CertificateNr already exists");
 
             _repository.Create(car);
-            return CreatedAtAction(nameof(GetById), new { id = car.Id }, car);
+            return CreatedAtAction(nameof(GetByPlate), new { plate = car.Plate }, car);
         }
 
-        [HttpPut("{id}")]
-        public ActionResult Update(int id, [FromBody] Car car)
+        [HttpPut("{plate}")]
+        public ActionResult Update(string plate, [FromBody] Car car)
         {
-            if (id != car.Id)
+            if (plate != car.Plate)
             {
                 return BadRequest();
             }
@@ -54,10 +54,10 @@ namespace LIForCars.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        [HttpDelete("{plate}")]
+        public ActionResult Delete(string plate)
         {
-            _repository.Delete(id);
+            _repository.Delete(plate);
             return NoContent();
         }
     }

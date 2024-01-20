@@ -5,10 +5,10 @@ namespace LIForCars.Data.Interfaces
     public interface IAdministratorRepository
     {
         IEnumerable<Administrator> GetAll();
-        Administrator? GetById(int id);
+        Administrator? GetByUsername(string username);
         bool Create(Administrator admin);
         bool Update(Administrator admin);
-        bool Delete(int id);
+        bool Delete(string username);
         bool ContractNrExists(int contractNr);
         bool EmailExists(string email);
         bool NifExists(int nif);

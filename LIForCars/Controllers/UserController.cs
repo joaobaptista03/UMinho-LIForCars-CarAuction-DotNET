@@ -24,20 +24,20 @@ namespace LIForCars.Controllers {
             return Ok(result);
         }
 
-        //GET api/User/{id} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpGet("{id}")]
-        public ActionResult<IEnumerable<User>> GetById(int id)
+        //GET api/User/{username} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpGet("{username}")]
+        public ActionResult<IEnumerable<User>> GetByUsername(string username)
         {
-            var result = _repository.GetById(id);
+            var result = _repository.GetByUsername(username);
 
             return Ok(result);
         }
 
-        // PUT api/User/{id}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpPut("{id}")]
-        public ActionResult<User> Update(int id, User User)
+        // PUT api/User/{username}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpPut("{username}")]
+        public ActionResult<User> Update(string username, User User)
         {
-            if (id != User.Id)
+            if (username != User.Username)
             {
                 return BadRequest();
             }
@@ -46,11 +46,11 @@ namespace LIForCars.Controllers {
             return NoContent();
         }
 
-        // DELETE api/User/{id}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        // DELETE api/User/{username}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpDelete("{username}")]
+        public ActionResult Delete(string username)
         {
-            var User = _repository.GetById(id);
+            var User = _repository.GetByUsername(username);
             if (User == null)
             {
                 return NotFound();
