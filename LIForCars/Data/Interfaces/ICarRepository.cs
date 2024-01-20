@@ -6,8 +6,8 @@ namespace LIForCars.Data.Interfaces
     {
         IEnumerable<Car> GetAll();
         Car? GetById(int id);
-        void Create(Car car);
-        void Update(Car car);
-        void Delete(int id);
+        bool Create(Car car);
+        bool Update(Car car);
+        bool Delete(int id);
     }
 }

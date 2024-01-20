@@ -10,5 +10,8 @@ namespace LIForCars.Models
         public decimal BuyNowPrice { get; set; }
         public int CarId { get; set; }
         public Car? Car { get; set; }
+        
+        public int AdministratorId { get; set; }
+        public Administrator Administrator { get; set; }
     }
 }
