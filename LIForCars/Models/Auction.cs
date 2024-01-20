@@ -13,5 +13,7 @@ namespace LIForCars.Models
         
         public int AdministratorId { get; set; }
         public Administrator Administrator { get; set; } = null!;
+        public int UserId { get; set; }
+        public User User { get; set; } = null!;
     }
 }
