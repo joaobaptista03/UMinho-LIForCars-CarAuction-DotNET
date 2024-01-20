@@ -34,6 +34,14 @@ namespace LIForCars.Controllers
         [HttpPost]
         public ActionResult Create([FromBody] Administrator administrator)
         {
+            if (_repository.ContractNrExists(administrator.ContractNr)) return BadRequest("ContractNr already exists");
+            if (_repository.NifExists(administrator.Nif)) return BadRequest("Nif already exists");
+            if (_repository.CCExists(administrator.CC)) return BadRequest("CC already exists");
+            if (_repository.PhoneExists(administrator.Phone)) return BadRequest("Phone already exists");
+            if (_repository.UsernameExists(administrator.Username)) return BadRequest("Username already exists");
+            if (_repository.EmailExists(administrator.Email)) return BadRequest("Email already exists");
+            if (administrator.Password.Contains(' ')) return BadRequest("Password cannot contain spaces");
+
             _repository.Create(administrator);
             return CreatedAtAction(nameof(GetById), new { id = administrator.Id }, administrator);
         }

@@ -18,23 +18,18 @@ namespace LIForCars.Data
                 entity.Property(e => e.BuyNowPrice).HasPrecision(18, 2);
             });
 
-            modelBuilder.Entity<Car>()
-                .HasOne(c => c.Auction)
-                .WithOne(a => a.Car)
-                .HasForeignKey<Auction>(a => a.CarId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             modelBuilder.Entity<Auction>()
                 .HasOne(a => a.Car)
-                .WithOne(c => c.Auction)
-                .HasForeignKey<Car>(c => c.AuctionId)
+                .WithOne()
+                .HasForeignKey<Auction>(a => a.CarId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
+            modelBuilder.Entity<Auction>()
+                .HasOne(a => a.Administrator)
+                .WithOne()
+                .HasForeignKey<Auction>(a => a.AdministratorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Administrator>()
-                .HasMany(a => a.Auctions)
-                .WithOne(a => a.Administrator)
-                .HasForeignKey(a => a.AdministratorId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Car> Car { get; set; }

@@ -35,6 +35,9 @@ namespace LIForCars.Controllers
         [HttpPost]
         public ActionResult Create([FromBody] Car car)
         {
+            if (_repository.PlateExists(car.Plate)) return BadRequest("Plate already exists");
+            if (_repository.CertificateNrExists(car.CertificateNr)) return BadRequest("CertificateNr already exists");
+
             _repository.Create(car);
             return CreatedAtAction(nameof(GetById), new { id = car.Id }, car);
         }

@@ -13,9 +13,6 @@ namespace LIForCars.Models
         public string FuelType { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
         public string Origin { get; set; } = string.Empty;
-        public string CertificateNr { get; set; } = string.Empty;
-
-        public int AuctionId { get; set; }
-        public Auction Auction { get; set; }
+        public int CertificateNr { get; set; }
     }
 }

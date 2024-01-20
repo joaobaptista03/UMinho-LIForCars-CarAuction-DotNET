@@ -62,5 +62,8 @@ namespace LIForCars.Data.Components
             }
             return true;
         }
+
+        public bool PlateExists(string plate) => _context.Car.Any(c => c.Plate == plate);
+        public bool CertificateNrExists(int certificateNr) => _context.Car.Any(c => c.CertificateNr == certificateNr);
     }
 }

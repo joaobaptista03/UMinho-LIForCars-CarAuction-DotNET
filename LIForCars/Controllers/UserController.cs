@@ -37,34 +37,13 @@ namespace LIForCars.Controllers {
         [HttpPut("{id}")]
         public ActionResult<User> Update(int id, User User)
         {
-            try
-            {
-                var existingUser = _repository.GetById(id);
-                if (existingUser == null)
-                {
-                    return NotFound();
-                }
-
-                existingUser.Name = User.Name;
-                existingUser.Nif = User.Nif;
-                existingUser.CC = User.CC;
-                existingUser.Address = User.Address;
-                existingUser.Phone = User.Phone;
-                existingUser.Gender = User.Gender;
-                existingUser.BirthDate = User.BirthDate;
-                existingUser.Username = User.Username;
-                existingUser.Email = User.Email;
-                existingUser.Password = User.Password;
-
-                _repository.Update(existingUser);
-                _repository.SaveChanges();
-
-                return NoContent();
-            }
-            catch (Exception)
+            if (id != User.Id)
             {
                 return BadRequest();
             }
+
+            _repository.Update(User);
+            return NoContent();
         }
 
         // DELETE api/User/{id}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER

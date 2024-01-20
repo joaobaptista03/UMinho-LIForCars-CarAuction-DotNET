@@ -12,6 +12,6 @@ namespace LIForCars.Models
         public Car? Car { get; set; }
         
         public int AdministratorId { get; set; }
-        public Administrator Administrator { get; set; }
+        public Administrator Administrator { get; set; } = null!;
     }
 }

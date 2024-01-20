@@ -69,5 +69,7 @@ namespace LIForCars.Data.Components
                 return false;
             }
         }
+
+        public bool CarIdExists(int carId) => _context.Auction.Any(a => a.CarId == carId);
     }
 }

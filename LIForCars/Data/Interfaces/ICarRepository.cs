@@ -9,5 +9,7 @@ namespace LIForCars.Data.Interfaces
         bool Create(Car car);
         bool Update(Car car);
         bool Delete(int id);
+        bool PlateExists(string plate);
+        bool CertificateNrExists(int certificateNr);
     }
 }

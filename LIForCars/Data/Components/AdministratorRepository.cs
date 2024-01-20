@@ -58,5 +58,12 @@ namespace LIForCars.Data.Components
             }
             return true;
         }
+
+        public bool ContractNrExists(int contractNr) => _context.Administrators.Any(a => a.ContractNr == contractNr);
+        public bool EmailExists(string email) => _context.Administrators.Any(a => a.Email == email);
+        public bool NifExists(int nif) => _context.Administrators.Any(a => a.Nif == nif);
+        public bool CCExists(int cc) => _context.Administrators.Any(a => a.CC == cc);
+        public bool PhoneExists(int phone) => _context.Administrators.Any(a => a.Phone == phone);
+        public bool UsernameExists(string username) => _context.Administrators.Any(a => a.Username == username);
     }
 }

@@ -9,5 +9,11 @@ namespace LIForCars.Data.Interfaces
         bool Create(Administrator admin);
         bool Update(Administrator admin);
         bool Delete(int id);
+        bool ContractNrExists(int contractNr);
+        bool EmailExists(string email);
+        bool NifExists(int nif);
+        bool CCExists(int cc);
+        bool PhoneExists(int phone);
+        bool UsernameExists(string username);
     }
 }

@@ -9,5 +9,6 @@ namespace LIForCars.Data.Interfaces
         bool Create(Auction auction);
         bool Update(Auction auction);
         bool Delete(int id);
+        bool CarIdExists(int carId);
     }
 }

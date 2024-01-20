@@ -35,6 +35,8 @@ namespace LIForCars.Controllers
         [HttpPost]
         public ActionResult Create([FromBody] Auction auction)
         {
+            if (_repository.CarIdExists(auction.CarId)) return BadRequest("CarId already exists");
+            
             _repository.Create(auction);
             return CreatedAtAction(nameof(GetById), new { id = auction.Id }, auction);
         }
