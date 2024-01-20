@@ -102,13 +102,19 @@ footer {
     z-index: 1050;
 }
 
-input[type="text"], input[type="password"], input[type="email"] {
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], select {
     width: 97%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ddd;
+    background-color: #fff;
     border-radius: 5px;
 }
+
+select[name="Gender"] {
+    width: 100.4%;
+}
+
 
 button {
     background-color: #d9534f; /* Vermelho */
