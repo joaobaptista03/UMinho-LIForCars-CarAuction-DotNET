@@ -1,3 +1,4 @@
+using BCrypt.Net;
 using LIForCars.Models;
 using LIForCars.Data.Interfaces;
 using System.Runtime.InteropServices;
@@ -20,8 +21,8 @@ namespace LIForCars.Data.Components
 
         public IEnumerable<User> GetAll() => _context.User.ToList();
 
-        public User GetById(int id) => _context.User.FirstOrDefault(c => c.Id == id);
-        public User GetByUsername(string username) => _context.User.FirstOrDefault(c => c.Username == username);
+        public User? GetById(int id) => _context.User.FirstOrDefault(c => c.Id == id);
+        public User? GetByUsername(string username) => _context.User.FirstOrDefault(c => c.Username == username);
         public bool NifExists(int nif) => _context.User.Any(u => u.Nif == nif);
         public bool CcExists(int cc) => _context.User.Any(u => u.CC == cc);
         public bool PhoneExists(int phone) => _context.User.Any(u => u.Phone == phone);
@@ -31,7 +32,8 @@ namespace LIForCars.Data.Components
         public bool CheckPassword(string username, string password)
         {
             var user = _context.User.FirstOrDefault(u => u.Username == username);
-            if (user != null) return user.Password == password;
+            if (user != null) 
+                return BCrypt.Net.BCrypt.Verify(password, user.Password);
             return false;
         }
 
@@ -40,6 +42,7 @@ namespace LIForCars.Data.Components
         {
             try
             {
+                newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password, BCrypt.Net.BCrypt.GenerateSalt());
                 _context.User.Add(newUser);
             } catch (Exception)
             {
