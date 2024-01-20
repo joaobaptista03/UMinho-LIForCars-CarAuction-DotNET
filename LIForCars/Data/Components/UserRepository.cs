@@ -4,7 +4,6 @@ using LIForCars.Data.Interfaces;
 using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace LIForCars.Data.Components
 {
     public class UserRepository : IUserRepository
@@ -32,6 +31,10 @@ namespace LIForCars.Data.Components
         public bool CheckPassword(string username, string password)
         {
             var user = _context.User.FirstOrDefault(u => u.Username == username);
+            if (user != null) 
+                return BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+            user =  _context.User.FirstOrDefault(u => u.Email == username);
             if (user != null) 
                 return BCrypt.Net.BCrypt.Verify(password, user.Password);
             return false;
