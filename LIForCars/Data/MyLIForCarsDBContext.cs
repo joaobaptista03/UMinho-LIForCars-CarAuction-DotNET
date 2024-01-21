@@ -30,14 +30,14 @@ namespace LIForCars.Data
                 
             modelBuilder.Entity<Auction>()
                 .HasOne(a => a.Administrator)
-                .WithOne()
-                .HasForeignKey<Auction>(a => a.AdministratorId)
+                .WithMany()
+                .HasForeignKey(a => a.AdministratorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Auction>()
                 .HasOne(a => a.User)
-                .WithOne()
-                .HasForeignKey<Auction>(a => a.UserId)
+                .WithMany()
+                .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Bid>(entity =>

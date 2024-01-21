@@ -1,5 +1,6 @@
 let page = 1;
-const pageSize = 10;
+const pageSize = 1;
+let totalCount = 0;
 
 async function loadAuctions() {
     const response = await fetch(`/api/Auction/current?page=${page}&pageSize=${pageSize}`);
@@ -9,27 +10,41 @@ async function loadAuctions() {
     }
 
     const auctions = await response.json();
-    const totalCount = response.headers.get('X-Total-Count');
+    totalCount = parseInt(response.headers.get('X-Total-Count'), 10);
     const auctionsList = document.getElementById("auctionsList");
 
-    // Check if the first page is being loaded and clear previous content
-    if (page === 1) {
-        auctionsList.innerHTML = '';
-    }
+    auctionsList.innerHTML = ''; // Clear previous content
 
-    // Display a message if there are no auctions
-    if (auctions.length === 0 && page === 1) {
+    if (auctions.length === 0) {
         auctionsList.innerHTML = '<div class="no-auctions">No current auctions available.</div>';
-        document.querySelector(".load-more-btn").style.display = 'none'; // Hide the Load More button if no auctions
-        return; // Exit the function early
+    } else {
+        auctions.forEach(auction => {
+            renderAuctionCard(auction);
+        });
     }
 
-    auctions.forEach(auction => {
-        renderAuctionCard(auction);
-    });
+    updatePagination();
+}
 
-    if ((page * pageSize) >= totalCount) {
-        document.querySelector(".load-more-btn").style.display = 'none';
+function updatePagination() {
+    document.getElementById("currentPage").textContent = `Page ${page}`;
+    const maxPage = Math.ceil(totalCount / pageSize);
+
+    document.getElementById("previousPageBtn").style.visibility = page > 1 ? 'visible' : 'hidden';
+    document.getElementById("nextPageBtn").style.visibility = page < maxPage ? 'visible' : 'hidden';
+}
+
+function previousPage() {
+    if (page > 1) {
+        page--;
+        loadAuctions();
+    }
+}
+
+function nextPage() {
+    if (page * pageSize < totalCount) {
+        page++;
+        loadAuctions();
     }
 }
 
@@ -37,12 +52,15 @@ function renderAuctionCard(auction) {
     const card = document.createElement("div");
     card.className = "auction-card";
     card.innerHTML = `
-        <img src="${auction.thumbnailUrl || 'default_thumbnail_path_if_any'}" alt="Car Image" class="auction-img">
         <div class="auction-info">
-            <h3 class="car-model">${auction.carModel}</h3>
-            <p class="auction-dates">Auction Dates: ${new Date(auction.start).toLocaleDateString()} - ${new Date(auction.end).toLocaleDateString()}</p>
-            <p class="base-price">Base Price: $${auction.basePrice}</p>
-            <button class="bid-btn" onclick="placeBid(${auction.id})">Place a Bid</button>
+        <h3 class="car-model">${auction.car.make} ${auction.car.model} (${auction.car.launchYear})</h3>
+            <p>Milage: ${auction.car.kms}</p>
+            <p>Status Description: ${auction.car.statusDescription}</p>
+            <p>Motor: ${auction.car.motor} (${auction.car.fuelType})</p>
+            <p>Category: ${auction.car.category}</p>
+            <p>Origin: ${auction.car.origin}</p>
+            <p>Auction Dates: ${new Date(auction.initDateTime).toLocaleDateString()} - ${new Date(auction.endDateTime).toLocaleDateString()}</p>
+            <p>Base Price: $${auction.basePrice}</p>
         </div>
     `;
     document.getElementById("auctionsList").appendChild(card);
@@ -51,12 +69,6 @@ function renderAuctionCard(auction) {
 function loadMore() {
     page++;
     loadAuctions();
-}
-
-// Placeholder for the placeBid function
-function placeBid(auctionId) {
-    console.log("Bid for auction ID:", auctionId);
-    // Implement the function to handle bid placement
 }
 
 // Initial load

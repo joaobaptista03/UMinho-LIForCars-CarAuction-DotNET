@@ -14,25 +14,9 @@
     margin: 10px 0 5px;
 }
 
-.auction-dates,
-.base-price {
+.auction-info p {
     font-size: 0.9em;
     color: #666;
-}
-
-.bid-btn {
-    background-color: #d9534f;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    margin-top: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border-radius: 5px;
-}
-
-.bid-btn:hover {
-    background-color: #e65c50;
 }
 
 .no-auctions {
@@ -75,4 +59,18 @@
 
 .auction-card:hover {
     transform: scale(1.02); /* Slightly enlarges the card on hover */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination span {
+    padding-top: 1.5%;
+}
+
+.pagination button {
+    margin: 0px 14px;
 }
