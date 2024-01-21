@@ -16,10 +16,10 @@
             <h2>LIFORCARS</h2>
                 <nav>
                 <a href="/">HOME</a>
-                <a href="#">ABOUT</a>
-                <a href="#">CONTACT</a>
+                <a href="#" onclick="showAboutPage()">ABOUT</a>
+                <a href="#" onclick="showContactPage()">CONTACT</a>
                 <divSignIn>
-                    <a2 href="#" data-target="login" class="signin">SIGN IN</a2>
+                    <a2 href="#" onclick="showLoginPage()" class="signin">SIGN IN</a2>
                 </divSignIn>
             </nav>
         </header>
@@ -73,10 +73,46 @@
                     <input type="text" id="loginUsername" name="Username" placeholder="Username / Email" required/>
                     <input type="password" id="loginPassword" name="Password" placeholder="Password" required/>
                     <div class="modal-footer">
-                        <a href="#" data-target="register">Register New Account</a>
+                        <a href="#" onclick="showRegisterPage()">Register New Account</a>
                         <button type="submit">Login</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="about-page" style="display: none;">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeAboutPage()">&times;</span>
+                    <h2>About Us</h2>
+                </div>
+                <div class="modal-body">
+                    <p>&emsp; Welcome to LIForCars, your premier destination for bidding, winning, and riding your dream car. Our platform offers a seamless and transparent car auction experience, allowing you to find and purchase cars at competitive prices. With a commitment to quality and customer satisfaction, we're here to help you drive your dream car home.</p>
+                    <p>&emsp; Founded on the principles of integrity, transparency, and dedication, LIForCars has been at the forefront of revolutionizing the car auction industry. Our user-friendly platform and comprehensive support system ensure that from the moment you bid to the time you ride, your journey is smooth and enjoyable.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact-page" style="display: none;">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeContactPage()">&times;</span>
+                    <h2>Contact Us</h2>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm" method="post" action="/submit-contact-form">
+                        <input type="text" name="Name" placeholder="Your Name" required />
+                        <input type="email" name="Email" placeholder="Your Email" required />
+                        <textarea name="Message" placeholder="Your Message" required rows="5"></textarea>
+                        <div class="modal-footer">
+                            <button type="submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -5,8 +5,6 @@ body, html {
     background: #1c1c1c; /* Dark background for header */
 }
 
-
-
 div divSignIn {
     background-color: #d9534f;
     padding-left: 10px;
@@ -116,8 +114,8 @@ footer {
     z-index: 1050;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="date"], select {
-    width: 97%;
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], select, textarea {
+    width: 96%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ddd;
