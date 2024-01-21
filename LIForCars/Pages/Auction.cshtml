@@ -1,0 +1,105 @@
+@page
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIForCars</title>
+    <link href="~/css/fontStyles.css" rel="stylesheet" />
+    <link href="~/css/auction.css" rel="stylesheet" />
+    <script src="~/js/auction.js"></script>
+</head>
+<body>
+    <header>
+        <h2>LIFORCARS</h2>
+        <nav>
+            <a href="#">RETURN TO AUCTIONS</a>
+            <a href="#">LOG OUT</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <img src="../images/BMW_M4.jpg" alt="About me" width="600" height="400" style="border: 1px solid black;" class="image1">
+    </div>
+
+    <div class="container">
+            <div class="column">
+                <h2>Details</h2>
+                <p>Year: 2018</p>
+                <p>Engine: 3.0L 6cyl Turbo 6M</p>
+                <p>Transmission: Manual</p>
+                <p>Drivetrain: Rear Wheel Drive</gp>
+                <p>Combined MPG: 20</p>
+                <p>Fuel Type: Premium Unleaded (Required)</p>
+                <p>Exterior Color: Black Sapphire Metallic</p>
+                <p>Interior Color: Black</p>
+                <p>Doors: 2</p>
+                <p>Seats: 4</p>
+                <p>Price: 60.000€</p>
+            </div>
+    </div>
+
+
+    <div class="highestbid">
+        <h2>BMW M4</h2>
+        <p>Current Bid: 50.000€</p>
+        <p>Time Left: 00:00:00</p>
+        <p>Ends: 00/00/0000</p>
+        <p>Buy Now: 60.000€</p>
+        <button href="#" data-target="bid" class="bidbutton" data-target="bid">Place your Bid</button>
+        <button href="#" data-target="buy" class="buybutton" data-target="buy">Buy Now</button>
+    </div>
+
+    <div id="bid-page" style="display: none;">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeBidPage()">&times;</span>
+                    <h2>Place bid</h2>
+                </div>
+                <form id="bidForm" method="post" action="api/Bid/Update">
+                    <input type="text" id="bid" name="bid" placeholder="Your Bid" required/>
+                    <div class="modal-footer">
+                        <button type="submit">Place bid</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="buy-page" style="display: none;">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeBuyPage()">&times;</span>
+                    <h2>Buy Now</h2>
+                </div>
+                <form id="buyForm" method="post" action="api/Bid/Update">
+                    <div class="modal-footer">
+                        <button type="submit">Buy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="bottom-icons">
+            <a href="#">Facebook</a>
+            <a> | </a>
+            <a href="#">Instagram</a>
+            <a> | </a>
+            <a href="#">LinkedIn</a>
+        </div>
+        <div class="email">
+            <a>help@LIForCars.pt</a>
+        </div>
+        <div class="bottom-icons">
+            <a href="#">Privacy Policy</a>
+            <a> | </a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>
+</body>
+</html>
