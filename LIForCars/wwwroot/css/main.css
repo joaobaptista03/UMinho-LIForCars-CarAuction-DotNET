@@ -177,6 +177,7 @@ footer {
     background: #fff;
     padding: 20px;
     z-index: 1050;
+    color: rgb(0, 0, 0);
 }
 
 input[type="text"], input[type="password"], input[type="email"], input[type="date"], select, textarea {
