@@ -1,0 +1,175 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Saira Condensed Bold', sans-serif;
+    background: #1c1c1c; /* Dark background for header */
+}
+
+header {
+    width: 100%;
+    margin-left: 80px;
+    margin-right: 80px;
+    color: white;
+    padding: 1% 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between the logo and the navigation */
+}
+
+header nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    text-transform: uppercase; /* Uppercase nav links */
+    font-weight: bold;
+    font-size: 22px;
+}
+
+header nav a aUltimo {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase; /* Uppercase nav links */
+    font-weight: bold;
+    font-size: 22px;
+}
+
+header nav a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}
+
+header h2 {
+    margin: 0;
+    font-size: 110px;
+    text-shadow: -5px 10px 10px rgba(0, 0, 0, 0.94);
+}
+
+.hero {
+    background: url('../images/gt3.jpeg') no-repeat center center; /* Adjust the path as needed */
+    background-size: cover;
+    height: 30vh; /* 70% of the viewport height */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+}
+
+div divLogOut {
+    background-color: #d9534f;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 22px;
+    margin-left: 20px;
+}
+
+div divLogOut:hover {
+    background-color: #c9302c; /* Darken the background color on hover */
+    transform: translateY(2px); /* Move the button down slightly on hover */
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #292b2c; /* Slightly lighter than the header for contrast */
+    color: white;
+    padding: 15px 0;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-icons a {
+    text-decoration: none;
+    color: #ad8214;
+    margin: 0 10px;
+}
+
+.bottom-icons a:hover {
+    text-decoration: underline;
+}
+
+.email {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    background: #fff;
+    padding: 20px;
+    z-index: 1050;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 97%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #d9534f; /* Vermelho */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e65c50;
+}
+
+.modal-header {
+    border-bottom: 2px solid #d9534f; /* Vermelho */
+}
+
+.modal-header h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal-footer a {
+    float: left;
+    color: #d9534f;
+    text-decoration: none;
+    padding-top: 25px;
+    zoom: 80%
+}
+
+.modal-footer button {
+    float: right;
+}
+
+.close-btn {
+    float: right;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding-right: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+}

@@ -1,0 +1,70 @@
+@font-face {
+font-family: 'Saira Condensed Regular';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-Regular.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Saira Condensed Thin';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-Thin.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Saira Condensed ExtraLight';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-ExtraLight.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Saira Condensed Light';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-Light.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Saira Condensed Medium';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-Medium.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Saira Condensed SemiBold';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-SemiBold.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Saira Condensed Bold';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-Bold.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Saira Condensed ExtraBold';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-ExtraBold.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Saira Condensed Black';
+font-style: normal;
+font-weight: normal;
+src: local('Saira Condensed Bold'), url('fonts/SairaCondensed-Black.woff') format('woff');
+}
