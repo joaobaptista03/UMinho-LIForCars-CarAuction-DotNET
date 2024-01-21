@@ -68,7 +68,7 @@ header h2 {
     border: 2px solid rgb(0, 0, 0); /* Add a black border with 2px width */
     border-radius: 10px; /* Make the border edges round */
     padding: 20px; /* Add padding to create space between content and border */
-    background-color: #ad8214; /* Set a background color for better visibility */
+    background-color: #999999; /* Set a background color for better visibility */
     
 }
 .bidbutton {
@@ -82,13 +82,13 @@ header h2 {
     color: rgb(0, 0, 0);
     border: 2px solid rgb(0, 0, 0); /* Add a black border with 2px width */
     border-radius: 10px; /* Make the border edges round */
-    background-color: #ad8214; /* Set a background color for better visibility */
+    background-color: #999999; /* Set a background color for better visibility */
 }
 
 .buybutton {
     position: absolute;
     top: 390px; /* Move the image down by 20 pixels */
-    right: 45px; /* Move the image to the left by 10 pixels */
+    right: 47px; /* Move the image to the left by 10 pixels */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -96,7 +96,7 @@ header h2 {
     color: rgb(0, 0, 0);
     border: 2px solid rgb(0, 0, 0); /* Add a black border with 2px width */
     border-radius: 10px; /* Make the border edges round */
-    background-color: #ad8214; /* Set a background color for better visibility */
+    background-color: #999999; /* Set a background color for better visibility */
 }
 
 footer {
@@ -166,7 +166,7 @@ button {
 }
 
 button:hover {
-    background-color: #e65c50;
+    background-color: #ad8214;
 }
 
 .modal-header {
