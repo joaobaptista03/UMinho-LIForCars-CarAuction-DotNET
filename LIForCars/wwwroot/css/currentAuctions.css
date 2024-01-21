@@ -1,0 +1,78 @@
+.auction-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensures the image covers the area nicely */
+}
+
+.auction-info {
+    padding: 15px;
+}
+
+.car-model {
+    font-size: 1.25em;
+    color: #333;
+    margin: 10px 0 5px;
+}
+
+.auction-dates,
+.base-price {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.bid-btn {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.bid-btn:hover {
+    background-color: #e65c50;
+}
+
+.no-auctions {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    color: #666; /* Adjust the color to fit your site's theme */
+}
+
+.auctions-container {
+    background: rgba(255, 255, 255, 0.8); /* White background with opacity */
+    border-radius: 10px; /* Adds rounded corners */
+    padding: 20px;
+    margin: 20px auto; /* Centers the container and adds some margin */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    max-width: 1200px; /* Adjusts the maximum width to ensure content is well-structured */
+}
+
+.auctions-container h2 {
+    text-align: center;
+    color: #333; /* Adjusts the color to fit the theme */
+    margin-bottom: 20px; /* Adds space between the title and the auction list */
+}
+
+.auctions-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.auction-card {
+    background-color: #fff; /* Ensures cards are fully opaque */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease; /* Smooth scaling on hover */
+}
+
+.auction-card:hover {
+    transform: scale(1.02); /* Slightly enlarges the card on hover */
+}

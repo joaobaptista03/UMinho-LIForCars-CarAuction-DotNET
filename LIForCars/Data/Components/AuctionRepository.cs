@@ -69,7 +69,20 @@ namespace LIForCars.Data.Components
                 return false;
             }
         }
-
         public bool CarIdExists(int carId) => _context.Auction.Any(a => a.CarId == carId);
+
+        public async Task<(IEnumerable<Auction> auctions, int totalCount)> GetCurrentAuctionsAsync(int page, int pageSize)
+        {
+            var query = _context.Auction
+                .Where(a => a.InitDateTime <= DateTime.Now && a.EndDateTime >= DateTime.Now);
+
+            var totalCount = await query.CountAsync();
+            var auctions = await query.OrderBy(a => a.InitDateTime)
+                                      .Skip((page - 1) * pageSize)
+                                      .Take(pageSize)
+                                      .ToListAsync();
+
+            return (auctions, totalCount);
+        }
     }
 }

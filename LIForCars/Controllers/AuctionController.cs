@@ -59,5 +59,18 @@ namespace LIForCars.Controllers
             _repository.Delete(id);
             return NoContent();
         }
+
+        [HttpGet("current")]
+        public async Task<ActionResult> GetCurrentAuctions([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            if (page <= 0 || pageSize <= 0)
+            {
+                return BadRequest("Invalid page or pageSize.");
+            }
+
+            var (auctions, totalCount) = await _repository.GetCurrentAuctionsAsync(page, pageSize);
+            Response.Headers.Add("X-Total-Count", totalCount.ToString());
+            return Ok(auctions);
+        }
     }
 }
