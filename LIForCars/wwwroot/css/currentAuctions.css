@@ -74,3 +74,7 @@
 .pagination button {
     margin: 0px 14px;
 }
+
+.invisible-btn {
+    visibility: hidden;
+}
