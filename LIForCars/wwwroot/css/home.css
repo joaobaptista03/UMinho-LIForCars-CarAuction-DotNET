@@ -125,6 +125,10 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
     border-radius: 5px;
 }
 
+select[name="Gender"] {
+    width: 100.6%;
+}
+
 button {
     background-color: #d9534f; /* Vermelho */
     color: white;
