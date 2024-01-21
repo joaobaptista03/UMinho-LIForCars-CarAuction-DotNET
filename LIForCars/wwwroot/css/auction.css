@@ -2,17 +2,20 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Saira Condensed Bold', sans-serif;
-    background: #a5a5a5;
     min-height: 130vh;
+    background: url('../images/gt3.jpeg') no-repeat center center fixed;  /* Adjust the path as needed */
+    background-size: cover;
 }
 
 header {
-    background: #1c1c1c; /* Dark background for header */
+    top: 5%;
+    width: 90%;
+    margin-left: 80px;
+    margin-right: 80px;
     color: white;
-    padding: 1% 2%;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Space between the logo and the navigation */
+    justify-content: space-between; 
 }
 
 header nav a {
@@ -24,11 +27,12 @@ header nav a {
     font-size: 22px;
 }
 
-
-
 header h2 {
-    margin: 5;
+    margin: 0;
+    font-size: 110px;
+    text-shadow: -5px 10px 10px rgba(0, 0, 0, 0.94);
 }
+
 
 header a2 {
     background-color: #d9534f;
@@ -48,7 +52,7 @@ header a2:hover {
 
 .main-container {
     position: absolute;
-    top: 150px; /* Adjust the top position as needed */
+    top: 200px; /* Adjust the top position as needed */
     left: 150px; /* Adjust the left position as needed */
     display: flex;
     flex-direction: column; /* Arrange the child elements in a column */
@@ -75,7 +79,7 @@ header a2:hover {
 
 .highestbid {
     position: absolute;
-    top: 150px;
+    top: 200px;
     right: 10%; /* Center the container horizontally */
     transform: translateX(-50%); /* Adjust for centering */
     display: flex;
