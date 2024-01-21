@@ -61,10 +61,11 @@
                     <span class="close-btn" onclick="closeBidPage()">&times;</span>
                     <h2>Place bid</h2>
                 </div>
+                <p>(Your bid must be at least 100$ above the current highest bid)</p>
                 <form id="bidForm" method="post" action="api/Bid/Update">
                     <input type="text" id="bid" name="bid" placeholder="Your Bid" required/>
                     <div class="modal-footer">
-                        <button type="submit">Place bid</button>
+                        <button type="submit">Submit</button>
                     </div>
                 </form>
             </div>
