@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Saira Condensed Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Saira Condensed Bold'), url('../fonts/SairaCondensed-Bold.woff') format('woff');
+}
