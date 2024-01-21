@@ -124,7 +124,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
 }
 
 select[name="Gender"] {
-    width: 100.6%;
+    width: 99.8%;
 }
 
 button {
