@@ -1,4 +1,5 @@
-@page
+@page "{id:int}"
+@model UserPageModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,25 +8,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIForCars</title>
     <link href="~/css/fontStyles.css" rel="stylesheet" />
-    <link href="~/css/home.css" rel="stylesheet" />
+    <link href="~/css/user.css" rel="stylesheet" />
     <script src="~/js/home.js"></script>
 </head>
 <body>
-    <div class="hero">
-        <header>
-            <h2>LIFORCARS</h2>
+    <div class="cabecalho">
+        <div class="hero">
+            <header>
+                <h2>LIFORCARS</h2>
                 <nav>
-                <a href="/">HOME</a>
-                <a href="#" onclick="showAboutPage()">ABOUT</a>
-                <a href="#" onclick="showContactPage()">CONTACT</a>
-                <a href="/CurrentAuctions">CURRENT AUCTIONS</a> 
-                <divSignIn>
-                    <a2 href="#" onclick="showLoginPage()" class="signin">SIGN IN</a2>
-                </divSignIn>
+                    <a href="/">HOME</a>
+                    <a href="#">ABOUT</a>
+                    <a href="#">CONTACT</a>
+                    <divLogOut>
+                        <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                    </divLogOut>
+                </nav>
+            </header>
+        </div>
+        <header class="userBar">
+            <nav>
+                <a href="/">PERFIL</a>
+                <a href="#">LEILÕES</a>
+                <a href="#">BIDS</a>
             </nav>
         </header>
-            <h1>Drive Your Dreams.<br> Bid, Win, Ride!</h1>
     </div>
+    
+
+
 
     <div id="register-page" style="display: none;">
         <div class="modal-backdrop">
@@ -74,46 +85,10 @@
                     <input type="text" id="loginUsername" name="Username" placeholder="Username / Email" required/>
                     <input type="password" id="loginPassword" name="Password" placeholder="Password" required/>
                     <div class="modal-footer">
-                        <a href="#" onclick="showRegisterPage()">Register New Account</a>
+                        <a href="#" data-target="register">Register New Account</a>
                         <button type="submit">Login</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="about-page" style="display: none;">
-        <div class="modal-backdrop">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close-btn" onclick="closeAboutPage()">&times;</span>
-                    <h2>About Us</h2>
-                </div>
-                <div class="modal-body">
-                    <p>&emsp; Welcome to LIForCars, your premier destination for bidding, winning, and riding your dream car. Our platform offers a seamless and transparent car auction experience, allowing you to find and purchase cars at competitive prices. With a commitment to quality and customer satisfaction, we're here to help you drive your dream car home.</p>
-                    <p>&emsp; Founded on the principles of integrity, transparency, and dedication, LIForCars has been at the forefront of revolutionizing the car auction industry. Our user-friendly platform and comprehensive support system ensure that from the moment you bid to the time you ride, your journey is smooth and enjoyable.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="contact-page" style="display: none;">
-        <div class="modal-backdrop">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close-btn" onclick="closeContactPage()">&times;</span>
-                    <h2>Contact Us</h2>
-                </div>
-                <div class="modal-body">
-                    <form id="contactForm" method="post" action="/submit-contact-form">
-                        <input type="text" name="Name" placeholder="Your Name" required />
-                        <input type="email" name="Email" placeholder="Your Email" required />
-                        <textarea name="Message" placeholder="Your Message" required rows="5"></textarea>
-                        <div class="modal-footer">
-                            <button type="submit">Send Message</button>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
@@ -125,15 +100,25 @@
             <a href="#">Instagram</a>
             <a> | </a>
             <a href="#">LinkedIn</a>
-        </div>
-        <div class="email">
-            <a>help@LIForCars.pt</a>
-        </div>
-        <div class="bottom-icons">
+            <a> | </a>
+            <a href="#">help@LIForCars.pt</a>
+            <a> | </a>
             <a href="#">Privacy Policy</a>
             <a> | </a>
             <a href="#">Terms & Conditions</a>
         </div>
     </footer>
+</body>
+</html>
+
+
+
+
+
+<body>
+    <h1>User Information</h1>
+    <p>User ID: @Model.UserId</p>
+    <p>Name: @Model.UserName</p>
+    <p>Email: @Model.UserEmail</p>
 </body>
 </html>

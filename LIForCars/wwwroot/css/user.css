@@ -1,36 +1,46 @@
-body, html {
+html {
     margin: 0;
     padding: 0;
     font-family: 'Saira Condensed Bold', sans-serif;
-    background: #1c1c1c; /* Dark background for header */
+    background: #ABABAB;
 }
 
-div divSignIn {
-    background-color: #d9534f;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    font-size: 22px;
-    margin-left: 20px;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Saira Condensed Bold', sans-serif;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 100) 0%, rgba(0, 0, 0, 0) 90%);
 }
 
-div divSignIn:hover {
-    background-color: #c9302c; /* Darken the background color on hover */
-    transform: translateY(2px); /* Move the button down slightly on hover */
-    cursor: pointer;
+.cabecalho {
+    margin: 0;
+    padding: 0;
+    background: #292b2c;
 }
 
 header {
-    position: fixed;
-    top: 5%;
-    width: 90%;
+    width: 100%;
+    margin-left: 80px;
+    margin-right: 80px;
+    color: white;
+    padding: 1% 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between the logo and the navigation */
+}
+
+.userBar {
+    padding-top: 1%;
+    padding-right: calc(20px + 2%);
+    padding-bottom: 1%;
+    padding-left: calc(20px + 2%);
+    width: 100%;
     margin-left: 80px;
     margin-right: 80px;
     color: white;
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between; /* Space between the logo and the navigation */
 }
 
 header nav a {
@@ -42,6 +52,18 @@ header nav a {
     font-size: 22px;
 }
 
+header nav a aUltimo {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase; /* Uppercase nav links */
+    font-weight: bold;
+    font-size: 22px;
+}
+
+header nav a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}
+
 header h2 {
     margin: 0;
     font-size: 110px;
@@ -49,23 +71,33 @@ header h2 {
 }
 
 .hero {
-    background: url('../images/gt3.jpeg') no-repeat center center; /* Adjust the path as needed */
+    position: relative; /* Set position relative to make ::before relative to .hero */
+    background: url('../images/gt3.jpeg') no-repeat center center;
     background-size: cover;
-    height: 95vh; /* 70% of the viewport height */
+    height: 30vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
     color: white;
     text-align: center;
     padding: 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
 }
 
-.hero h1 {
-    font-size: 3em;
-    margin-bottom: 0.5em; /* Space between the title and the subtitle */
-    padding-right: 40%;
-    padding-top: 25%;
+div divLogOut {
+    background-color: #d9534f;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 22px;
+    margin-left: 20px;
+}
+
+div divLogOut:hover {
+    background-color: #c9302c; /* Darken the background color on hover */
+    transform: translateY(2px); /* Move the button down slightly on hover */
 }
 
 footer {
@@ -116,17 +148,12 @@ footer {
     z-index: 1050;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="date"], select, textarea {
-    width: 96%;
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 97%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ddd;
-    background-color: #fff;
     border-radius: 5px;
-}
-
-select[name="Gender"] {
-    width: 99.8%;
 }
 
 button {
@@ -173,9 +200,4 @@ button:hover {
     top: 10px;
     right: 10px;
     font-size: 20px;
-}
-
-nav a.active {
-    color: #d9534f; /* Adjust the color to match your site's theme */
-    text-decoration: underline;
 }
