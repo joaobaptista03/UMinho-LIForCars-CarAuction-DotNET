@@ -61,7 +61,7 @@ namespace LIForCars.Controllers
         }
 
         [HttpGet("current")]
-        public async Task<ActionResult> GetCurrentAuctions([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult> GetCurrentAuctions([FromQuery] int page = 1, [FromQuery] int pageSize = 1)
         {
             if (page <= 0 || pageSize <= 0)
             {

@@ -32,7 +32,11 @@
                 <div id="auctionsList" class="auctions-list">
                     <!-- Dynamically loaded auction cards will go here -->
                 </div>
-                <button onclick="loadMore()" class="load-more-btn">Load More</button>
+                <div class="pagination">
+                    <button onclick="previousPage()" class="page-btn" id="previousPageBtn">&lt;</button>
+                    <span id="currentPage">Auction 1</span>
+                    <button onclick="nextPage()" class="page-btn" id="nextPageBtn">&gt;</button>
+                </div>
             </div>
     </div>
 
