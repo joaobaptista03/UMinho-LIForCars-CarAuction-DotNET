@@ -1,21 +1,36 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Saira Condensed Bold', sans-serif;
+    background: #1c1c1c; /* Dark background for header */
+}
+
+
+
+div divSignIn {
+    background-color: #d9534f;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 22px;
+    margin-left: 20px;
+}
+
+div divSignIn:hover {
+    background-color: #c9302c; /* Darken the background color on hover */
+    transform: translateY(2px); /* Move the button down slightly on hover */
+    cursor: pointer;
 }
 
 header {
-    background: #1c1c1c; /* Dark background for header */
+    width: 90%;
+    margin-left: 80px;
+    margin-right: 80px;
     color: white;
-    padding: 1% 2%;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Space between the logo and the navigation */
-}
-
-header .logo {
-    font-size: 1.8em;
-    font-weight: bold;
+    justify-content: space-between; 
 }
 
 header nav a {
@@ -24,20 +39,19 @@ header nav a {
     text-decoration: none;
     text-transform: uppercase; /* Uppercase nav links */
     font-weight: bold;
-}
-
-header nav a:hover {
-    text-decoration: underline; /* Underline on hover for links */
+    font-size: 22px;
 }
 
 header h2 {
-    margin: 5;
+    margin: 0;
+    font-size: 110px;
+    text-shadow: -5px 10px 10px rgba(0, 0, 0, 0.94);
 }
 
 .hero {
     background: url('../images/gt3.jpeg') no-repeat center center; /* Adjust the path as needed */
     background-size: cover;
-    height: 85vh; /* 70% of the viewport height */
+    height: 95vh; /* 70% of the viewport height */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,11 +124,6 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
     background-color: #fff;
     border-radius: 5px;
 }
-
-select[name="Gender"] {
-    width: 100.4%;
-}
-
 
 button {
     background-color: #d9534f; /* Vermelho */
