@@ -1,0 +1,20 @@
+<div id="contact-page">
+    <div class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-btn" onclick="closeContactPage()">&times;</span>
+                <h2>Contact Us</h2>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm" method="post" action="/submit-contact-form">
+                    <input type="text" name="Name" placeholder="Your Name" required />
+                    <input type="email" name="Email" placeholder="Your Email" required />
+                    <textarea name="Message" placeholder="Your Message" required rows="5"></textarea>
+                    <div class="modal-footer">
+                        <button type="submit">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

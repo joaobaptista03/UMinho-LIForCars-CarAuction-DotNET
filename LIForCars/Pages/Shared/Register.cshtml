@@ -1,0 +1,35 @@
+<div id="register-page">
+    <div class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
+                <h2>REGISTER</h2>
+            </div>
+            <form id="registrationForm" method="post" action="api/User/register">
+                <input type="text" name="Name" placeholder="Name" required />
+                <input type="text" id="registerNif" name="Nif" placeholder="NIF" required />
+                <input type="text" id="registerCc" name="CC" placeholder="nº CC" required />
+                <input type="text" name="Address" placeholder="Address" required />
+                <input type="text" id = "registerPhone" name="Phone" placeholder="Phone Number" required />
+                
+                <select name="Gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                    <option value="O">Other</option>
+                </select>
+
+                <input type="date" name="BirthDate" placeholder="Birth Date" required />
+
+                <input type="text" id="registerUsername" name="Username" placeholder="Username" required />
+                <input type="email" id="registerEmail" name="Email" placeholder="Email" required />
+                <input type="password" id="registerPassword" name="Password" placeholder="Password" required />
+                <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" required />
+
+                <div class="modal-footer">
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

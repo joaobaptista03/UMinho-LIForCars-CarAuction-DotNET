@@ -1,0 +1,18 @@
+<div id="login-page">
+    <div class="modal-backdrop">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-btn" onclick="closeLoginPage()">&times;</span>
+                <h2>LOG IN</h2>
+            </div>
+            <form id="loginForm" method="post" action="api/User/login">
+                <input type="text" id="loginUsername" name="Username" placeholder="Username / Email" required/>
+                <input type="password" id="loginPassword" name="Password" placeholder="Password" required/>
+                <div class="modal-footer">
+                    <a href="#" onclick="showRegisterPage()">Register New Account</a>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

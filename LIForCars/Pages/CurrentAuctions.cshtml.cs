@@ -14,6 +14,13 @@ public class CurrentAuctionsModel : PageModel
         _auctionRepository = auctionRepository;
     }
 
+    public IActionResult OnGetHeaderPartial() => Partial("Shared/Header");
+    public IActionResult OnGetFooterPartial() => Partial("Shared/Footer");
+    public IActionResult OnGetAboutPartial() => Partial("Shared/About");
+    public IActionResult OnGetContactPartial() => Partial("Shared/Contact");
+    public IActionResult OnGetLoginPartial() => Partial("Shared/Login");
+    public IActionResult OnGetRegisterPartial() => Partial("Shared/Register");
+
     [BindProperty(SupportsGet = true)]
     public int CurrentPage { get; set; } = 1;
 

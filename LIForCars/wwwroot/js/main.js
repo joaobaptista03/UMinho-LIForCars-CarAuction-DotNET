@@ -99,37 +99,65 @@ async function checkPassword(username, password) {
     }
 }
 
-function showLoginPage() {
-    document.getElementById('login-page').style.display = 'block';
+function showAboutPage() {
+    $.ajax({
+        url: '/Index?handler=AboutPartial',
+        type: 'GET',
+        success: function (data) {
+            $('#about-section').html(data);
+            $('#about-section').show();
+        }
+    });
 }
 
-function closeLoginPage() {
-    document.getElementById('login-page').style.display = 'none';
+function showContactPage() {
+    $.ajax({
+        url: '/Index?handler=ContactPartial',
+        type: 'GET',
+        success: function (data) {
+            $('#contact-section').html(data);
+            $('#contact-section').show();
+        }
+    });
+}
+
+function showLoginPage() {
+    $.ajax({
+        url: '/Index?handler=LoginPartial',
+        type: 'GET',
+        success: function (data) {
+            $('#login-section').html(data);
+            $('#login-section').show();
+        }
+    });
 }
 
 function showRegisterPage() {
     closeLoginPage();
-    document.getElementById('register-page').style.display = 'block';
-}
-
-function closeRegisterPage() {
-    document.getElementById('register-page').style.display = 'none';
+    $.ajax({
+        url: '/Index?handler=RegisterPartial',
+        type: 'GET',
+        success: function (data) {
+            $('#register-section').html(data);
+            $('#register-section').show();
+        }
+    });
 }
 
 function closeAboutPage() {
-    document.getElementById('about-page').style.display = 'none';
-}
-
-function showAboutPage() {
-    document.getElementById('about-page').style.display = 'block';
+    $('#about-section').hide();
 }
 
 function closeContactPage() {
-    document.getElementById('contact-page').style.display = 'none';
+    $('#contact-section').hide();
 }
 
-function showContactPage() {
-    document.getElementById('contact-page').style.display = 'block';
+function closeLoginPage() {
+    $('#login-section').hide();
+}
+
+function closeRegisterPage() {
+    $('#register-section').hide();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
