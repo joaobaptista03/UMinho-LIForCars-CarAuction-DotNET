@@ -1,7 +1,7 @@
 .auction-img {
     width: 100%;
     height: auto;
-    object-fit: cover; /* Ensures the image covers the area nicely */
+    object-fit: cover;
 }
 
 .auction-info {
@@ -23,22 +23,22 @@
     text-align: center;
     padding: 20px;
     font-size: 1.2em;
-    color: #666; /* Adjust the color to fit your site's theme */
+    color: #666;
 }
 
 .auctions-container {
-    background: rgba(255, 255, 255, 0.8); /* White background with opacity */
-    border-radius: 10px; /* Adds rounded corners */
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
     padding: 20px;
-    margin: 20px auto; /* Centers the container and adds some margin */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-    max-width: 1200px; /* Adjusts the maximum width to ensure content is well-structured */
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1200px;
 }
 
 .auctions-container h2 {
     text-align: center;
-    color: #333; /* Adjusts the color to fit the theme */
-    margin-bottom: 20px; /* Adds space between the title and the auction list */
+    color: #333;
+    margin-bottom: 20px;
 }
 
 .auctions-list {
