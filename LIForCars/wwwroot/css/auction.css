@@ -2,7 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Saira Condensed Bold', sans-serif;
-    background: #ffffff;
+    background: #a5a5a5;
     min-height: 130vh;
 }
 
@@ -46,80 +46,69 @@ header a2:hover {
     cursor: pointer;
 }  
 
+.main-container {
+    position: absolute;
+    top: 150px; /* Adjust the top position as needed */
+    left: 150px; /* Adjust the left position as needed */
+    display: flex;
+    flex-direction: column; /* Arrange the child elements in a column */
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 20px;
+    border-radius: 1%;
+}
 
 .hero {
-
-    position: absolute;
-    top: 150px; /* Move the image down by 20 pixels */
-    left: 150px; /* Move the image to the left by 10 pixels */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
-
 }
 
-.container{
-    position: absolute;
-    top: 600px; /* Move the image down by 20 pixels */
-    left: 150px;
+.container {
     text-align: center;
+    padding: 20px;
+   
 }
 
 .highestbid {
     position: absolute;
-    top: 150px; /* Move the element down by 150 pixels */
-    right: 500px; /* Move the element to the left by 500 pixels */
+    top: 150px;
+    right: 10%; /* Center the container horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: rgb(0, 0, 0);
-    border: 2px solid rgb(0, 0, 0); /* Add a black border with 2px width */
-    border-radius: 10px; /* Make the border edges round */
-    padding: 20px; /* Add padding to create space between content and border */
-    background-color: #999999; /* Set a background color for better visibility */
-    
-}
-.bidbutton {
-    position: absolute;
-    top: 350px; /* Move the image down by 20 pixels */
-    right: 25px; /* Move the image to the left by 10 pixels */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: rgb(0, 0, 0);
-    border: 2px solid rgb(0, 0, 0); /* Add a black border with 2px width */
-    border-radius: 10px; /* Make the border edges round */
-    background-color: #999999; /* Set a background color for better visibility */
-    font-family: 'Saira Condensed Bold', sans-serif;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 300px; /* Set your desired width */
 }
 
-.bidbutton:hover {
-    background-color: #ad8214;
-}
-
+.bidbutton,
 .buybutton {
-    position: absolute;
-    top: 410px; /* Move the image down by 20 pixels */
-    right: 40px; /* Move the image to the left by 10 pixels */
+    margin-top: 20px; /* Add margin between buttons and other content */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: rgb(0, 0, 0);
-    border: 2px solid rgb(0, 0, 0); /* Add a black border with 2px width */
-    border-radius: 10px; /* Make the border edges round */
-    background-color: #999999; /* Set a background color for better visibility */
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
     font-family: 'Saira Condensed Bold', sans-serif;
+    cursor: pointer;
 }
 
+.bidbutton:hover,
 .buybutton:hover {
-    background-color: #ad8214;
+    background-color: #d9534f;
 }
-
 
 footer {
     position: fixed;
