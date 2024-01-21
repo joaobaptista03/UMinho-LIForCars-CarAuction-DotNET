@@ -3,7 +3,7 @@ body, html {
     padding: 0;
     font-family: 'Saira Condensed Bold', sans-serif;
     background: #ffffff;
-    min-height: 120vh;
+    min-height: 130vh;
 }
 
 header {
@@ -64,6 +64,7 @@ header a2:hover {
     position: absolute;
     top: 600px; /* Move the image down by 20 pixels */
     left: 150px;
+    text-align: center;
 }
 
 .highestbid {
