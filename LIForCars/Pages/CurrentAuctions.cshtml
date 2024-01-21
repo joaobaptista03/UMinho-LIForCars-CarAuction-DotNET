@@ -5,16 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIForCars</title>
+    <title>Current Auctions - LIForCars</title>
     <link href="~/css/fontStyles.css" rel="stylesheet" />
     <link href="~/css/home.css" rel="stylesheet" />
+    <link href="~/css/currentAuctions.css" rel="stylesheet" />
     <script src="~/js/home.js"></script>
+    <script src="~/js/currentAuctions.js"></script>
 </head>
 <body>
     <div class="hero">
         <header>
             <h2>LIFORCARS</h2>
-                <nav>
+            <nav>
                 <a href="/">HOME</a>
                 <a href="#" onclick="showAboutPage()">ABOUT</a>
                 <a href="#" onclick="showContactPage()">CONTACT</a>
@@ -24,7 +26,14 @@
                 </divSignIn>
             </nav>
         </header>
-            <h1>Drive Your Dreams.<br> Bid, Win, Ride!</h1>
+
+            <div class="auctions-container"> <!-- Container for the auctions list with opacity -->
+                <h2>Current Auctions</h2>
+                <div id="auctionsList" class="auctions-list">
+                    <!-- Dynamically loaded auction cards will go here -->
+                </div>
+                <button onclick="loadMore()" class="load-more-btn">Load More</button>
+            </div>
     </div>
 
     <div id="register-page" style="display: none;">

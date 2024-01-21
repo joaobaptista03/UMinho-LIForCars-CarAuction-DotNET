@@ -131,3 +131,14 @@ function closeContactPage() {
 function showContactPage() {
     document.getElementById('contact-page').style.display = 'block';
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('nav a');
+    
+    navLinks.forEach(link => {
+        if(link.getAttribute('href') === currentPath) {
+            link.classList.add('active'); // Ensure you define the .active class in your CSS
+        }
+    });
+});
