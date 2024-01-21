@@ -1,7 +1,7 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Saira Condensed Bold', sans-serif;
     background: #ffffff;
     min-height: 120vh;
 }
@@ -15,26 +15,36 @@ header {
     justify-content: space-between; /* Space between the logo and the navigation */
 }
 
-header .logo {
-    font-size: 1.8em;
-    font-weight: bold;
-}
-
 header nav a {
     color: white;
     margin-left: 20px;
     text-decoration: none;
     text-transform: uppercase; /* Uppercase nav links */
     font-weight: bold;
+    font-size: 22px;
 }
 
-header nav a:hover {
-    text-decoration: underline; /* Underline on hover for links */
-}
+
 
 header h2 {
     margin: 5;
 }
+
+header a2 {
+    background-color: #d9534f;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 22px;
+    margin-left: 20px;
+}
+
+header a2:hover {
+    background-color: #c9302c; /* Darken the background color on hover */
+    transform: translateY(2px); /* Move the button down slightly on hover */
+    cursor: pointer;
+}  
 
 
 .hero {
@@ -73,8 +83,8 @@ header h2 {
 }
 .bidbutton {
     position: absolute;
-    top: 320px; /* Move the image down by 20 pixels */
-    right: 31px; /* Move the image to the left by 10 pixels */
+    top: 350px; /* Move the image down by 20 pixels */
+    right: 25px; /* Move the image to the left by 10 pixels */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,12 +93,17 @@ header h2 {
     border: 2px solid rgb(0, 0, 0); /* Add a black border with 2px width */
     border-radius: 10px; /* Make the border edges round */
     background-color: #999999; /* Set a background color for better visibility */
+    font-family: 'Saira Condensed Bold', sans-serif;
+}
+
+.bidbutton:hover {
+    background-color: #ad8214;
 }
 
 .buybutton {
     position: absolute;
-    top: 390px; /* Move the image down by 20 pixels */
-    right: 47px; /* Move the image to the left by 10 pixels */
+    top: 410px; /* Move the image down by 20 pixels */
+    right: 40px; /* Move the image to the left by 10 pixels */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -97,7 +112,13 @@ header h2 {
     border: 2px solid rgb(0, 0, 0); /* Add a black border with 2px width */
     border-radius: 10px; /* Make the border edges round */
     background-color: #999999; /* Set a background color for better visibility */
+    font-family: 'Saira Condensed Bold', sans-serif;
 }
+
+.buybutton:hover {
+    background-color: #ad8214;
+}
+
 
 footer {
     position: fixed;
@@ -166,7 +187,7 @@ button {
 }
 
 button:hover {
-    background-color: #ad8214;
+    background-color: #d9534f;
 }
 
 .modal-header {
