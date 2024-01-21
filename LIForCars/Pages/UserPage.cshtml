@@ -1,0 +1,124 @@
+@page "{id:int}"
+@model UserPageModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIForCars</title>
+    <link href="~/css/fontStyles.css" rel="stylesheet" />
+    <link href="~/css/user.css" rel="stylesheet" />
+    <script src="~/js/home.js"></script>
+</head>
+<body>
+    <div class="cabecalho">
+        <div class="hero">
+            <header>
+                <h2>LIFORCARS</h2>
+                <nav>
+                    <a href="/">HOME</a>
+                    <a href="#">ABOUT</a>
+                    <a href="#">CONTACT</a>
+                    <divLogOut>
+                        <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                    </divLogOut>
+                </nav>
+            </header>
+        </div>
+        <header class="userBar">
+            <nav>
+                <a href="/">PERFIL</a>
+                <a href="#">LEILÕES</a>
+                <a href="#">BIDS</a>
+            </nav>
+        </header>
+    </div>
+    
+
+
+
+    <div id="register-page" style="display: none;">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
+                    <h2>REGISTER</h2>
+                </div>
+                <form id="registrationForm" method="post" action="api/User/register">
+                    <input type="text" name="Name" placeholder="Name" required />
+                    <input type="text" id="registerNif" name="Nif" placeholder="NIF" required />
+                    <input type="text" id="registerCc" name="CC" placeholder="nº CC" required />
+                    <input type="text" name="Address" placeholder="Address" required />
+                    <input type="text" id = "registerPhone" name="Phone" placeholder="Phone Number" required />
+                    
+                    <select name="Gender" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Other</option>
+                    </select>
+
+                    <input type="date" name="BirthDate" placeholder="Birth Date" required />
+
+                    <input type="text" id="registerUsername" name="Username" placeholder="Username" required />
+                    <input type="email" id="registerEmail" name="Email" placeholder="Email" required />
+                    <input type="password" id="registerPassword" name="Password" placeholder="Password" required />
+                    <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" required />
+
+                    <div class="modal-footer">
+                        <button type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-page" style="display: none;">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeLoginPage()">&times;</span>
+                    <h2>LOG IN</h2>
+                </div>
+                <form id="loginForm" method="post" action="api/User/login">
+                    <input type="text" id="loginUsername" name="Username" placeholder="Username / Email" required/>
+                    <input type="password" id="loginPassword" name="Password" placeholder="Password" required/>
+                    <div class="modal-footer">
+                        <a href="#" data-target="register">Register New Account</a>
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="bottom-icons">
+            <a href="#">Facebook</a>
+            <a> | </a>
+            <a href="#">Instagram</a>
+            <a> | </a>
+            <a href="#">LinkedIn</a>
+            <a> | </a>
+            <a href="#">help@LIForCars.pt</a>
+            <a> | </a>
+            <a href="#">Privacy Policy</a>
+            <a> | </a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+
+
+<body>
+    <h1>User Information</h1>
+    <p>User ID: @Model.UserId</p>
+    <p>Name: @Model.UserName</p>
+    <p>Email: @Model.UserEmail</p>
+</body>
+</html>
