@@ -59,46 +59,6 @@ async function isUnique(field, value) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('loginForm');
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Impede o envio imediato do formulário
-
-            var username = document.getElementById('loginUsername').value;
-            var password = document.getElementById('loginPassword').value;
-
-            console.log(username);
-            console.log(password);
-
-            let errors = [];
-
-            const check = await checkPassword(username, password);
-            if (!check) {
-                alert('Username or password incorrect.');
-                e.preventDefault();
-                return;
-            }
-
-
-            form.submit(); // Envie o formulário se não houver erros
-        });
-    }
-});
-
-async function checkPassword(username, password) {
-    try {
-        const response = await fetch(`/api/User/checkPassword?username=${username}&password=${password}`);
-        if (!response.ok) {
-            throw new Error('Erro ao verificar a unicidade do campo');
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Erro na verificação de unicidade:', error);
-        return false; // Considera não único em caso de erro
-    }
-}
-
 function showAboutPage() {
     $.ajax({
         url: '/Index?handler=AboutPartial',
@@ -128,6 +88,24 @@ function showLoginPage() {
         success: function (data) {
             $('#login-section').html(data);
             $('#login-section').show();
+
+            // Attach event handler for form submission
+            $('#login-form').submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: form.serialize(),
+                    success: function(result) {
+                        if (result.success) {
+                            console.log('Login successful');
+                        } else {
+                            console.log('Login failed');
+                        }
+                    }
+                });
+            });
         }
     });
 }

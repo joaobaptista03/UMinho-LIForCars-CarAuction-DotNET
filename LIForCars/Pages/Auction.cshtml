@@ -15,66 +15,73 @@
     <div class="hero">
         @await Html.PartialAsync("Shared/Header")
 
-        <div class="container">
-            <div class="column">
-                <h2>Details</h2>
-                <p>@Model.AuctionDetails.Car.Make @Model.AuctionDetails.Car.Model</p>
-                <p>Year: @Model.AuctionDetails.Car.LaunchYear</p>
-                <p>Kms: @Model.AuctionDetails.Car.Kms</p>
-                <p>Status Description: @Model.AuctionDetails.Car.StatusDescription</p>
-                <p>Engine: @Model.AuctionDetails.Car.Motor</p>
-                <p>Fuel Type: @Model.AuctionDetails.Car.FuelType</p>
-                <p>Category: @Model.AuctionDetails.Car.Category</p>
-            </div>
-        </div>
-
-        <div class="containerImg">
-            <img src=@Model.AuctionDetails.PicUrl alt="About me" style="border: 1px solid black;" class="image1">
-        </div>
-
-        <div class="highestbid">
-            <h2>Bidding</h2>
-            <p>Current Bid: </p>
-            <p>Start Time: @Model.AuctionDetails.InitDateTime</p>
-            <p>End Time: @Model.AuctionDetails.EndDateTime</p>
-            <p>Buy Now Price: @Model.AuctionDetails.BuyNowPrice</p>
-            <button href="#" data-target="bid" class="bidbutton" data-target="bid">Place your Bid</button>
-            <button href="#" data-target="buy" class="buybutton" data-target="buy">Buy Now</button>
-        </div>
-
-        <div id="bid-page" style="display: none;">
-            <div class="modal-backdrop">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="close-btn" onclick="closeBidPage()">&times;</span>
-                        <h2>Place bid</h2>
-                    </div>
-                    <p>(Your bid must be at least @Model.AuctionDetails.MinIncrement above the current highest bid)</p>
-                    <form id="bidForm" method="post" action="api/Bid/Update">
-                        <input type="text" id="bid" name="bid" placeholder="Your Bid" required/>
-                        <div class="modal-footer">
-                            <button type="submit">Submit</button>
-                        </div>
-                    </form>
+        @if (@Model.AuctionDetails != null) {
+            <div class="container">
+                <div class="column">
+                    <h2>Details</h2>
+                    <p>@Model.AuctionDetails.Car.Make @Model.AuctionDetails.Car.Model</p>
+                    <p>Year: @Model.AuctionDetails.Car.LaunchYear</p>
+                    <p>Kms: @Model.AuctionDetails.Car.Kms</p>
+                    <p>Status Description: @Model.AuctionDetails.Car.StatusDescription</p>
+                    <p>Engine: @Model.AuctionDetails.Car.Motor</p>
+                    <p>Fuel Type: @Model.AuctionDetails.Car.FuelType</p>
+                    <p>Category: @Model.AuctionDetails.Car.Category</p>
                 </div>
             </div>
-        </div>
 
-        <div id="buy-page" style="display: none;">
-            <div class="modal-backdrop">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <span class="close-btn" onclick="closeBuyPage()">&times;</span>
-                        <h2>Buy Now</h2>
-                    </div>
-                    <form id="buyForm" method="post" action="api/Bid/Update">
-                        <div class="modal-footer">
-                            <button type="submit">Buy</button>
+            <div class="containerImg">
+                <img src=@Model.AuctionDetails.PicUrl height="600" style="border: 1px solid black;" class="image1">
+            </div>
+
+            <div class="highestbid">
+                <h2>Bidding</h2>
+                <p>Current Bid: </p>
+                <p>Start Time: @Model.AuctionDetails.InitDateTime</p>
+                <p>End Time: @Model.AuctionDetails.EndDateTime</p>
+                <p>Buy Now Price: @Model.AuctionDetails.BuyNowPrice</p>
+                <button href="#" data-target="bid" class="bidbutton" data-target="bid">Place your Bid</button>
+                <button href="#" data-target="buy" class="buybutton" data-target="buy">Buy Now</button>
+            </div>
+
+            <div id="bid-page" style="display: none;">
+                <div class="modal-backdrop">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close-btn" onclick="closeBidPage()">&times;</span>
+                            <h2>Place bid</h2>
                         </div>
-                    </form>
+                        <p>(Your bid must be at least @Model.AuctionDetails.MinIncrement above the current highest bid)</p>
+                        <form id="bidForm" method="post" action="api/Bid/Update">
+                            <input type="text" id="bid" name="bid" placeholder="Your Bid" required/>
+                            <div class="modal-footer">
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <div id="buy-page" style="display: none;">
+                <div class="modal-backdrop">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close-btn" onclick="closeBuyPage()">&times;</span>
+                            <h2>Buy Now</h2>
+                        </div>
+                        <form id="buyForm" method="post" action="api/Bid/Update">
+                            <div class="modal-footer">
+                                <p>@Model.AuctionDetails.BuyNowPrice</p>
+                                <button type="submit">Buy</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        } else {
+            <div class="containerImg">
+                <p>Auction Not Found</p>
+            </div>
+        }
     </div>
 
     @await Html.PartialAsync("Shared/Footer")

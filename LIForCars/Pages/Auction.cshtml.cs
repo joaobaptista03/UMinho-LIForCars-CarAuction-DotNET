@@ -24,12 +24,6 @@ public class AuctionModel : PageModel
     public IActionResult OnGet(int id)
     {
         AuctionDetails = _repository.GetById(id);
-
-        if (AuctionDetails == null)
-        {
-            return NotFound();
-        }
-
         return Page();
     }
 }
