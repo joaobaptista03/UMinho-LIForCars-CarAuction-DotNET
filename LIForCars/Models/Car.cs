@@ -14,5 +14,6 @@ namespace LIForCars.Models
         public string Category { get; set; } = string.Empty;
         public string Origin { get; set; } = string.Empty;
         public int CertificateNr { get; set; }
+        public string PicUrl { get; set; } = null!;
     }
 }

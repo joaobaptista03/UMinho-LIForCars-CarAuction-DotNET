@@ -16,5 +16,7 @@ namespace LIForCars.Data.Interfaces
         bool Create(User newUser);
         bool Update(User newUser);
         bool Delete(User newUser);
+
+        Task<User?> GetUserByIdAsync(int userId);
     }
 }

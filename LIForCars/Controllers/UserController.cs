@@ -26,7 +26,7 @@ namespace LIForCars.Controllers {
 
         //GET api/User/{username} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
         [HttpGet("{username}")]
-        public ActionResult<IEnumerable<User>> GetByUsername(string username)
+        public ActionResult<User> GetByUsername(string username)
         {
             var result = _repository.GetByUsername(username);
 
@@ -133,5 +133,24 @@ namespace LIForCars.Controllers {
                 return BadRequest();
             }
         }
+
+        [HttpGet("userPage/{userId}")]
+        public async Task<ActionResult<User>> GetUserById([FromRoute] int userId)
+        {
+            if (userId <= 0)
+            {
+                return BadRequest("Invalid userId.");
+            }
+
+            var user = await _repository.GetUserByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
     }
 }

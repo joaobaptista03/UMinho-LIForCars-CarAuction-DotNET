@@ -79,6 +79,19 @@ namespace LIForCars.Data.Components
             }
             return true;
         }
+
+        public async Task<User?> GetUserByIdAsync(int userId)
+        {
+            var user = await _context.User.FindAsync(userId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
     }
 
 }
