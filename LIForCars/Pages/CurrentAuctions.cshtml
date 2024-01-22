@@ -30,6 +30,8 @@
                         <p>Origin: @auction.Car?.Origin</p>
                         <p>Auction Dates: @auction.InitDateTime.ToString("yyyy-MM-dd HH:mm:SS") - @auction.EndDateTime.ToString("yyyy-MM-dd HH:mm:SS")</p>
                         <p>Base Price: @auction.BasePrice</p>
+
+                        <button class="btn" onclick="navigateToAuction(@auction.Id)">View Auction</button>
                     </div>
                 }
             </div>
@@ -37,7 +39,7 @@
                 <button class="page-btn @(Model.CurrentPage <= 1 ? "invisible-btn" : "")" 
                         onclick="navigateToPage(@(Model.CurrentPage - 1))">&lt;</button>
 
-                <span>Page @Model.CurrentPage</span>
+                <span>Auction @Model.CurrentPage</span>
 
                 <button class="page-btn @(Model.CurrentPage * Model.PageSize >= Model.TotalCount ? "invisible-btn" : "")" 
                         onclick="navigateToPage(@(Model.CurrentPage + 1))">&gt;</button>
