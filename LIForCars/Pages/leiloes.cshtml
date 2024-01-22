@@ -1,0 +1,82 @@
+@page
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIForCars</title>
+    <link href="~/css/leiloes.css" rel="stylesheet" />
+    <script src="~/js/leiloes.js"></script>
+
+</head>
+<body>
+    <header>
+        <h2>LIFORCARS</h2>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/leiloes.cshtml">LEILÕES</a>
+            <a href="#">ABOUT</a>
+            <a href="#">CONTACT</a>
+            <a href="#" data-target="login" class="signin">SIGN IN</a>
+        </nav>
+    </header>
+
+    <button type="button" class="register" data-target="register" id="criar">Criar leilão</button>
+    <div id="register-page">
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
+                </div>
+                <form id="carAuctionForm">
+                    <input type="text" name="Make" placeholder="Marca" required />
+                    <input type="text" name="Model" placeholder="Modelo" required />
+                    <input type="text" name="LaunchYear" placeholder="Ano de Lançamento" required />
+                    <input type="text" name="Plate" placeholder="Matrícula" required />
+                    <input type="text" name="Kms" placeholder="Quilometragem" required />
+                    <input type="text" name="Origin" placeholder="Origem do Veículo" required />
+                    <input type="text" name="Motor" placeholder="Motor" required />
+                    <input type="text" name="FuelType" placeholder="Combustível" required />
+                    <input type="text" name="StatusDescription" placeholder="Avaliação do Estado" required />
+                    <input type="text" name="Category" placeholder="Tipo de Veículo" required />
+                    <input type="text" name="CertificateNr" placeholder="Certificado" required />
+
+                    <hr>
+                    <input type="text" name="BasePrice" placeholder="Preço Base" required />
+                    <input type="text" name="MinIncrement" placeholder="Incremento Mínimo" required />
+                    <input type="text" name="InitDateTime" placeholder="Data e Hora de Início" required />
+                    <input type="text" name="EndDateTime" placeholder="Data e Hora de Fim" required />
+                    <input type="text" name="BuyNowPrice" placeholder="Preço de Compra Imediata" required />
+
+                    <div class="modal-footer">
+                        <button type="submit">Criar Leilão</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="bottom-icons">
+            <a href="#">Facebook</a>
+            <a> | </a>
+            <a href="#">Instagram</a>
+            <a> | </a>
+            <a href="#">LinkedIn</a>
+        </div>
+        <div class="email">
+            <a>help@LIForCars.pt</a>
+        </div>
+        <div class="bottom-icons">
+            <a href="#">Privacy Policy</a>
+            <a> | </a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+I want the page to have one "big" forms, that prompts for all info about the vehicle, and then has a divider and prompts about the auctions

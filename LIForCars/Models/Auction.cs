@@ -11,9 +11,9 @@ namespace LIForCars.Models
         public int CarId { get; set; }
         public Car? Car { get; set; }
         
-        public int AdministratorId { get; set; }
-        public Administrator Administrator { get; set; } = null!;
-        public int UserId { get; set; }
-        public User User { get; set; } = null!;
+        //public int? AdministratorId { get; set; }
+        //public Administrator? Administrator { get; set; }
+        //public int? UserId { get; set; }
+        //public User? User { get; set; } = null!;
     }
 }

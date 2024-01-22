@@ -26,19 +26,21 @@ namespace LIForCars.Data
                 .HasOne(a => a.Car)
                 .WithOne()
                 .HasForeignKey<Auction>(a => a.CarId)
-                .OnDelete(DeleteBehavior.Restrict);
-                
+                .OnDelete(DeleteBehavior.SetNull);
+
+            /*    
             modelBuilder.Entity<Auction>()
                 .HasOne(a => a.Administrator)
                 .WithOne()
                 .HasForeignKey<Auction>(a => a.AdministratorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Auction>()
                 .HasOne(a => a.User)
                 .WithOne()
                 .HasForeignKey<Auction>(a => a.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
+            */
 
             modelBuilder.Entity<Bid>(entity =>
             {

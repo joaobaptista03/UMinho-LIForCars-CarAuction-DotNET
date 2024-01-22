@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LIForCars.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/Car")]
     public class CarController : ControllerBase
     {
         private readonly ICarRepository _repository;
@@ -32,15 +32,51 @@ namespace LIForCars.Controllers
             return Ok(car);
         }
 
-        [HttpPost]
-        public ActionResult Create([FromBody] Car car)
+        [HttpGet("checkUnique")]
+        public ActionResult<bool> CheckUnique(string field, string value)
         {
-            if (_repository.PlateExists(car.Plate)) return BadRequest("Plate already exists");
-            if (_repository.CertificateNrExists(car.CertificateNr)) return BadRequest("CertificateNr already exists");
+            bool isUnique = false;
 
-            _repository.Create(car);
-            return CreatedAtAction(nameof(GetById), new { id = car.Id }, car);
+            switch (field.ToLower())
+            {
+                case "plate":
+                    isUnique = !_repository.PlateExists(value);
+                    break;
+                case "certificatenr":
+                    isUnique = !_repository.CertificateNrExists(int.Parse(value));
+                    break;
+                default:
+                    return BadRequest("Invalid field specified.");
+            }
+
+            return Ok(isUnique);
         }
+
+        [HttpPost("create")]
+    public ActionResult Create([FromForm] Car car)
+    {
+        if (_repository.PlateExists(car.Plate)) 
+        {
+            ModelState.AddModelError("Plate", "Plate already exists");
+            return BadRequest(ModelState);
+        }
+
+        if (_repository.CertificateNrExists(car.CertificateNr)) 
+        {
+            ModelState.AddModelError("CertificateNr", "CertificateNr already exists");
+            return BadRequest(ModelState);
+        }
+
+        if (!ModelState.IsValid)
+        {
+            // Log validation errors here
+            return BadRequest(ModelState);
+        }
+
+        _repository.Create(car);
+        return CreatedAtAction(nameof(GetById), new { id = car.Id }, car);
+    }
+
 
         [HttpPut("{id}")]
         public ActionResult Update(int id, [FromBody] Car car)
