@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-
 function showBidPage() {
     document.getElementById('bid-page').style.display = 'block';
 }

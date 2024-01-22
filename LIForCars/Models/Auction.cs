@@ -14,5 +14,6 @@ namespace LIForCars.Models
         public Administrator Administrator { get; set; } = null!;
         public int UserId { get; set; }
         public User User { get; set; } = null!;
+        public string PicUrl { get; set; } = null!;
     }
 }

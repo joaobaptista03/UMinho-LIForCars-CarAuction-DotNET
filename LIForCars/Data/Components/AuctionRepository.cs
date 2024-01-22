@@ -21,7 +21,7 @@ namespace LIForCars.Data.Components
 
         public Auction? GetById(int id)
         {
-            return _context.Auction.FirstOrDefault(a => a.Id == id);
+            return _context.Auction.Include(a => a.Car).FirstOrDefault(a => a.Id == id);
         }
 
         public bool Create(Auction auction)

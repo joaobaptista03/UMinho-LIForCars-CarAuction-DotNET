@@ -49,3 +49,7 @@
 .buybutton:hover {
     background-color: #d9534f;
 }
+
+.modal-content p, .modal-content h2, .modal-content span {
+    color: black;
+}
