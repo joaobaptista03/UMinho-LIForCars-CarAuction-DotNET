@@ -9,11 +9,13 @@ public class UserPageModel : PageModel
 {
     private readonly IUserRepository _userRepository;
     private readonly IAuctionRepository _auctionRepository;
+    private readonly IBidRepository _bidRepository;
 
-    public UserPageModel(IUserRepository userRepository, IAuctionRepository auctionRepository)
+    public UserPageModel(IUserRepository userRepository, IAuctionRepository auctionRepository, IBidRepository bidRepository)
     {
         _userRepository = userRepository;
         _auctionRepository = auctionRepository;
+        _bidRepository = bidRepository;
     }
 
     [BindProperty(SupportsGet = true)]
@@ -23,7 +25,7 @@ public class UserPageModel : PageModel
     public int PageSize { get; set; } = 10;
     public int TotalCount { get; private set; }
     public IEnumerable<Auction> Auctions { get; private set; } = Enumerable.Empty<Auction>();
-
+    public Dictionary<Auction, (int TotalBids, IEnumerable<Bid> Bids)> BidsMap { get; private set; } = new Dictionary<Auction, (int, IEnumerable<Bid>)>();
 
     public async Task OnGetAsync(int UserId)
     {
@@ -32,13 +34,19 @@ public class UserPageModel : PageModel
             Console.WriteLine(UserId);
             return;
         }
+        // Ir buscar o user
         User = await _userRepository.GetUserByIdAsync(UserId);
+
+        // Ir buscar os leilões do user
         var result = await _auctionRepository.GetAuctionsUserAsync(CurrentPage, PageSize, UserId);
-        Console.WriteLine("Result -> " + result.totalCount);
-        foreach (Auction a in result.auctions) {
-            Console.WriteLine("Auction -> " + a);
-        }
         Auctions = result.auctions;
         TotalCount = result.totalCount;
+
+        // Ir buscar as bids de um leilão
+        foreach (Auction a in Auctions)
+        {
+            var bids = await _bidRepository.GetBidsAuctionAsync(a.Id);
+            BidsMap[a] = bids;
+        }
     }
 }

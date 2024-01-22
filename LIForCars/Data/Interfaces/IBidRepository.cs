@@ -9,5 +9,6 @@ namespace LIForCars.Data.Interfaces
         bool Create(Bid bid);
         bool Update(Bid bid);
         bool Delete(int id);
+        Task<(int totalBids, IEnumerable<Bid> auctions)> GetBidsAuctionAsync(int idAuction);
     }
 }

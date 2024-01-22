@@ -1,5 +1,6 @@
 using LIForCars.Data.Interfaces;
 using LIForCars.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LIForCars.Data.Components
 {
@@ -61,6 +62,18 @@ namespace LIForCars.Data.Components
                 return false;
             }
             return true;
+        }
+
+        public async Task<(int totalBids, IEnumerable<Bid> auctions)> GetBidsAuctionAsync(int idAuction) {
+            var query = _context.Bid
+                            .Include(a => a.User)
+                            .Where(a => a.AuctionId == idAuction);
+            
+            var totalBids = await query.CountAsync();
+            var bids = await query.OrderByDescending(a => a.bidTime)
+                                      .ToListAsync();
+            
+            return (totalBids, bids);
         }
     }
 }

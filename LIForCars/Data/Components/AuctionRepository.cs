@@ -90,9 +90,6 @@ namespace LIForCars.Data.Components
 
         public async Task<(IEnumerable<Auction> auctions, int totalCount)> GetAuctionsUserAsync(int page, int pageSize, int idUser)
         {
-            Console.WriteLine(page);
-            Console.WriteLine(pageSize);
-            Console.WriteLine(idUser);
             var query = _context.Auction
                 .Include(a => a.Car)
                 .Where(a => a.UserId == idUser);
@@ -102,7 +99,6 @@ namespace LIForCars.Data.Components
                                       .Skip((page - 1) * pageSize)
                                       .Take(pageSize)
                                       .ToListAsync();
-            Console.WriteLine(auctions);
 
             return (auctions, totalCount);
         }

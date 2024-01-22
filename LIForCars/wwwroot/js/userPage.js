@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var homeLink = document.getElementById('homeLink');
     var aboutLink = document.getElementById('aboutLink');
     var contactLink = document.getElementById('contactLink');
@@ -9,24 +9,23 @@ document.addEventListener('DOMContentLoaded', function() {
     var bidsContent = document.getElementById('leiloesContent'); // Replace with the actual ID of the element you want to show/hide
     var isBidsClicked = false;
 
-
     function resetColorsCabecalho() {
         homeLink.style.color = '';
         aboutLink.style.color = '';
         contactLink.style.color = '';
     }
 
-    homeLink.addEventListener('click', function() {
+    homeLink.addEventListener('click', function () {
         resetColorsCabecalho();
         this.style.color = '#d9534f';
     });
 
-    aboutLink.addEventListener('click', function() {
+    aboutLink.addEventListener('click', function () {
         resetColorsCabecalho();
         this.style.color = '#d9534f';
     });
 
-    contactLink.addEventListener('click', function() {
+    contactLink.addEventListener('click', function () {
         resetColorsCabecalho();
         this.style.color = '#d9534f';
     });
@@ -36,24 +35,22 @@ document.addEventListener('DOMContentLoaded', function() {
         bidsLink.style.color = '';
     }
 
-    leiloesLink.addEventListener('click', function() {
+    leiloesLink.addEventListener('click', function () {
         if (!isLeiloesClicked) {
             resetColorsUserBar();
             this.style.color = '#d9534f';
 
-            if (leiloesContent.style.display ==='none') {
+            if (leiloesContent.style.display === 'none') {
                 bidsContent.style.display = 'none';
-                leiloesContent.style.display ='block';
+                leiloesContent.style.display = 'block';
             }
 
             isLeiloesClicked = true;
             isBidsClicked = false;
         }
-        
-
     });
 
-    bidsLink.addEventListener('click', function() {
+    bidsLink.addEventListener('click', function () {
         if (!isBidsClicked) {
             resetColorsUserBar();
             this.style.color = '#d9534f';
@@ -66,7 +63,30 @@ document.addEventListener('DOMContentLoaded', function() {
             isBidsClicked = true;
             isLeiloesClicked = false;
         }
-        
     });
-});
 
+    var moreInfoButtons = document.querySelectorAll('.userLeiloes .auctionInfo button');
+
+    moreInfoButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            // Find the parent element with class 'auctionInfo'
+            var auctionInfoDiv = this.closest('.auctionInfoExtended');
+
+            // Find the '.additionalInfo' element within the 'auctionInfo' div
+            var infoDiv = auctionInfoDiv.querySelector('.additionalInfo');
+
+            // Toggle visibility of the '.additionalInfo' element
+            toggleVisibility(infoDiv);
+        });
+    });
+
+    function toggleVisibility(element) {
+        if (element) {
+            if (element.style.display === 'none' || element.style.display === '') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+    }
+});

@@ -10,6 +10,7 @@
     <link href="~/css/fontStyles.css" rel="stylesheet" />
     <link href="~/css/user.css" rel="stylesheet" />
     <script src="~/js/userPage.js"></script>
+
 </head>
 <body>
     <div class="cabecalho">
@@ -60,26 +61,47 @@
                 </div>
                 <div>
                     @foreach(var auction in Model.Auctions) {
-                        <div class="auctionInfo">
-                            <div class="auctionInfoCabeçalho">
-                                <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
-                                <img src="@auction.Car?.PicUrl" alt="@auction.Car?.Make @auction.Car?.Model">
+                        <div class="auctionInfoExtended">
+                            <div class="auctionInfo">
+                                <div class="auctionInfoCabeçalho">
+                                    <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
+                                    <img src="@auction.Car?.PicUrl" alt="@auction.Car?.Make @auction.Car?.Model">
+                                </div>
+                                <div class="auctionInfoResumo">
+                                    <div>
+                                        <div>
+                                            <p>Origin: @auction.Car?.Origin</p>
+                                            <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
+                                            <p>Milage: @auction.Car?.Kms</p>
+                                            <p>Status Description: @auction.Car?.StatusDescription</p>
+                                        </div>
+                                        <div>
+                                            <p>Base Price: @auction.BasePrice €</p>
+                                            <p>Buy Now: @auction.BuyNowPrice €</p>
+                                            <p>Starting Date: @auction.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                            <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                        </div>
+                                    </div>
+                                    <button class="moreInfoButton">MORE INFO</button>
+                                </div>
                             </div>
-                            <div class="auctionInfoResumo">
-                                <div>
-                                    <p>Origin: @auction.Car?.Origin</p>
-                                    <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
-                                    <p>Milage: @auction.Car?.Kms</p>
-                                    <p>Status Description: @auction.Car?.StatusDescription</p>
-                                </div>
-                                <div>
-                                    <p>Base Price: @auction.BasePrice €</p>
-                                    <p>Buy Now: @auction.BuyNowPrice €</p>
-                                    <p>Starting Date: @auction.InitDateTime.ToString("yyyy-MM-dd")</p>
-                                    <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
-                                </div>
-                                <div>
-                                    <button>MORE INFO</button>
+                            <div class="additionalInfo" style="display: none;">
+                                <div class="additionalInfoBox">
+                                    <div class="moreInfoEmptyColumn"></div>
+                                    <div style="width: 80%;">
+                                        <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
+                                            <span>User</span>
+                                            <span>Bid Value</span>
+                                            <span>Time of Bid</span>
+                                        </div>
+                                        @foreach(var bid in Model.BidsMap[auction].Bids) {
+                                            <div class="infoBid">
+                                                <span>@bid.User.Username</span>
+                                                <span>@bid.BidValue €</span>
+                                                <span>@bid.bidTime</span>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
