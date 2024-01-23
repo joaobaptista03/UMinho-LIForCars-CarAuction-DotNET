@@ -21,9 +21,7 @@ public class RegisterModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid) {
-            return Page();
-        }
+        if (!ModelState.IsValid) return Page();
 
         if (userRepository.NifExists(NewUser.Nif)) ModelState.AddModelError("Nif", "NIF already exists");
         if (userRepository.CcExists(NewUser.CC)) ModelState.AddModelError("Cc", "CC already exists");
@@ -41,7 +39,7 @@ public class RegisterModel : PageModel
             return new JsonResult(new { success = true });
         } else {
             ModelState.AddModelError("", "An error occurred while creating the account.");
-            return new JsonResult(new { success = false,  });
+            return new JsonResult(new { success = false });
         }
     }
 }

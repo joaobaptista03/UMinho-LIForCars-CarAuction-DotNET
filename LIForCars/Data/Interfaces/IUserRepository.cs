@@ -12,10 +12,9 @@ namespace LIForCars.Data.Interfaces
         bool PhoneExists(int phone);
         bool UsernameExists(string username);
         bool EmailExists(string email);
-        bool CheckPassword(string username, string password);
-        bool Create(User newUser);
+        bool CheckPasswordAsync(string username, string password);
+        Task<bool> CreateAsync(User newUser);
         bool Update(User newUser);
         bool Delete(User newUser);
-        Task<bool> CreateAsync(User newUser);
     }
 }

@@ -8,8 +8,8 @@
                 <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
                 <h2>REGISTER</h2>
             </div>
-            <div id="error-container" style="color:red; text-align: center; padding:10px;"></div>
-            <div id="success-container" style="color:green; text-align:center; padding:10px;"></div>
+            <div id="register-error" style="color:red; text-align: center; padding:10px;"></div>
+            <div id="register-success" style="color:green; text-align:center; padding:10px;"></div>
             <form id="register-form" method="post" action="/Shared/Register">
                 @Html.AntiForgeryToken()
                 <input type="text" name="Name" placeholder="Name" required />                
@@ -29,6 +29,7 @@
                 <input type="password" name="Password" placeholder="Password" required />
                 <input type="password" name="ConfirmPassword" placeholder="Confirm Password" required />
                 <div class="modal-footer">
+                    <a href="#" onclick="showLoginPage()">Login</a>
                     <button type="submit">Register</button>
                 </div>
             </form>

@@ -8,25 +8,17 @@
                 <span class="close-btn" onclick="closeLoginPage()">&times;</span>
                 <h2>LOG IN</h2>
             </div>
-            <form id="login-form" method="post">
+            <div id="login-error" style="color:red; text-align: center; padding:10px;"></div>
+            <div id="login-success" style="color:green; text-align:center; padding:10px;"></div>
+            <form id="login-form" method="post" action="/Shared/Login">
                 @Html.AntiForgeryToken()
-                <input type="text" asp-for="Username" placeholder="Username / Email" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-
-                <input type="password" asp-for="Password" placeholder="Password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-
+                <input type="text" name="Username" placeholder="Username / Email" />
+                <input type="password" name="Password" placeholder="Password" />
                 <div class="modal-footer">
                     <a href="#" onclick="showRegisterPage()">Register New Account</a>
                     <button type="submit">Login</button>
                 </div>
             </form>
-            @if (ViewData != null)
-            {
-                @if (!ViewData.ModelState.IsValid) {
-                    <div class="text-danger">Invalid username or password</div>
-                }
-            }
         </div>
     </div>
 </div>

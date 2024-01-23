@@ -7,11 +7,9 @@ using LIForCars.Data.Interfaces;
 public class LoginModel : PageModel
 {
     [BindProperty]
-    [Required]
     public string Username { get; set; } = null!;
 
     [BindProperty]
-    [Required]
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
@@ -22,26 +20,13 @@ public class LoginModel : PageModel
         this.userRepository = userRepository;
     }
 
-    public IActionResult OnGetLoginPartial()
+    public IActionResult OnPostAsync()
     {
-        return Partial("Login", this);
-    }
+        if (!userRepository.CheckPasswordAsync(Username, Password)) ModelState.AddModelError("", "Invalid username or password");
+        
+        var modelErrors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+        if (!ModelState.IsValid) return new JsonResult(new { success = false, errors = modelErrors });
 
-    public IActionResult OnPost()
-    {
-        if (ModelState.IsValid)
-        {
-            if (userRepository.CheckPassword(Username, Password))
-            {
-                
-                return new JsonResult(new { success = true });
-            }
-            else
-            {
-                ModelState.AddModelError("", "Invalid username or password");
-            }
-        }
-
-        return Partial("Login", this);
+        return new JsonResult(new { success = true });
     }
 }

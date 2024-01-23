@@ -27,7 +27,7 @@ namespace LIForCars.Data.Components
         public bool UsernameExists(string username) => _context.User.Any(u => u.Username == username);
         public bool EmailExists(string email) => _context.User.Any(u => u.Email == email);
 
-        public bool CheckPassword(string username, string password)
+        public bool CheckPasswordAsync(string username, string password)
         {
             var user = _context.User.FirstOrDefault(u => u.Username == username);
             if (user != null) 
@@ -37,21 +37,6 @@ namespace LIForCars.Data.Components
             if (user != null) 
                 return BCrypt.Net.BCrypt.Verify(password, user.Password);
             return false;
-        }
-
-
-        public bool Create(User newUser)
-        {
-            try
-            {
-                newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password, BCrypt.Net.BCrypt.GenerateSalt());
-                _context.User.Add(newUser);
-                _context.SaveChanges();
-            } catch (Exception)
-            {
-                return false;
-            }
-            return true;
         }
 
         public bool Update(User newUser)

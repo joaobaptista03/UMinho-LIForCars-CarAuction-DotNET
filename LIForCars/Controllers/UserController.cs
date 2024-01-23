@@ -91,27 +91,6 @@ namespace LIForCars.Controllers {
             return Ok(isUnique);
         }
 
-        [HttpGet("checkPassword")]
-        public ActionResult<bool> CheckPassword(string username, string password)
-        {
-            bool isCorrect = _repository.CheckPassword(username, password);
-
-            if (!isCorrect) return BadRequest("Incorrect password.");
-
-            return Ok(isCorrect);
-        }
-
-        [HttpPost("login")]
-        public ActionResult<User> Login([FromForm] string username, [FromForm] string password)
-        {
-            if (!_repository.CheckPassword(username, password)) return BadRequest("Incorrect password.");
-
-            var user = _repository.GetByUsername(username);
-            if (user == null) return BadRequest("User not found.");
-
-            return Ok(user);
-        }
-
         [HttpPost("register")]
         public ActionResult<User> Register([FromForm] User newUser)
         {
@@ -124,7 +103,7 @@ namespace LIForCars.Controllers {
 
             try
             {
-                _repository.Create(newUser);
+                _repository.CreateAsync(newUser);
                 _repository.SaveChanges();
                 return Ok(newUser);
             }
