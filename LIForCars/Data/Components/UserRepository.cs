@@ -79,6 +79,21 @@ namespace LIForCars.Data.Components
             }
             return true;
         }
-    }
 
+        public async Task<bool> CreateAsync(User newUser)
+        {
+            try
+            {
+                newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+
+                await _context.User.AddAsync(newUser);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+    }
 }

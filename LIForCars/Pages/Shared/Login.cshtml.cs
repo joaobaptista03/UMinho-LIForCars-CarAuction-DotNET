@@ -31,9 +31,7 @@ public class LoginModel : PageModel
     {
         if (ModelState.IsValid)
         {
-            bool isValidUser = userRepository.CheckPassword(Username, Password);
-
-            if (isValidUser)
+            if (userRepository.CheckPassword(Username, Password))
             {
                 
                 return new JsonResult(new { success = true });

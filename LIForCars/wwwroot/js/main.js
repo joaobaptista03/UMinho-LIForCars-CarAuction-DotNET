@@ -1,64 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('registrationForm');
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Impede o envio imediato do formulário
-
-            var nif = document.getElementById('registerNif').value;
-            var cc = document.getElementById('registerCc').value;
-            var phone = document.getElementById('registerPhone').value;
-            var username = document.getElementById('registerUsername').value;
-            var email = document.getElementById('registerEmail').value;
-            var password = document.getElementById('registerPassword').value;
-            var confirmPassword = document.getElementById('registerConfirmPassword').value;
-
-            let errors = [];
-
-            if (!/^\d+$/.test(nif)) errors.push('NIF must be a number.');
-            if (!/^\d+$/.test(cc)) errors.push('CC must be a number.');
-            if (!/^\d+$/.test(phone)) errors.push('Phone must be a number.');
-            if (/\s/.test(username)) errors.push('Username cannot contain spaces.');
-            if (password !== confirmPassword) errors.push('Passwords do not match.');
-
-            // Realiza as verificações de unicidade em paralelo
-            const uniqueChecks = await Promise.all([
-                isUnique('nif', nif),
-                isUnique('cc', cc),
-                isUnique('phone', phone),
-                isUnique('username', username),
-                isUnique('email', email)
-            ]);
-
-            if (!uniqueChecks[0]) errors.push('NIF already in use.');
-            if (!uniqueChecks[1]) errors.push('CC already in use.');
-            if (!uniqueChecks[2]) errors.push('Phone already in use.');
-            if (!uniqueChecks[3]) errors.push('Username already in use.');
-            if (!uniqueChecks[4]) errors.push('Email already in use.');
-
-            if (errors.length > 0) {
-                alert(errors.join('\n'));
-                e.preventDefault();
-                return;
-            }
-
-            form.submit(); // Envie o formulário se não houver erros
-        });
-    }
-});
-
-async function isUnique(field, value) {
-    try {
-        const response = await fetch(`/api/User/checkUnique?field=${field}&value=${value}`);
-        if (!response.ok) {
-            throw new Error('Erro ao verificar a unicidade do campo');
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Erro na verificação de unicidade:', error);
-        return false; // Considera não único em caso de erro
-    }
-}
-
 function showAboutPage() {
     $.ajax({
         url: '/Index?handler=AboutPartial',
@@ -118,6 +57,40 @@ function showRegisterPage() {
         success: function (data) {
             $('#register-section').html(data);
             $('#register-section').show();
+
+            $('#register-section').on('submit', '#register-form', function(event) {
+                event.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function(result) {
+                        console.log('AJAX success response:', result);
+
+                        if (result.hasOwnProperty('success')) {
+                            if (result.success) {
+                                $('#success-container').html('Registration successful!');
+                                $('#error-container').html('');
+                                form.trigger('reset');
+                            } else {
+                                $('#success-container').html('');
+                                var errorMessage = result.errors ? result.errors.join('<br>') : "An unknown error occurred.";
+                                $('#error-container').html(errorMessage);
+                            }
+                        } else {
+                            console.error('Unexpected response format:', result);
+                            $('#success-container').html('');
+                            $('#error-container').html("An unknown error occurred.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error:', status, error);
+                        $('#success-container').html('');
+                        $('#error-container').html("An error occurred during registration.");
+                    }
+                });
+            });
         }
     });
 }

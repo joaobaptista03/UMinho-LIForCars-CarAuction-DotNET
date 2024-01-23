@@ -19,7 +19,7 @@ public class AuctionModel : PageModel
     public IActionResult OnGetLoginPartial() => Partial("Shared/Login");
     public IActionResult OnGetRegisterPartial() => Partial("Shared/Register");
 
-    public Auction AuctionDetails { get; private set; }
+    public Auction? AuctionDetails { get; private set; }
 
     public IActionResult OnGet(int id)
     {

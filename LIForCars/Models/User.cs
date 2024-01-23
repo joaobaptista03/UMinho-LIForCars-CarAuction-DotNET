@@ -14,5 +14,21 @@ namespace LIForCars.Models
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public bool IsAuctioneer { get; set; } = false;
+
+        public User() {}
+
+        public User(string name, int nif, int cc, string address, int phone, char gender, DateTime birthDate, string username, string email, string password, bool isAuctioneer) {
+            Name = name;
+            Nif = nif;
+            CC = cc;
+            Address = address;
+            Phone = phone;
+            Gender = gender;
+            BirthDate = birthDate;
+            Username = username;
+            Email = email;
+            Password = password;
+            IsAuctioneer = isAuctioneer;
+        }
     }
 }

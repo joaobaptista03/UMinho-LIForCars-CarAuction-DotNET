@@ -15,7 +15,7 @@
     <div class="hero">
         @await Html.PartialAsync("Shared/Header")
 
-        @if (@Model.AuctionDetails != null) {
+        @if (@Model.AuctionDetails != null && @Model.AuctionDetails.Car != null) {
             <div class="container">
                 <div class="column">
                     <h2>Details</h2>
