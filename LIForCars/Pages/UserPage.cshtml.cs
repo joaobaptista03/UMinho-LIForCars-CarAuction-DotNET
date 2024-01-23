@@ -28,13 +28,16 @@ public class UserPageModel : PageModel
     public Dictionary<Auction, (int TotalBids, IEnumerable<Bid> Bids)> BidsMap { get; private set; } = new Dictionary<Auction, (int, IEnumerable<Bid>)>();
     public Dictionary<Auction, IEnumerable<Bid>> AuctionsUserBidded { get; private set; } = new Dictionary<Auction, IEnumerable<Bid>>();
 
-    public async Task OnGetAsync(int UserId)
+    public async Task OnGetAsync(String Username)
     {
-        if (UserId <= 0)
+        User? user = _userRepository.GetByUsername(Username);
+        if (user==null)
         {
-            Console.WriteLine(UserId);
+            Console.WriteLine(Username);
             return;
         }
+        int UserId = user.Id;
+        
         // Ir buscar o user
         User = await _userRepository.GetUserByIdAsync(UserId);
 

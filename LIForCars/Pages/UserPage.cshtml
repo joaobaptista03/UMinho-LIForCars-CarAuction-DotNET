@@ -42,15 +42,15 @@
         <div id="perfilContent" class="userInfo">
             <div class="userDados">
                 <div class="userDadosCabecalho">
-                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">@Model.User.Username</h1>
-                    <img src="../images/avatarIcon.png" alt="Avatar Icon" style="width: 53%; height: auto; margin-left: 6%; margin-top: 3%; margin-bottom: 17%;">
+                    <h1 class="listaDados" style="color: white; margin-bottom: 0;">@Model.User.Name</h1>
+                    <img src="../images/avatarIcon.png" alt="Avatar Icon" style="width: 53%; height: auto; margin-top: 3%; margin-bottom: 17%;">
                 </div>
-                <span class="listaDados">Username: @Model.User.Name</span>
+                <span class="listaDados">Username: @Model.User.Username</span>
                 <span class="listaDados">NIF: @Model.User.Nif</span>
                 <span class="listaDados">CC: @Model.User.CC</span>
                 <span class="listaDados">Address: @Model.User.Address</span>
                 <span class="listaDados">Phone Number: @Model.User.Phone</span>
-                <span class="listaDados">Gender: @Model.User.Gender</span>
+                <span class="listaDados">Gender: @(Model.User.Gender == 'F' ? "Female" : "Male")</span>
                 <span class="listaDados">BirthDate: @Model.User.BirthDate.ToString("yyyy-MM-dd")</span>
                 <span class="listaDados">Email: @Model.User.Email</span>
                 <span class="listaDados">Password: @Model.User.Password</span>
@@ -58,62 +58,65 @@
             <div id="leiloesContent" class="userLeiloes" style="display: block;">
                 <div class="userLeiloesCabecalho">
                     <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">MY AUCTIONS</h1>
+                    <button id="removeFinishedButtonLink" class="removeFinishedButton">REMOVE FINISHED</button>
                 </div>
                 <div>
                     @foreach(var auction in Model.Auctions) {
-                        <div class="auctionInfoExtended">
-                            <div class="auctionInfo">
-                                <div class="auctionInfoCabeçalho">
-                                    <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
-                                    <img src="@auction.Car?.PicUrl" alt="@auction.Car?.Make @auction.Car?.Model">
-                                </div>
-                                <div class="auctionInfoResumo">
-                                    <div>
-                                        <div>
-                                            <p>Origin: @auction.Car?.Origin</p>
-                                            <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
-                                            <p>Milage: @auction.Car?.Kms</p>
-                                            <p>Status Description: @auction.Car?.StatusDescription</p>
-                                        </div>
-                                        <div>
-                                            <p>Base Price: @auction.BasePrice €</p>
-                                            <p>Buy Now: @auction.BuyNowPrice €</p>
-                                            <p>Starting Date: @auction.InitDateTime.ToString("yyyy-MM-dd")</p>
-                                            <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
-                                        </div>
+                        <div class="englobaAuction">
+                            <div class="@(auction.EndDateTime<DateTime.Now ? "auctionInfoExtended" : "auctionInfoExtendedExpired")" style="@(auction.EndDateTime<DateTime.Now ? "" : "display: block")">
+                                <div class="auctionInfo">
+                                    <div class="auctionInfoCabeçalho">
+                                        <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
+                                        <img src="@auction.Car?.PicUrl" alt="@auction.Car?.Make @auction.Car?.Model">
                                     </div>
-                                    <button class="moreInfoButton">MORE INFO</button>
-                                </div>
-                            </div>
-                            <div class="additionalInfo" style="display: none;">
-                                <div class="additionalInfoBox">
-                                    <div class="moreInfoEmptyColumn"></div>
-                                    <div style="width: 80%;">
-                                        <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
-                                            <span>User</span>
+                                    <div class="auctionInfoResumo">
+                                        <div>
                                             <div>
-                                                <span>Bid Value</span>
-                                                <div class="triangle-down"></div>
+                                                <p>Origin: @auction.Car?.Origin</p>
+                                                <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
+                                                <p>Milage: @auction.Car?.Kms</p>
+                                                <p>Status Description: @auction.Car?.StatusDescription</p>
                                             </div>
-                                            <span>Time of Bid</span>
+                                            <div>
+                                                <p>Base Price: @auction.BasePrice €</p>
+                                                <p>Buy Now: @auction.BuyNowPrice €</p>
+                                                <p>Starting Date: @auction.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                                <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                            </div>
                                         </div>
-                                        <div class="sortBidsDescending" style="display: block;">
-                                            @foreach(var bid in Model.BidsMap[auction].Bids) {
-                                                <div class="infoBid">
-                                                    <span>@bid.User.Username</span>
-                                                    <span>@bid.BidValue €</span>
-                                                    <span>@bid.bidTime</span>
+                                        <button class="moreInfoButton">MORE INFO</button>
+                                    </div>
+                                </div>
+                                <div class="additionalInfo" style="display: none;">
+                                    <div class="additionalInfoBox">
+                                        <div class="moreInfoEmptyColumn"></div>
+                                        <div style="width: 80%;">
+                                            <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
+                                                <span>User</span>
+                                                <div>
+                                                    <span>Bid Value</span>
+                                                    <div class="triangle-down"></div>
                                                 </div>
-                                            }
-                                        </div>
-                                        <div class="sortBidsAscending" style="display: none;">
-                                            @foreach(var bid in Model.BidsMap[auction].Bids.Reverse()) {
-                                                <div class="infoBid">
-                                                    <span>@bid.User.Username</span>
-                                                    <span>@bid.BidValue €</span>
-                                                    <span>@bid.bidTime</span>
-                                                </div>
-                                            }
+                                                <span>Time of Bid</span>
+                                            </div>
+                                            <div class="sortBidsDescending" style="display: block;">
+                                                @foreach(var bid in Model.BidsMap[auction].Bids) {
+                                                    <div class="infoBid">
+                                                        <span>@bid.User.Username</span>
+                                                        <span>@bid.BidValue €</span>
+                                                        <span>@bid.bidTime</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="sortBidsAscending" style="display: none;">
+                                                @foreach(var bid in Model.BidsMap[auction].Bids.Reverse()) {
+                                                    <div class="infoBid">
+                                                        <span>@bid.User.Username</span>
+                                                        <span>@bid.BidValue €</span>
+                                                        <span>@bid.bidTime</span>
+                                                    </div>
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -126,63 +129,65 @@
             <div id="bidsContent" class="userLeiloes" style="display: none;">
                 <div class="userLeiloesCabecalho">
                     <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">MY BIDS</h1>
-                    <button id="higlLightButtonLink" class="HighLightButton">HIGHLIGHT</button>
+                    <button id="higlLightButtonLink" class="highLightButton">HIGHLIGHT</button>
                 </div>
                 <div>
                     @foreach(var auction in Model.AuctionsUserBidded) {
-                        <div class="auctionInfoExtended">
-                            <div class="auctionInfo">
-                                <div class="auctionInfoCabeçalho">
-                                    <h3 class="car-model">@auction.Key.Car?.Make @auction.Key.Car?.Model (@auction.Key.Car?.LaunchYear)</h3>
-                                    <img src="@auction.Key.Car?.PicUrl" alt="@auction.Key.Car?.Make @auction.Key.Car?.Model">
-                                </div>
-                                <div class="auctionInfoResumo">
-                                    <div>
-                                        <div>
-                                            <p>Origin: @auction.Key.Car?.Origin</p>
-                                            <p>Motor: @auction.Key.Car?.Motor (@auction.Key.Car?.FuelType)</p>
-                                            <p>Milage: @auction.Key.Car?.Kms</p>
-                                            <p>Status Description: @auction.Key.Car?.StatusDescription</p>
-                                        </div>
-                                        <div>
-                                            <p>Base Price: @auction.Key.BasePrice €</p>
-                                            <p>Buy Now: @auction.Key.BuyNowPrice €</p>
-                                            <p>Starting Date: @auction.Key.InitDateTime.ToString("yyyy-MM-dd")</p>
-                                            <p>Ending Date: @auction.Key.EndDateTime.ToString("yyyy-MM-dd")</p>
-                                        </div>
+                        <div class="englobaAuction">
+                            <div class="auctionInfoExtended">
+                                <div class="auctionInfo">
+                                    <div class="auctionInfoCabeçalho">
+                                        <h3 class="car-model">@auction.Key.Car?.Make @auction.Key.Car?.Model (@auction.Key.Car?.LaunchYear)</h3>
+                                        <img src="@auction.Key.Car?.PicUrl" alt="@auction.Key.Car?.Make @auction.Key.Car?.Model">
                                     </div>
-                                    <button class="moreInfoButton">BIDS</button>
-                                </div>
-                            </div>
-                            <div class="additionalInfo" style="display: none;">
-                                <div class="additionalInfoBox">
-                                    <div class="moreInfoEmptyColumn"></div>
-                                    <div style="width: 80%;">
-                                        <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
-                                            <span>User</span>
+                                    <div class="auctionInfoResumo">
+                                        <div>
                                             <div>
-                                                <span>Bid Value</span>
-                                                <div class="triangle-down"></div>
+                                                <p>Origin: @auction.Key.Car?.Origin</p>
+                                                <p>Motor: @auction.Key.Car?.Motor (@auction.Key.Car?.FuelType)</p>
+                                                <p>Milage: @auction.Key.Car?.Kms</p>
+                                                <p>Status Description: @auction.Key.Car?.StatusDescription</p>
                                             </div>
-                                            <span>Time of Bid</span>
+                                            <div>
+                                                <p>Base Price: @auction.Key.BasePrice €</p>
+                                                <p>Buy Now: @auction.Key.BuyNowPrice €</p>
+                                                <p>Starting Date: @auction.Key.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                                <p>Ending Date: @auction.Key.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                            </div>
                                         </div>
-                                        <div class="sortBidsDescending" style="display: block;">
-                                            @foreach(var bid in auction.Value) {
-                                                <div class="@(bid.User.Username==Model.User.Username ? "infoMyBids" : "infoBid")">
-                                                    <span>@bid.User.Username</span>
-                                                    <span>@bid.BidValue €</span>
-                                                    <span>@bid.bidTime</span>
+                                        <button class="moreInfoButton">BIDS</button>
+                                    </div>
+                                </div>
+                                <div class="additionalInfo" style="display: none;">
+                                    <div class="additionalInfoBox">
+                                        <div class="moreInfoEmptyColumn"></div>
+                                        <div style="width: 80%;">
+                                            <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
+                                                <span>User</span>
+                                                <div>
+                                                    <span>Bid Value</span>
+                                                    <div class="triangle-down"></div>
                                                 </div>
-                                            }
-                                        </div>
-                                        <div class="sortBidsAscending" style="display: none;">
-                                            @foreach(var bid in auction.Value.Reverse()) {
-                                                <div class="infoBid">
-                                                    <span>@bid.User.Username</span>
-                                                    <span>@bid.BidValue €</span>
-                                                    <span>@bid.bidTime</span>
-                                                </div>
-                                            }
+                                                <span>Time of Bid</span>
+                                            </div>
+                                            <div class="sortBidsDescending" style="display: block;">
+                                                @foreach(var bid in auction.Value) {
+                                                    <div class="@(bid.User.Username==Model.User.Username ? "infoMyBids" : "infoBid")">
+                                                        <span>@bid.User.Username</span>
+                                                        <span>@bid.BidValue €</span>
+                                                        <span>@bid.bidTime</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="sortBidsAscending" style="display: none;">
+                                                @foreach(var bid in auction.Value.Reverse()) {
+                                                    <div class="@(bid.User.Username==Model.User.Username ? "infoMyBids" : "infoBid")">
+                                                        <span>@bid.User.Username</span>
+                                                        <span>@bid.BidValue €</span>
+                                                        <span>@bid.bidTime</span>
+                                                    </div>
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

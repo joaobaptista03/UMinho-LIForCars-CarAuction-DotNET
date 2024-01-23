@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var isBidsClicked = false;
     var highLightButtonLink = document.getElementById('higlLightButtonLink');
     var isHighLightButtonLink = false;
+    var removeFinishedButtonLink = document.getElementById('removeFinishedButtonLink');
+    var isRemoveFinishedButtonLink = false;
 
     function resetColorsCabecalho() {
         homeLink.style.color = '';
@@ -94,12 +96,39 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    var moreInfoButtons = document.querySelectorAll('.userLeiloes .auctionInfo button');
+    removeFinishedButtonLink.addEventListener('click', function () {
+        if (!isRemoveFinishedButtonLink) {
+            this.style.backgroundColor = 'green';
+            this.style.borderColor = 'green';
+
+            var elementsWithClass = document.getElementsByClassName("auctionInfoExtendedExpired");
+
+            for (var i = 0; i < elementsWithClass.length; i++) {
+                elementsWithClass[i].style.display = "none";
+            }
+
+            isRemoveFinishedButtonLink = true;
+        }
+        else {
+            this.style.backgroundColor = '';
+            this.style.borderColor = '';
+
+            var elementsWithClass = document.getElementsByClassName("auctionInfoExtendedExpired");
+
+            for (var i = 0; i < elementsWithClass.length; i++) {
+                elementsWithClass[i].style.display = "block";
+            }
+
+            isRemoveFinishedButtonLink = false;
+        }
+    });
+
+    var moreInfoButtons = document.querySelectorAll('.userLeiloes button');
 
     moreInfoButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             // Find the parent element with class 'auctionInfo'
-            var auctionInfoDiv = this.closest('.auctionInfoExtended');
+            var auctionInfoDiv = this.closest('.englobaAuction');
 
             // Find the '.additionalInfo' element within the 'auctionInfo' div
             var infoDiv = auctionInfoDiv.querySelector('.additionalInfo');
