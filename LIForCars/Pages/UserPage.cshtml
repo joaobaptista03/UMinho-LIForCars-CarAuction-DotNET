@@ -29,8 +29,8 @@
         </div>
         <header class="userBar">
             <nav>
-                <span id="leiloesLink">LEILÕES</span>
-                <span id="bidsLink">BIDS</span>
+                <span id="leiloesLink" style="color: #d9534f">AUCTIONS</span>
+                <span id="bidsLink" style="color: white">BIDS</span>
             </nav>
         </header>
     </div>
@@ -55,9 +55,9 @@
                 <span class="listaDados">Email: @Model.User.Email</span>
                 <span class="listaDados">Password: @Model.User.Password</span>
             </div>
-            <div class="userLeiloes">
+            <div id="leiloesContent" class="userLeiloes" style="display: block;">
                 <div class="userLeiloesCabecalho">
-                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">LEILÕES</h1>
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">MY AUCTIONS</h1>
                 </div>
                 <div>
                     @foreach(var auction in Model.Auctions) {
@@ -91,16 +91,30 @@
                                     <div style="width: 80%;">
                                         <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
                                             <span>User</span>
-                                            <span>Bid Value</span>
+                                            <div>
+                                                <span>Bid Value</span>
+                                                <div class="triangle-down"></div>
+                                            </div>
                                             <span>Time of Bid</span>
                                         </div>
-                                        @foreach(var bid in Model.BidsMap[auction].Bids) {
-                                            <div class="infoBid">
-                                                <span>@bid.User.Username</span>
-                                                <span>@bid.BidValue €</span>
-                                                <span>@bid.bidTime</span>
-                                            </div>
-                                        }
+                                        <div class="sortBidsDescending" style="display: block;">
+                                            @foreach(var bid in Model.BidsMap[auction].Bids) {
+                                                <div class="infoBid">
+                                                    <span>@bid.User.Username</span>
+                                                    <span>@bid.BidValue €</span>
+                                                    <span>@bid.bidTime</span>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="sortBidsAscending" style="display: none;">
+                                            @foreach(var bid in Model.BidsMap[auction].Bids.Reverse()) {
+                                                <div class="infoBid">
+                                                    <span>@bid.User.Username</span>
+                                                    <span>@bid.BidValue €</span>
+                                                    <span>@bid.bidTime</span>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -108,6 +122,74 @@
                     }
                 </div>
                 
+            </div>
+            <div id="bidsContent" class="userLeiloes" style="display: none;">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">MY BIDS</h1>
+                    <button id="higlLightButtonLink" class="HighLightButton">HIGHLIGHT</button>
+                </div>
+                <div>
+                    @foreach(var auction in Model.AuctionsUserBidded) {
+                        <div class="auctionInfoExtended">
+                            <div class="auctionInfo">
+                                <div class="auctionInfoCabeçalho">
+                                    <h3 class="car-model">@auction.Key.Car?.Make @auction.Key.Car?.Model (@auction.Key.Car?.LaunchYear)</h3>
+                                    <img src="@auction.Key.Car?.PicUrl" alt="@auction.Key.Car?.Make @auction.Key.Car?.Model">
+                                </div>
+                                <div class="auctionInfoResumo">
+                                    <div>
+                                        <div>
+                                            <p>Origin: @auction.Key.Car?.Origin</p>
+                                            <p>Motor: @auction.Key.Car?.Motor (@auction.Key.Car?.FuelType)</p>
+                                            <p>Milage: @auction.Key.Car?.Kms</p>
+                                            <p>Status Description: @auction.Key.Car?.StatusDescription</p>
+                                        </div>
+                                        <div>
+                                            <p>Base Price: @auction.Key.BasePrice €</p>
+                                            <p>Buy Now: @auction.Key.BuyNowPrice €</p>
+                                            <p>Starting Date: @auction.Key.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                            <p>Ending Date: @auction.Key.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                        </div>
+                                    </div>
+                                    <button class="moreInfoButton">BIDS</button>
+                                </div>
+                            </div>
+                            <div class="additionalInfo" style="display: none;">
+                                <div class="additionalInfoBox">
+                                    <div class="moreInfoEmptyColumn"></div>
+                                    <div style="width: 80%;">
+                                        <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
+                                            <span>User</span>
+                                            <div>
+                                                <span>Bid Value</span>
+                                                <div class="triangle-down"></div>
+                                            </div>
+                                            <span>Time of Bid</span>
+                                        </div>
+                                        <div class="sortBidsDescending" style="display: block;">
+                                            @foreach(var bid in auction.Value) {
+                                                <div class="@(bid.User.Username==Model.User.Username ? "infoMyBids" : "infoBid")">
+                                                    <span>@bid.User.Username</span>
+                                                    <span>@bid.BidValue €</span>
+                                                    <span>@bid.bidTime</span>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="sortBidsAscending" style="display: none;">
+                                            @foreach(var bid in auction.Value.Reverse()) {
+                                                <div class="infoBid">
+                                                    <span>@bid.User.Username</span>
+                                                    <span>@bid.BidValue €</span>
+                                                    <span>@bid.bidTime</span>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
 

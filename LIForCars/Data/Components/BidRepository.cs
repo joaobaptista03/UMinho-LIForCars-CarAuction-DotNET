@@ -71,9 +71,29 @@ namespace LIForCars.Data.Components
             
             var totalBids = await query.CountAsync();
             var bids = await query.OrderByDescending(a => a.bidTime)
-                                      .ToListAsync();
+                                  .ToListAsync();
             
             return (totalBids, bids);
+        }
+
+        public async Task<IEnumerable<Bid>> GetBidsUserParticipatedAsync(int userId) {
+
+            var auctionsIdsToGet = _context.Bid
+                                           .Where(a => a.UserId == userId)
+                                           .Select(a => a.AuctionId)
+                                           .Distinct()
+                                           .ToList();
+
+            var query = _context.Bid
+                            .Include(a => a.User)
+                            .Include(a => a.Auction)
+                            .Include(a => a.Auction.Car)
+                            .Where(a => auctionsIdsToGet.Contains(a.AuctionId));
+            
+            var bids = await query.OrderByDescending(a => a.bidTime)
+                                  .ToListAsync();
+
+            return bids;
         }
     }
 }

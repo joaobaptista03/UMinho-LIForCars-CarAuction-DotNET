@@ -52,7 +52,6 @@ header nav a aUltimo {
 }
 
 header nav span {
-    color: white;
     margin-left: 20px;
     text-transform: uppercase; /* Uppercase nav links */
     font-weight: bold;
@@ -168,9 +167,10 @@ div divLogOut:hover {
     padding-left: 2%;
     background-color: #292b2c;
     display: flex;
-    flex-direction: column; /* Align children in a column */
-    align-items: flex-start; /* Align children to the left */
+    flex-direction: row; /* Align children in a column */
+    align-items: flex-end; /* Align children to the left */
     width: 98%;
+    justify-content: space-between;
 }
 
 .auctionInfoExtended {
@@ -223,7 +223,7 @@ div divLogOut:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 50%;
+    width: 64%;
     margin-left: 3%;
     justify-content: space-between;
 }
@@ -241,6 +241,19 @@ div divLogOut:hover {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 13px;
+}
+
+.moreInfoButton {
+    font-size: 10px;
+    box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 1px;
+}
+
+.HighLightButton {
+    font-size: 7px;
+    box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+    margin-right: 1.3%;
 }
 
 .additionalInfo {
@@ -284,10 +297,68 @@ div divLogOut:hover {
     font-size: 13px;
     width: 33%;
     text-align: center; /* Center the text */
-  }
+}
 
+.infoBid > div {
+    width: 33%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 
+.infoBid > div > span {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    font-size: 13px;
+}
 
+.infoMyBids {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    border-left: 1px solid #292b2c;
+    border-top: 1px solid #292b2c;
+    box-shadow: inset 9px 0 10px -5px rgba(0, 0, 0, 0.7);
+}
+
+.infoMyBids > span {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    font-size: 13px;
+    width: 33%;
+    text-align: center; /* Center the text */
+}
+
+.infoMyBids > div {
+    width: 33%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoMyBids > div > span {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    font-size: 13px;
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid white; /* Change the color to your desired color */
+    transform: rotate(180deg);
+    margin-left: 5%;
+}
+
+.triangle-down:hover {
+    cursor: pointer;
+}
 
 
 

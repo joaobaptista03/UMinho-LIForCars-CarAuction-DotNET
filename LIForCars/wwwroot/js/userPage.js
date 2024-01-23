@@ -5,9 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var leiloesLink = document.getElementById('leiloesLink');
     var bidsLink = document.getElementById('bidsLink');
     var leiloesContent = document.getElementById('leiloesContent'); // Replace with the actual ID of the element you want to show/hide
-    var isLeiloesClicked = false;
-    var bidsContent = document.getElementById('leiloesContent'); // Replace with the actual ID of the element you want to show/hide
+    var isLeiloesClicked = true;
+    var bidsContent = document.getElementById('bidsContent'); // Replace with the actual ID of the element you want to show/hide
     var isBidsClicked = false;
+    var highLightButtonLink = document.getElementById('higlLightButtonLink');
+    var isHighLightButtonLink = false;
 
     function resetColorsCabecalho() {
         homeLink.style.color = '';
@@ -31,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function resetColorsUserBar() {
-        leiloesLink.style.color = '';
-        bidsLink.style.color = '';
+        leiloesLink.style.color = 'white';
+        bidsLink.style.color = 'white';
     }
 
     leiloesLink.addEventListener('click', function () {
@@ -65,6 +67,33 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    highLightButtonLink.addEventListener('click', function () {
+        if (!isHighLightButtonLink) {
+            this.style.backgroundColor = 'green';
+            this.style.borderColor = 'green';
+
+            var elementsWithClass = document.getElementsByClassName("infoMyBids");
+
+            for (var i = 0; i < elementsWithClass.length; i++) {
+                elementsWithClass[i].style.backgroundColor = "green";
+            }
+
+            isHighLightButtonLink = true;
+        }
+        else {
+            this.style.backgroundColor = '';
+            this.style.borderColor = '';
+
+            var elementsWithClass = document.getElementsByClassName("infoMyBids");
+
+            for (var i = 0; i < elementsWithClass.length; i++) {
+                elementsWithClass[i].style.backgroundColor = "white";
+            }
+
+            isHighLightButtonLink = false;
+        }
+    });
+
     var moreInfoButtons = document.querySelectorAll('.userLeiloes .auctionInfo button');
 
     moreInfoButtons.forEach(function (button) {
@@ -86,6 +115,43 @@ document.addEventListener('DOMContentLoaded', function () {
                 element.style.display = 'block';
             } else {
                 element.style.display = 'none';
+            }
+        }
+    }
+
+    var sortButtons = document.querySelectorAll('.userLeiloes .additionalInfo .triangle-down');
+
+    sortButtons.forEach(function (sortButton) {
+        sortButton.addEventListener('click', function () {
+            // Get the current rotation value (as a string)
+            var currentRotation = this.style.transform.replace(/[^0-9]/g, '');
+
+            // Toggle between 0 and 180 degrees
+            var newRotation = currentRotation === '0' ? '180' : '0';
+
+            // Apply the new rotation to the triangle
+            this.style.transform = 'rotate(' + newRotation + 'deg)';
+
+            // Find the parent element with class 'auctionInfo'
+            var auctionInfoDiv = this.closest('.additionalInfoBox');
+
+            // Find the '.additionalInfo' element within the 'auctionInfo' div
+            var descendingBids = auctionInfoDiv.querySelector('.sortBidsDescending');
+            var ascendingBids = auctionInfoDiv.querySelector('.sortBidsAscending');
+
+            // Toggle visibility of the '.additionalInfo' element
+            toggleAscending(descendingBids, ascendingBids);
+        });
+    });
+
+    function toggleAscending(descendingBids, ascendingBids) {
+        if (descendingBids && ascendingBids) {
+            if (descendingBids.style.display === 'none' || descendingBids.style.display === '') {
+                ascendingBids.style.display = 'none';
+                descendingBids.style.display = 'block';
+            } else {
+                descendingBids.style.display = 'none';
+                ascendingBids.style.display = 'block';
             }
         }
     }

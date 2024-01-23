@@ -26,6 +26,7 @@ public class UserPageModel : PageModel
     public int TotalCount { get; private set; }
     public IEnumerable<Auction> Auctions { get; private set; } = Enumerable.Empty<Auction>();
     public Dictionary<Auction, (int TotalBids, IEnumerable<Bid> Bids)> BidsMap { get; private set; } = new Dictionary<Auction, (int, IEnumerable<Bid>)>();
+    public Dictionary<Auction, IEnumerable<Bid>> AuctionsUserBidded { get; private set; } = new Dictionary<Auction, IEnumerable<Bid>>();
 
     public async Task OnGetAsync(int UserId)
     {
@@ -47,6 +48,16 @@ public class UserPageModel : PageModel
         {
             var bids = await _bidRepository.GetBidsAuctionAsync(a.Id);
             BidsMap[a] = bids;
+        }
+
+        // Ir buscar as bids de todos os usuários de onde o User participou
+        var bidsParticipated = await _bidRepository.GetBidsUserParticipatedAsync(UserId);
+        foreach(Bid b in bidsParticipated) {
+            if (!AuctionsUserBidded.ContainsKey(b.Auction))
+            {
+                AuctionsUserBidded[b.Auction] = new List<Bid>();
+            }
+            ((List<Bid>)AuctionsUserBidded[b.Auction]).Add(b);
         }
     }
 }
