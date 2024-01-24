@@ -14,7 +14,8 @@
 </head>
 <body>
     <div class="hero">
-        @await Html.PartialAsync("Shared/Header")
+        @await Html.PartialAsync("Shared/AnonHeader")
+        @* IF LOGGED IN @await Html.PartialAsync("Shared/UserHeader") *@
 
         @if (@Model.AuctionDetails != null && @Model.AuctionDetails.Car != null) {
             <div class="container">
