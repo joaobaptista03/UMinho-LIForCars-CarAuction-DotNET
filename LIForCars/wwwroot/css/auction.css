@@ -1,6 +1,5 @@
 .container,
-.highestbid,
-.containerImg {
+.highestbid {
     position: absolute;
     top: 30%;
     display: flex;
@@ -18,16 +17,33 @@
 }
 
 .container {
-    left: 20%; /* Position .container to the left */
+    left: 20%;
 }
 
 .highestbid {
-    left: 80%; /* Position .highestbid to the right */
+    left: 80%;
 }
 
 .containerImg {
     left: 50%;
-    width: fit-content;
+    position: absolute;
+    top: 30%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 20px; /* Padding to create space between the border and the image */
+    box-sizing: border-box; /* Include padding and border in the element's dimensions */
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.containerImg img {
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .bidbutton,

@@ -43,12 +43,12 @@ public class AuctionModel : PageModel
         AuctionDetails = _auctionRepository.GetById(auctionId);
         CurrentBid = await _bidRepository.GetCurrentBidForAuctionAsync(auctionId);
 
-        var currBidValue = AuctionDetails.BasePrice;
+        decimal currBidValue = AuctionDetails.BasePrice;
 
         if (CurrentBid != null) currBidValue = CurrentBid.BidValue;
 
         if (bidValue < currBidValue + AuctionDetails.MinIncrement) {
-            ModelState.AddModelError("BidValue", "Value must be at least " + currBidValue + AuctionDetails.MinIncrement);
+            ModelState.AddModelError("BidValue", "Value must be at least " + (currBidValue + AuctionDetails.MinIncrement));
         }
 
         var modelErrors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
