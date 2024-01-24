@@ -76,8 +76,8 @@ namespace LIForCars.Data.Components
         public async Task<(IEnumerable<Auction> auctions, int totalCount)> GetCurrentAuctionsAsync(int page, int pageSize)
         {
             var query = _context.Auction
-                .Include(a => a.Car)
-                .Where(a => a.InitDateTime <= DateTime.Now && a.EndDateTime >= DateTime.Now);
+                .Include(a => a.Car);
+                //.Where(a => a.InitDateTime <= DateTime.Now && a.EndDateTime >= DateTime.Now);
 
             var totalCount = await query.CountAsync();
             var auctions = await query.OrderBy(a => a.InitDateTime)
