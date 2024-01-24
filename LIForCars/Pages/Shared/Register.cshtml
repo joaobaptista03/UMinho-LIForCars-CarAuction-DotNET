@@ -8,8 +8,8 @@
                 <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
                 <h2>REGISTER</h2>
             </div>
-            <div id="register-error" style="color:red; text-align: center; padding:10px;"></div>
-            <div id="register-success" style="color:green; text-align:center; padding:10px;"></div>
+            <div id="register-error" style="color:red; text-align: center; padding:10px; display:none;"></div>
+            <div id="register-success" style="color:green; text-align:center; padding:10px display:none;;"></div>
             <form id="register-form" method="post" action="/Shared/Register">
                 @Html.AntiForgeryToken()
                 <input type="text" name="Name" placeholder="Name" required />                

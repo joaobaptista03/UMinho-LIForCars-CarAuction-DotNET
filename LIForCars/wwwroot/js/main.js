@@ -41,24 +41,24 @@ function showLoginPage() {
 
                         if (result.hasOwnProperty('success')) {
                             if (result.success) {
-                                $('#login-success').html('Login successful! Redirecting...');
-                                $('#login-error').html('');
+                                $('#login-success').html('Login successful! Redirecting...').show();
+                                $('#login-error').html('').hide();
                                 form.trigger('reset');
                             } else {
-                                $('#login-success').html('');
+                                $('#login-success').html('').hide();
                                 var errorMessage = result.errors ? result.errors.join('<br>') : "An unknown error occurred.";
-                                $('#login-error').html(errorMessage);
+                                $('#login-error').html(errorMessage).show();
                             }
                         } else {
                             console.error('Unexpected response format:', result);
-                            $('#login-success').html('');
-                            $('#login-error').html("An unknown error occurred.");
+                            $('#login-success').html('').hide();
+                            $('#login-error').html("An unknown error occurred.").show();
                         }
                     },
                     error: function(xhr, status, error) {
                         console.error('AJAX error:', status, error);
-                        $('#login-success').html('');
-                        $('#login-error').html("An error occurred during authentication.");
+                        $('#login-success').html('').hide();
+                        $('#login-error').html("An error occurred during authentication.").show();
                     }
                 });
             });
@@ -87,24 +87,24 @@ function showRegisterPage() {
 
                         if (result.hasOwnProperty('success')) {
                             if (result.success) {
-                                $('#register-success').html('Registration successful! Please Login now.');
-                                $('#register-error').html('');
+                                $('#register-success').html('Registration successful! Please Login now.').show();
+                                $('#register-error').html('').hide();
                                 form.trigger('reset');
                             } else {
-                                $('#register-success').html('');
+                                $('#register-success').html('').hide();
                                 var errorMessage = result.errors ? result.errors.join('<br>') : "An unknown error occurred.";
-                                $('#register-error').html(errorMessage);
+                                $('#register-error').html(errorMessage).show();
                             }
                         } else {
                             console.error('Unexpected response format:', result);
-                            $('#register-success').html('');
-                            $('#register-error').html("An unknown error occurred.");
+                            $('#register-success').html('').hide();
+                            $('#register-error').html("An unknown error occurred.").show();
                         }
                     },
                     error: function(xhr, status, error) {
                         console.error('AJAX error:', status, error);
-                        $('#register-success').html('');
-                        $('#register-error').html("An error occurred during registration.");
+                        $('#register-success').html('').hide();
+                        $('#register-error').html("An error occurred during registration.").show();
                     }
                 });
             });

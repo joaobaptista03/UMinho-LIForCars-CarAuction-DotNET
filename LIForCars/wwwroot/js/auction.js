@@ -30,24 +30,24 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.hasOwnProperty('success')) {
                     if (response.success) {
-                        $('#current-bid').html('Current Bid: ' + bidValue.toFixed(2));
-                        $('#bid-success').html('Bidded successfuly!...');
-                        $('#bid-error').html('');
+                        $('#current-bid').html('Current Bid: ' + bidValue.toFixed(2) + ' €');
+                        $('#bid-success').html('Bidded successfully!').show();
+                        $('#bid-error').hide().html('');
                         form.trigger('reset');
                     } else {
-                        $('#bid-success').html('');
+                        $('#bid-success').hide().html('');
                         var errorMessage = response.errors ? response.errors.join('<br>') : "An unknown error occurred.";
-                        $('#bid-error').html(errorMessage);
+                        $('#bid-error').html(errorMessage).show();
                     }
                 } else {
-                    $('#bid-success').html('');
-                    $('#bid-error').html("An unknown error occurred.");
-        }
+                    $('#bid-success').hide().html('');
+                    $('#bid-error').html("An unknown error occurred.").show();
+                }
             },
             error: function(xhr, status, error) {
-                $('#bid-success').html('');
-                $('#bid-error').html("An error occurred during bidding.");
-    }
+                $('#bid-success').hide().html('');
+                $('#bid-error').html("An error occurred during bidding.").show();
+            }
         });
     });
 });

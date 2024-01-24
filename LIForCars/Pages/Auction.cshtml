@@ -7,9 +7,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIForCars</title>
-    <link href="~/css/auction.css" rel="stylesheet" />
     <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/css/auction.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/main.js"></script>
     <script src="~/js/auction.js"></script>
 </head>
 <body>
@@ -42,11 +43,11 @@
                         @Model.CurrentBid.BidValue
                     } else {
                         @Model.AuctionDetails.BasePrice
-                    }
+                    } €
                 </p>
                 <p>Start Time: @Model.AuctionDetails.InitDateTime</p>
                 <p>End Time: @Model.AuctionDetails.EndDateTime</p>
-                <p>Buy Now Price: @Model.AuctionDetails.BuyNowPrice</p>
+                <p>Buy Now Price: @Model.AuctionDetails.BuyNowPrice €</p>
                 <button href="#" name="bidAmount" onclick="showBidPage()" class="bidbutton">Place your Bid</button>
                 <button href="#" data-target="buy" class="buybutton" data-target="buy">Buy Now</button>
             </div>
@@ -58,8 +59,8 @@
                             <span class="close-btn" onclick="closeBidPage()">&times;</span>
                             <h2>Place bid</h2>
                         </div>
-                        <div id="bid-error" style="color:red; text-align: center; padding:10px;"></div>
-                        <div id="bid-success" style="color:green; text-align:center; padding:10px;"></div>
+                        <div id="bid-error" style="color:red; text-align: center; padding:10px; display:none;"></div>
+                        <div id="bid-success" style="color:green; text-align:center; padding:10px; display:none"></div>
                         <p>(Your bid must be at least @Model.AuctionDetails.MinIncrement above the current highest bid)</p>
                         <form id="bid-form" asp-page-handler="OnPostPlaceBid">
                             @Html.AntiForgeryToken()
@@ -95,6 +96,11 @@
             </div>
         }
     </div>
+
+    <div id="about-section" style="display:none;"></div>
+    <div id="contact-section" style="display:none;"></div>
+    <div id="login-section" style="display:none;"></div>
+    <div id="register-section" style="display:none;"></div>
 
     @await Html.PartialAsync("Shared/Footer")
 </body>

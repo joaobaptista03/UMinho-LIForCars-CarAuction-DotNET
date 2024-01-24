@@ -8,8 +8,8 @@
                 <span class="close-btn" onclick="closeLoginPage()">&times;</span>
                 <h2>LOG IN</h2>
             </div>
-            <div id="login-error" style="color:red; text-align: center; padding:10px;"></div>
-            <div id="login-success" style="color:green; text-align:center; padding:10px;"></div>
+            <div id="login-error" style="color:red; text-align: center; padding:10px; display: none;"></div>
+            <div id="login-success" style="color:green; text-align:center; padding:10px; display: none;"></div>
             <form id="login-form" method="post" action="/Shared/Login">
                 @Html.AntiForgeryToken()
                 <input type="text" name="Username" placeholder="Username / Email" />
