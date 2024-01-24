@@ -9,6 +9,7 @@
     <title>LIForCars</title>
     <link href="~/css/auction.css" rel="stylesheet" />
     <link href="~/css/main.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/js/auction.js"></script>
 </head>
 <body>
@@ -35,11 +36,15 @@
 
             <div class="highestbid">
                 <h2>Bidding</h2>
-                <p>Current Bid: </p>
+                @if (@Model.CurrentBid != null) {
+                    <p>Current Bid: @Model.CurrentBid.BidValue</p>
+                } else {
+                    <p>Current Bid: @Model.AuctionDetails.BasePrice</p>
+                }
                 <p>Start Time: @Model.AuctionDetails.InitDateTime</p>
                 <p>End Time: @Model.AuctionDetails.EndDateTime</p>
                 <p>Buy Now Price: @Model.AuctionDetails.BuyNowPrice</p>
-                <button href="#" data-target="bid" class="bidbutton" data-target="bid">Place your Bid</button>
+                <button href="#" name="bidAmount" onclick="showBidPage()" class="bidbutton">Place your Bid</button>
                 <button href="#" data-target="buy" class="buybutton" data-target="buy">Buy Now</button>
             </div>
 
@@ -51,8 +56,9 @@
                             <h2>Place bid</h2>
                         </div>
                         <p>(Your bid must be at least @Model.AuctionDetails.MinIncrement above the current highest bid)</p>
-                        <form id="bidForm" method="post" action="api/Bid/Update">
-                            <input type="text" id="bid" name="bid" placeholder="Your Bid" required/>
+                        <form id="bid-form" asp-page-handler="OnPostPlaceBid">
+                            @Html.AntiForgeryToken()
+                            <input type="text" id="bid" name="bidValue" placeholder="Your Bid" required/>
                             <div class="modal-footer">
                                 <button type="submit">Submit</button>
                             </div>
@@ -77,6 +83,7 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="auctionId" value="@Model.AuctionDetails.Id" />
         } else {
             <div class="containerImg">
                 <p>Auction Not Found</p>

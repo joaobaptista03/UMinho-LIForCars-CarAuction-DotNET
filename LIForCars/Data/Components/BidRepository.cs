@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using LIForCars.Data.Interfaces;
 using LIForCars.Models;
 
@@ -61,6 +62,14 @@ namespace LIForCars.Data.Components
                 return false;
             }
             return true;
+        }
+
+        public async Task<Bid?> GetCurrentBidForAuctionAsync(int auctionId)
+        {
+            return await _context.Bid
+                                 .Where(b => b.AuctionId == auctionId)
+                                 .OrderByDescending(b => b.BidValue)
+                                 .FirstOrDefaultAsync();
         }
     }
 }
