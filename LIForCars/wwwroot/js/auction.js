@@ -19,6 +19,9 @@ $(document).ready(function() {
         event.preventDefault();
     
         var form = $(this);
+        var bidValue = parseFloat($('#bid').val());
+        console.log(bidValue);
+
         $.ajax({
             url: '/Auction?handler=PlaceBid',
             type: 'POST',
@@ -27,6 +30,7 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.hasOwnProperty('success')) {
                     if (response.success) {
+                        $('#current-bid').html('Current Bid: ' + bidValue.toFixed(2));
                         $('#bid-success').html('Bidded successfuly!...');
                         $('#bid-error').html('');
                         form.trigger('reset');

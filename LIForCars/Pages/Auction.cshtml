@@ -37,11 +37,13 @@
 
             <div class="highestbid">
                 <h2>Bidding</h2>
-                @if (@Model.CurrentBid != null) {
-                    <p>Current Bid: @Model.CurrentBid.BidValue</p>
-                } else {
-                    <p>Current Bid: @Model.AuctionDetails.BasePrice</p>
-                }
+                <p id="current-bid">Current Bid: 
+                    @if (@Model.CurrentBid != null) {
+                        @Model.CurrentBid.BidValue
+                    } else {
+                        @Model.AuctionDetails.BasePrice
+                    }
+                </p>
                 <p>Start Time: @Model.AuctionDetails.InitDateTime</p>
                 <p>End Time: @Model.AuctionDetails.EndDateTime</p>
                 <p>Buy Now Price: @Model.AuctionDetails.BuyNowPrice</p>
