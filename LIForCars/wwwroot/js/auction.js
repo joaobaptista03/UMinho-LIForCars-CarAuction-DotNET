@@ -17,8 +17,7 @@ function closeBuyPage() {
 $(document).ready(function() {
     $('#bid-form').submit(function(event) {
         event.preventDefault();
-        var auctionId = $('#auction-data').data('auction-id');
-
+    
         var form = $(this);
         $.ajax({
             url: '/Auction?handler=PlaceBid',
@@ -26,26 +25,25 @@ $(document).ready(function() {
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: form.serialize(),
             success: function(response) {
-                console.log('AJAX success response:', response);
-
                 if (response.hasOwnProperty('success')) {
                     if (response.success) {
-                        alert("Bid placed successfully!");
+                        $('#bid-success').html('Bidded successfuly!...');
+                        $('#bid-error').html('');
                         form.trigger('reset');
-                        closeBidPage();
                     } else {
-                        var errorMessage = response.errorMessage || "Failed to place bid.";
-                        alert(errorMessage);
+                        $('#bid-success').html('');
+                        var errorMessage = response.errors ? response.errors.join('<br>') : "An unknown error occurred.";
+                        $('#bid-error').html(errorMessage);
                     }
                 } else {
-                    console.error('Unexpected response format:', response);
-                    alert("An unexpected error occurred.");
-                }
+                    $('#bid-success').html('');
+                    $('#bid-error').html("An unknown error occurred.");
+        }
             },
             error: function(xhr, status, error) {
-                console.error('AJAX error:', status, error);
-                alert("An error occurred while placing the bid.");
-            }
+                $('#bid-success').html('');
+                $('#bid-error').html("An error occurred during bidding.");
+    }
         });
     });
 });

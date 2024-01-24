@@ -56,9 +56,12 @@
                             <span class="close-btn" onclick="closeBidPage()">&times;</span>
                             <h2>Place bid</h2>
                         </div>
+                        <div id="bid-error" style="color:red; text-align: center; padding:10px;"></div>
+                        <div id="bid-success" style="color:green; text-align:center; padding:10px;"></div>
                         <p>(Your bid must be at least @Model.AuctionDetails.MinIncrement above the current highest bid)</p>
                         <form id="bid-form" asp-page-handler="OnPostPlaceBid">
                             @Html.AntiForgeryToken()
+                            <input type="hidden" name="auctionId" value="@Model.AuctionDetails.Id" />
                             <input type="text" id="bid" name="bidValue" placeholder="Your Bid" required/>
                             <div class="modal-footer">
                                 <button type="submit">Submit</button>
@@ -84,7 +87,6 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="auctionId" value="@Model.AuctionDetails.Id" />
         } else {
             <div class="containerImg">
                 <p>Auction Not Found</p>

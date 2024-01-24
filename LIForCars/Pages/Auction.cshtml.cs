@@ -40,16 +40,15 @@ public class AuctionModel : PageModel
     }
 
     public async Task<IActionResult> OnPostPlaceBid() {
-        Console.WriteLine("AuctionId: " + auctionId);
-            
         AuctionDetails = _auctionRepository.GetById(auctionId);
         CurrentBid = await _bidRepository.GetCurrentBidForAuctionAsync(auctionId);
 
-        if (AuctionDetails == null) return new JsonResult(new { success = false, errors = new List<string> { "Auction not found" } });
-        if (CurrentBid == null) return new JsonResult(new { success = false, errors = new List<string> { "Bid not found" } });
+        var currBidValue = AuctionDetails.BasePrice;
 
-        if (bidValue < CurrentBid.BidValue + AuctionDetails.MinIncrement) {
-            ModelState.AddModelError("BidValue", "Value must be at least " + CurrentBid.BidValue + AuctionDetails.MinIncrement);
+        if (CurrentBid != null) currBidValue = CurrentBid.BidValue;
+
+        if (bidValue < currBidValue + AuctionDetails.MinIncrement) {
+            ModelState.AddModelError("BidValue", "Value must be at least " + currBidValue + AuctionDetails.MinIncrement);
         }
 
         var modelErrors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
@@ -58,7 +57,7 @@ public class AuctionModel : PageModel
         
         var bid = new Bid {
             AuctionId = auctionId,
-            UserId = 0,
+            UserId = 2,
             BidValue = bidValue,
             bidTime = DateTime.Now
         };

@@ -23,7 +23,7 @@ function showContactPage() {
 function showLoginPage() {
     closeRegisterPage();
     $.ajax({
-        url: '/Index?handler=LoginPartial',
+        url: '/handler=LoginPartial',
         type: 'GET',
         success: function (data) {
             $('#login-section').html(data);
@@ -31,14 +31,13 @@ function showLoginPage() {
 
             $('#login-section').on('submit', '#login-form', function(event) {
                 event.preventDefault();
+
                 var form = $(this);
                 $.ajax({
                     url: form.attr('action'),
                     type: 'POST',
                     data: form.serialize(),
                     success: function(result) {
-                        console.log('AJAX success response:', result);
-
                         if (result.hasOwnProperty('success')) {
                             if (result.success) {
                                 $('#login-success').html('Login successful! Redirecting...');
@@ -50,13 +49,11 @@ function showLoginPage() {
                                 $('#login-error').html(errorMessage);
                             }
                         } else {
-                            console.error('Unexpected response format:', result);
                             $('#login-success').html('');
                             $('#login-error').html("An unknown error occurred.");
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error('AJAX error:', status, error);
                         $('#login-success').html('');
                         $('#login-error').html("An error occurred during authentication.");
                     }
