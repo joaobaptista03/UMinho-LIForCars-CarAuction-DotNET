@@ -56,9 +56,11 @@ public class AuctionModel : PageModel
         if (!ModelState.IsValid) return new JsonResult(new { success = false, errors = modelErrors });
         
         
+        var UserNameIdentifier = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (UserNameIdentifier == null) return new JsonResult(new { success = false, errors = new List<string> { "Unknown Error" } });
         var bid = new Bid {
             AuctionId = auctionId,
-            UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value),
+            UserId = int.Parse(UserNameIdentifier),
             BidValue = bidValue,
             bidTime = DateTime.Now
         };

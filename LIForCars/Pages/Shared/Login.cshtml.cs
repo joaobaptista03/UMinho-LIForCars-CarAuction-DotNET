@@ -33,10 +33,12 @@ public class LoginModel : PageModel
 
         bool isAdmin = await userRepository.IsAdminAsync(Username);
 
+        var UserId = userRepository.GetIdByUsername(Username).ToString();
+        if (UserId == null) return new JsonResult(new { success = false, errors = new List<string> { "Unknown Error" } });
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, Username),
-            new Claim(ClaimTypes.NameIdentifier, userRepository.GetIdByUsername(Username).ToString()),
+            new Claim(ClaimTypes.NameIdentifier, UserId),
             new Claim(ClaimTypes.Role, isAdmin ? "Administrator" : "User")
         };
 

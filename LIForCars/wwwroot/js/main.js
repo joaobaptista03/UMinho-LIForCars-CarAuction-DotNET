@@ -8,6 +8,14 @@ $(document).ready(function() {
             $('#header-section').on('submit', '#logout-form', logout);
         }
     });
+    $.ajax({
+        url: '/Index?handler=FooterPartial',
+        type: 'GET',
+        success: function(data) {
+            $('#footer-section').html(data);
+            $('#footer-section').show();
+        }
+    });
 });
 
 function logout(event) {
