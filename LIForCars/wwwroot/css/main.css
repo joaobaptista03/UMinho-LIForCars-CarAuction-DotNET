@@ -70,19 +70,35 @@ body, html {
 
 div divSignIn {
     background-color: #d9534f;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding: 4px 10px;
     font-size: 22px;
     margin-left: 20px;
 }
 
 div divSignIn:hover {
-    background-color: #c9302c; /* Darken the background color on hover */
-    transform: translateY(2px); /* Move the button down slightly on hover */
+    background-color: #c9302c;
+    transform: translateY(2px);
     cursor: pointer;
 }
+
+.signout-button {
+    background-color: #d9534f;
+    padding: 4px 10px;
+    font-size: 22px;
+    color: white;
+    border: none;
+    margin-left: 20px;
+    border-radius: 0;
+    font-family: 'Saira Condensed Bold', sans-serif;
+    margin-top: 0;
+}
+
+.signout-button:hover {
+    background-color: #c9302c;
+    transform: translateY(2px);
+    cursor: pointer;
+}
+
 
 header {
     position: fixed;
@@ -94,6 +110,11 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between; 
+}
+
+header nav {
+    display: flex;
+    align-items: center;
 }
 
 header nav a {
@@ -111,13 +132,18 @@ header h2 {
     text-shadow: -5px 10px 10px rgba(0, 0, 0, 0.94);
 }
 
+
+nav a.active {
+    color: #d9534f; /* Adjust the color to match your site's theme */
+    text-decoration: underline;
+}
+
 .hero {
     background: url('../images/gt3.jpeg') no-repeat center center; /* Adjust the path as needed */
     background-size: cover;
     height: 95vh; /* 70% of the viewport height */
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
@@ -237,9 +263,4 @@ button:hover {
     top: 10px;
     right: 10px;
     font-size: 20px;
-}
-
-nav a.active {
-    color: #d9534f; /* Adjust the color to match your site's theme */
-    text-decoration: underline;
 }

@@ -14,8 +14,7 @@ public class AuctionModel : PageModel
         _bidRepository = bidRepository;
     }
 
-    public IActionResult OnGetUserHeaderPartial() => Partial("Shared/UserHeader");
-    public IActionResult OnGetAnonHeaderPartial() => Partial("Shared/AnonHeader");
+    public IActionResult OnGetHeaderPartial() => Partial("Shared/Header");
     public IActionResult OnGetFooterPartial() => Partial("Shared/Footer");
     public IActionResult OnGetAboutPartial() => Partial("Shared/About");
     public IActionResult OnGetContactPartial() => Partial("Shared/Contact");
@@ -43,6 +42,7 @@ public class AuctionModel : PageModel
         AuctionDetails = _auctionRepository.GetById(auctionId);
         CurrentBid = await _bidRepository.GetCurrentBidForAuctionAsync(auctionId);
 
+        if (AuctionDetails == null) return new JsonResult(new { success = false, errors = new List<string> { "Auction not found" } });
         decimal currBidValue = AuctionDetails.BasePrice;
 
         if (CurrentBid != null) currBidValue = CurrentBid.BidValue;
@@ -57,7 +57,7 @@ public class AuctionModel : PageModel
         
         var bid = new Bid {
             AuctionId = auctionId,
-            UserId = 2,
+            UserId = 0 /*mudar*/,
             BidValue = bidValue,
             bidTime = DateTime.Now
         };
