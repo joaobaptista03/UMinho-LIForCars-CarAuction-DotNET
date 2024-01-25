@@ -65,5 +65,11 @@ namespace LIForCars.Data.Components
         public bool CCExists(int cc) => _context.Administrators.Any(a => a.CC == cc);
         public bool PhoneExists(int phone) => _context.Administrators.Any(a => a.Phone == phone);
         public bool UsernameExists(string username) => _context.Administrators.Any(a => a.Username == username);
+
+        public bool isAdmin(string username)
+        {
+            var admin = _context.Administrators.FirstOrDefault(a => a.Username == username);
+            return admin != null;
+        }
     }
 }

@@ -80,5 +80,13 @@ namespace LIForCars.Data.Components
                 return false;
             }
         }
+
+        public async Task<bool> IsAdminAsync(string username)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Username == username);
+            if (user != null)
+                return user is Administrator;
+            return false;
+        }
     }
 }

@@ -1,3 +1,38 @@
+$(document).ready(function() {
+    $.ajax({
+        url: '/Index?handler=HeaderPartial',
+        type: 'GET',
+        success: function(data) {
+            $('#header-section').html(data);
+            $('#header-section').show();
+            $('#header-section').on('submit', '#logout-form', logout);
+        }
+    });
+});
+
+function logout(event) {
+    event.preventDefault();
+    var form = $(this);
+    var token = form.find('input[name="__RequestVerificationToken"]').val();
+    $.ajax({
+        url: form.attr('action'),
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': token
+        },
+        success: function(result) {
+            if (result.hasOwnProperty('success') && result.success) {
+                window.location.reload();
+            } else {
+                console.error('Logout failed:', result);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Logout failed:', xhr, status, error);
+        }
+    });
+}
+
 function showAboutPage() {
     $.ajax({
         url: '/Index?handler=AboutPartial',
@@ -44,6 +79,9 @@ function showLoginPage() {
                                 $('#login-success').html('Login successful! Redirecting...').show();
                                 $('#login-error').html('').hide();
                                 form.trigger('reset');
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 1000);
                             } else {
                                 $('#login-success').html('').hide();
                                 var errorMessage = result.errors ? result.errors.join('<br>') : "An unknown error occurred.";
@@ -134,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     navLinks.forEach(link => {
         if(link.getAttribute('href') === currentPath) {
-            link.classList.add('active'); // Ensure you define the .active class in your CSS
+            link.classList.add('active');
         }
     });
 });

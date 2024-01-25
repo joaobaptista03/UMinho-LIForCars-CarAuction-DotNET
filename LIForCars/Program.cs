@@ -24,6 +24,20 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
+builder.Services.AddAuthentication("AuthCookies")
+    .AddCookie("AuthCookies", options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = true;
+    });
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Console()
@@ -58,6 +72,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
