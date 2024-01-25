@@ -47,7 +47,7 @@
                 <p>Start Time: @Model.AuctionDetails.InitDateTime</p>
                 <p>End Time: @Model.AuctionDetails.EndDateTime</p>
                 <p>Buy Now Price: @Model.AuctionDetails.BuyNowPrice €</p>
-                @if (User.Identity.IsAuthenticated) {
+                @if (User.Identity != null && User.Identity.IsAuthenticated) {
                     <button href="#" name="bidAmount" onclick="showBidPage()" class="bidbutton">Place your Bid</button>
                     <button href="#" data-target="buy" class="buybutton" data-target="buy">Buy Now</button>
                 }

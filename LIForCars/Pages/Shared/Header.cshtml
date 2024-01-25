@@ -13,15 +13,7 @@
             <a href="#">AUCTIONS</a>
         }
 
-        @if (User.Identity.IsAuthenticated) {
-            <divSignIn>
-                <a2 href="#" class="signin">@User.Identity.Name</a2>
-            </divSignIn>
-            <form method="post" id="logout-form" action="/Shared/Header">
-                @Html.AntiForgeryToken()
-                <button type="submit" class="signout-button">SIGN OUT</button>
-            </form>
-        } else if (User.IsInRole("Admin")) {
+        @if (User.Identity != null && User.Identity.IsAuthenticated) {
             <divSignIn>
                 <a2 href="#" class="signin">@User.Identity.Name</a2>
             </divSignIn>
