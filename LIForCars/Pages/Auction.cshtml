@@ -53,6 +53,7 @@
                 }
             </div>
 
+            @if (User.Identity != null && User.Identity.IsAuthenticated) {
             <div id="bid-page" style="display: none;">
                 <div class="modal-backdrop">
                     <div class="modal-content">
@@ -91,6 +92,7 @@
                     </div>
                 </div>
             </div>
+        }
         } else {
             <div class="containerImg">
                 <p>Auction Not Found</p>
