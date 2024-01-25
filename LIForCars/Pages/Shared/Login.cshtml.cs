@@ -36,6 +36,7 @@ public class LoginModel : PageModel
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, Username),
+            new Claim(ClaimTypes.NameIdentifier, userRepository.GetIdByUsername(Username).ToString()),
             new Claim(ClaimTypes.Role, isAdmin ? "Administrator" : "User")
         };
 

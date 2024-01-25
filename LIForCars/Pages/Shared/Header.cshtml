@@ -3,13 +3,17 @@
 
 <header>
     <h2>LIFORCARS</h2>
-        <nav>
+    <nav>
         <a href="/">HOME</a>
-        <a href="#" onclick="showAboutPage()">ABOUT</a>
-        <a href="#" onclick="showContactPage()">CONTACT</a>
-        <a href="/CurrentAuctions">CURRENT AUCTIONS</a> 
+        @if (!User.IsInRole("Administrator")) {
+            <a href="#" onclick="showAboutPage()">ABOUT</a>
+            <a href="#" onclick="showContactPage()">CONTACT</a>
+            <a href="/CurrentAuctions">CURRENT AUCTIONS</a> 
+        } else {
+            <a href="#">AUCTIONS</a>
+        }
 
-        @if (User.Identity.IsAuthenticated) {
+        @if (User.Identity != null && User.Identity.IsAuthenticated) {
             <divSignIn>
                 <a2 href="#" class="signin">@User.Identity.Name</a2>
             </divSignIn>
@@ -17,8 +21,7 @@
                 @Html.AntiForgeryToken()
                 <button type="submit" class="signout-button">SIGN OUT</button>
             </form>
-        }
-        else {
+        } else {
             <divSignIn>
                 <a2 href="#" onclick="showLoginPage()" class="signin">SIGN IN</a2>
             </divSignIn>

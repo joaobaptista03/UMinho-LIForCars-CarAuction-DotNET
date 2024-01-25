@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using LIForCars.Models;
 using LIForCars.Data.Interfaces;
+using System.Security.Claims;
 
 public class AuctionModel : PageModel
 {
@@ -57,7 +58,7 @@ public class AuctionModel : PageModel
         
         var bid = new Bid {
             AuctionId = auctionId,
-            UserId = 0 /*mudar*/,
+            UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value),
             BidValue = bidValue,
             bidTime = DateTime.Now
         };
