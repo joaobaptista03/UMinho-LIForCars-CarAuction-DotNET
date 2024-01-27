@@ -127,8 +127,33 @@ div divLogOut:hover {
     align-items: center;
 }
 
-.auctionsDiv {
+.criarLeilaoDiv {
     padding-top: 3%;
+    padding-bottom: 1%;
+    width: 100%;
+    display: flex; /* Use flexbox to arrange child elements */
+    justify-content: center; /* Add space between child elements */
+    align-items: flex-start; /* Center child elements vertically */
+}
+
+.criarLeilaoDiv > div {
+    width: 70%; /* Adjust the width based on your preference */
+    display: flex;
+    flex-direction: column; /* Align children in a column */
+    align-items: flex-end; /* Align children to the left */
+}
+
+.criarLeilaoDiv > div > button {
+    font-size: 15px;
+    box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 1px;
+    width: 14%;
+    height: 12%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+.auctionsDiv {
     padding-bottom: 1%;
     width: 100%;
     display: flex; /* Use flexbox to arrange child elements */
@@ -343,8 +368,60 @@ div divLogOut:hover {
     margin-left: 5%;
 }
 
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid white; /* Change the color to your desired color */
+    margin-left: 5%;
+}
+
+.line {
+    border-top: 1px solid #000;
+}
+
+.auctionFiltersOptions {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 .triangle-down:hover {
     cursor: pointer;
+}
+
+.PageNavigationDiv {
+    padding-top: 1%;
+    padding-bottom: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.PageNavigationDiv > div {
+    color: #292b2c;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.arrow {
+    border: solid #292b2c;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin: 0;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+  
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
 }
 
 
