@@ -95,5 +95,15 @@ namespace LIForCars.Data.Components
 
             return bids;
         }
+
+        public async Task<float?> GetHighestBidAuctionAsync(int auctionId) {
+
+            var highestBidRecord = await _context.Bid
+                                           .Where(a => a.AuctionId == auctionId)
+                                           .OrderByDescending(a => a.BidValue)
+                                           .FirstOrDefaultAsync();
+
+            return highestBidRecord?.BidValue != null ? (float?)highestBidRecord.BidValue : null;
+        }
     }
 }

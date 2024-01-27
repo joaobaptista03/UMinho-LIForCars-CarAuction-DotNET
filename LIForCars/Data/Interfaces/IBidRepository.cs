@@ -11,5 +11,6 @@ namespace LIForCars.Data.Interfaces
         bool Delete(int id);
         Task<(int totalBids, IEnumerable<Bid> auctions)> GetBidsAuctionAsync(int idAuction);
         Task<IEnumerable<Bid>> GetBidsUserParticipatedAsync(int userId);
+        Task<float?> GetHighestBidAuctionAsync(int auctionId);
     }
 }

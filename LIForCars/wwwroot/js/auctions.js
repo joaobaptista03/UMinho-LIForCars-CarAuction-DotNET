@@ -86,15 +86,28 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-
-
-
-
-
-
-
     
+    var highestBidAscending = document.getElementById('highestBidAscending');
+
+    if (highestBidAscending != null) {
+        highestBidAscending.addEventListener('click', function () {
+
+            if (this.style.borderBottom!="5px solid white") {
+                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeAscending.dataset.currentpage)) + '&OrderBy=HighestBidAscending';
+            }
+        });
+    }
+
+    var highestBidDescending = document.getElementById('highestBidDescending');
+
+    if (highestBidDescending != null) {
+        highestBidDescending.addEventListener('click', function () {
+
+            if (this.style.borderBottom!="5px solid white") {
+                window.location.href = '/Auctions?CurrentPage=' + (parseInt(highestBidDescending.dataset.currentpage)) + '&OrderBy=HighestBidDescending';
+            }
+        });
+    }
 
     function sortBidsDescending(auctionId) {
         var bidsContainer = document.querySelector(`#${auctionId} .bidsContainer`);
@@ -203,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     var filtro = separarFiltro[1].trim().replace(/\s+/g, '_');
                     filtrados = document.querySelectorAll('.Origin' + filtro);
                     break;
-                case "Origin":
+                case "Motor":
                     var filtro = separarFiltro[1].trim().replace(/\s+/g, '_');
                     filtrados = document.querySelectorAll('.Motor' + filtro);
                     break;
