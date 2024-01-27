@@ -77,7 +77,7 @@ namespace LIForCars.Data.Components
         {
             var query = _context.Auction
                 .Include(a => a.Car)
-                .Where(a => a.Autorizado && a.InitDateTime <= DateTime.Now && a.EndDateTime >= DateTime.Now);
+                .Where(a => a.Autorized && a.InitDateTime <= DateTime.Now && a.EndDateTime >= DateTime.Now);
 
             var totalCount = await query.CountAsync();
 
