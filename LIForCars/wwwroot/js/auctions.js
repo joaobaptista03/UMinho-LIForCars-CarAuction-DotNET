@@ -49,6 +49,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    var timeToEndAuction = document.querySelectorAll('.userLeiloes .timeToEndAuction')
+    var currentTime = new Date();
+
+    function checkIfEnding() {
+        timeToEndAuction.forEach(function (timeLeftElement) {
+            var endDateTimeString = timeLeftElement.dataset.enddatetime;
+            var [day, month, year] = endDateTimeString.split('/');
+            var endDateTime = new Date(`${month}/${day}/${year}`);
+            currentTime = new Date();
+            var timeLeft = (endDateTime - currentTime) / 1000;
+
+            if (timeLeft<=0) {
+                var auction = timeLeftElement.closest('.englobaAuction');
+                auction.remove();
+            } else {
+                timeLeftElement.textContent = Math.ceil(timeLeft) + ' seconds';
+                timeLeftElement.style.display = 'block';
+                if (timeLeftElement.style.color=='black') {
+                    timeLeftElement.style.color='red'
+                } else {
+                    timeLeftElement.style.color='black'
+                }
+            }
+        })
+
+        currentTime = new Date();
+        timeToEndAuction = document.querySelectorAll('.userLeiloes .timeToEndAuction')
+    }
+
+    setInterval(checkIfEnding, 800);
+
     var previousButton = document.getElementById('previousButton');
 
     if (previousButton != null) {
@@ -175,8 +206,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     initializeSorting();
-
-
 
     document.getElementById('searchInput').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {

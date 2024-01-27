@@ -447,7 +447,36 @@ div divLogOut:hover {
     -webkit-transform: rotate(135deg);
 }
 
+.helpInfo {
+    background-color: rgba(255, 0, 0, 0.8);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    padding: 1%;
+    border-radius: 11%;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 14%;
+    margin-bottom: -9%;
+}
 
+.helpInfo > p {
+    color: white;
+    font-size: 19px;
+    margin: 0;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.helpInfo > span {
+    color: white;
+    font-size: 14px;
+}
+
+.helpInfo-trigger:hover + .helpInfo {
+    display: flex;
+}
 
 
 footer {

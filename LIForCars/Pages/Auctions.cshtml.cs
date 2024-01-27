@@ -30,20 +30,7 @@ public class AuctionsModel : PageModel
 
     public async Task OnGetAsync()
     {
-
-        if (OrderBy=="RemainingTimeAscending") {
-            // Ir buscar os leilões do user
-            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeAscending");
-            Auctions = result.auctions;
-            TotalCount = result.totalCount;
-
-            // Ir buscar as bids de um leilão
-            foreach (Auction a in Auctions)
-            {
-                var bids = await _bidRepository.GetBidsAuctionAsync(a.Id);
-                BidsMap[a] = bids;
-            }
-        } else if (OrderBy=="RemainingTimeDescending") {
+        if (OrderBy=="RemainingTimeDescending") {
             // Ir buscar os leilões do user
             var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending");
             Auctions = result.auctions;
@@ -104,6 +91,18 @@ public class AuctionsModel : PageModel
 
             // Deixar só as auctions
             Auctions = sortedAuctionsAux.Select(tuple => tuple.Item2).ToList();
+
+            // Ir buscar as bids de um leilão
+            foreach (Auction a in Auctions)
+            {
+                var bids = await _bidRepository.GetBidsAuctionAsync(a.Id);
+                BidsMap[a] = bids;
+            }
+        } else {
+            // Ir buscar os leilões do user
+            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeAscending");
+            Auctions = result.auctions;
+            TotalCount = result.totalCount;
 
             // Ir buscar as bids de um leilão
             foreach (Auction a in Auctions)

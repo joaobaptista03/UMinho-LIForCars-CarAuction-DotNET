@@ -74,7 +74,19 @@
                     </div>
                     <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 108%;">
                         <input type="text" id="searchInput" placeholder="Category, Motor ..." style=" width: 80%;"/>
-                        <img src="../images/help.svg" alt="Help Icon" style="width: 14%; height: auto;">
+                        <img class="helpInfo-trigger" src="../images/help.svg" alt="Help Icon" style="width: 14%; height: auto;">
+                        <div class="helpInfo">
+                            <p>Use the following formats to filter auctions</p>
+                            <span>Make: {Name}</span>
+                            <span>Model: {Name}</span>
+                            <span>Year: {Number}</span>
+                            <span>Origin: {Name}</span>
+                            <span>Motor: {Name}</span>
+                            <span>Status: {Name}</span>
+                            <span>Kms: {minValue} - {maxValue}</span>
+                            <span>Base price: {minValue} - {maxValue}</span>
+                            <span>Price: {minValue} - {maxValue}</span>
+                        </div>
                     </div>
                     
                 </div>
@@ -103,10 +115,14 @@
                                             <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
                                         </div>
                                     </div>
-                                    <div class="AuctionOptions">
-                                        <button class="moreInfoButton">MORE INFO</button>
-                                        <button class="moreInfoButton">BIDS</button>
+                                    <div style="flex-direction: column; align-items: flex-end;">
+                                        <span class="timeToEndAuction" data-enddatetime="@auction.EndDateTime" style="margin-bottom: 11%; color: black; font-size: 14px; margin-right: 1%;">@Math.Ceiling((auction.EndDateTime - DateTime.Now).TotalSeconds) seconds</span>
+                                        <div class="AuctionOptions" style="flex-direction: row; width: 31%;">
+                                            <button class="moreInfoButton">MORE INFO</button>
+                                            <button class="moreInfoButton">BIDS</button>
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                             <div class="additionalInfo" style="display: none;">
