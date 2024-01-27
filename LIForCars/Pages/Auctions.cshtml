@@ -43,17 +43,37 @@
                     <div>
                         <span id="sortByTimeRemaining" style="color: white">REMAINING TIME</span>
                         <div class="auctionFiltersOptions">
-                            <div class="triangle-down remainingTime"></div>
+                            @if (@Model.OrderBy=="RemainingTimeAscending") {
+                                <div id="remainingTimeAscending" data-currentpage="@Model.CurrentPage" class="triangle-up-RemainigTime" style="border-bottom: 5px solid white;"></div>
+                            } else {
+                                <div id="remainingTimeAscending" data-currentpage="@Model.CurrentPage" class="triangle-up-RemainigTime"></div>
+                            }
                             <div class="line"></div>
-                            <div class="triangle-down remainingTime"></div>
+                            @if (@Model.OrderBy=="RemainingTimeDescending") {
+                                <div id="remainingTimeDescending" data-currentpage="@Model.CurrentPage" class="triangle-down-RemainigTime" style="border-bottom: 5px solid white;"></div>
+                            } else {
+                                <div id="remainingTimeDescending" data-currentpage="@Model.CurrentPage" class="triangle-down-RemainigTime"></div>
+                            }
                         </div>
                     </div>
                     <div>
                         <span style="color: white">Highest Bid</span>
-                        <div class="triangle-down"></div>
+                        <div class="auctionFiltersOptions">
+                            @if (@Model.OrderBy=="HighestBidAscending") {
+                                <div id="highestBidAscending" data-currentpage="@Model.CurrentPage" class="triangle-up-RemainigTime" style="border-bottom: 5px solid white;"></div>
+                            } else {
+                                <div id="highestBidAscending" data-currentpage="@Model.CurrentPage" class="triangle-up-RemainigTime"></div>
+                            }
+                            <div class="line"></div>
+                            @if (@Model.OrderBy=="HighestBidDescending") {
+                                <div id="highestBidDescending" data-currentpage="@Model.CurrentPage" class="triangle-down-RemainigTime" style="border-bottom: 5px solid white;"></div>
+                            } else {
+                                <div id="highestBidDescending" data-currentpage="@Model.CurrentPage" class="triangle-down-RemainigTime"></div>
+                            }
+                        </div>
                     </div>
-                    <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 415%;">
-                        <input type="text" id="searchInput" placeholder="Category, Motor ..." style=" width: 77%;"/>
+                    <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 108%;">
+                        <input type="text" id="searchInput" placeholder="Category, Motor ..." style=" width: 80%;"/>
                         <img src="../images/help.svg" alt="Help Icon" style="width: 14%; height: auto;">
                     </div>
                     
@@ -137,7 +157,7 @@
     <div class="PageNavigationDiv">
         @if(Model.CurrentPage>1) {
             <div>
-                <span id="previousButton" data-currentpage="@Model.CurrentPage" data-pagesize="@Model.PageSize" class="arrow left"></span>
+                <span id="previousButton" data-currentpage="@Model.CurrentPage" class="arrow left"></span>
             </div>
         }
         <div style="margin-left: 1%; margin-right: 1%;">
@@ -145,7 +165,7 @@
         </div>
         @if(Model.TotalCount>Model.PageSize*Model.CurrentPage) {
             <div>
-                <span id="nextButton" data-currentpage="@Model.CurrentPage" data-pagesize="@Model.PageSize" class="arrow right"></span>
+                <span id="nextButton" data-currentpage="@Model.CurrentPage" class="arrow right"></span>
             </div>
         }
         

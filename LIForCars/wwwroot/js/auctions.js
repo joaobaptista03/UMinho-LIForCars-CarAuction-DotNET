@@ -64,16 +64,28 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href = '/Auctions?CurrentPage=' + (parseInt(nextButton.dataset.currentpage) + 1);
         });
     }
-      
-    var sortByTimeRemaining = document.getElementById('sortByTimeRemaining');
 
-    if (sortByTimeRemaining != null) {
-        sortByTimeRemaining.addEventListener('click', function () {
-            window.location.href = '/Auctions?CurrentPage=' + (parseInt(nextButton.dataset.currentpage)) + '&OrderBy=' + nextButton.dataset.pagesize;
+    var remainingTimeAscending = document.getElementById('remainingTimeAscending');
+
+    if (remainingTimeAscending != null) {
+        remainingTimeAscending.addEventListener('click', function () {
+
+            if (this.style.borderBottom!="5px solid white") {
+                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeAscending.dataset.currentpage)) + '&OrderBy=RemainingTimeAscending';
+            }
         });
     }
 
+    var remainingTimeDescending = document.getElementById('remainingTimeDescending');
 
+    if (remainingTimeDescending != null) {
+        remainingTimeDescending.addEventListener('click', function () {
+
+            if (this.style.borderBottom!="5px solid white") {
+                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeDescending.dataset.currentpage)) + '&OrderBy=RemainingTimeDescending';
+            }
+        });
+    }
 
 
 

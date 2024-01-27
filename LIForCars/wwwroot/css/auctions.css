@@ -166,7 +166,7 @@ div divLogOut:hover {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 56%;
+    width: 55%;
     justify-content: space-between;
     margin-right: 2%;
 }
@@ -176,7 +176,7 @@ div divLogOut:hover {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 29%;
+    width: 112%;
 }
 
 .auctionInfo {
@@ -368,23 +368,46 @@ div divLogOut:hover {
     margin-left: 5%;
 }
 
-.triangle-up {
+.triangle-down-RemainigTime {
     width: 0;
     height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-bottom: 5px solid white; /* Change the color to your desired color */
-    margin-left: 5%;
+    border-bottom: 5px solid #292b2c; /* Change the color to your desired color */
+    transform: rotate(180deg);
+}
+
+.triangle-down-RemainigTime:hover {
+    cursor: pointer;
+    border-bottom: 5px solid white;
+}
+
+.triangle-up-RemainigTime {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #292b2c; /* Change the color to your desired color */
+}
+
+.triangle-up-RemainigTime:hover {
+    cursor: pointer;
+    border-bottom: 5px solid white;
 }
 
 .line {
-    border-top: 1px solid #000;
+    border-top: 2px solid white;
+    margin-top: 45%;
+    margin-bottom: 50%;
+    border-left: 10px solid white;
 }
 
 .auctionFiltersOptions {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    flex-direction: column;
+    margin-left: 5%;
 }
 
 .triangle-down:hover {
