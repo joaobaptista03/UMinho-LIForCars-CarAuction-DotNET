@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (timeLeft<=0) {
                 var auction = timeLeftElement.closest('.englobaAuction');
                 auction.remove();
-            } else {
+            } else if (timeLeft<=120) {
                 timeLeftElement.textContent = Math.ceil(timeLeft) + ' seconds';
                 timeLeftElement.style.display = 'block';
                 if (timeLeftElement.style.color=='black') {

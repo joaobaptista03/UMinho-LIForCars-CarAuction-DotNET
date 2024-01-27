@@ -19,7 +19,7 @@ public class AuctionsModel : PageModel
 
     [BindProperty(SupportsGet = true)]
     public int CurrentPage { get; set; } = 1;
-    public int PageSize { get; set; } = 20;
+    public int PageSize { get; set; } = 5;
     public int TotalCount { get; private set; }
     [BindProperty(SupportsGet = true)]
     public string OrderBy { get; set; } = "RemainingTimeAscending";

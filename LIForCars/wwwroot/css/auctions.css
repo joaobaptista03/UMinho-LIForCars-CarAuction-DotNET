@@ -437,6 +437,10 @@ div divLogOut:hover {
     margin: 0;
 }
 
+.arrow:hover {
+    cursor: pointer;
+}
+
 .right {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
