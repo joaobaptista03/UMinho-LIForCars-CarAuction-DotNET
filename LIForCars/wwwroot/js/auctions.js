@@ -140,73 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function sortBidsDescending(auctionId) {
-        var bidsContainer = document.querySelector(`#${auctionId} .bidsContainer`);
-        var bids = Array.from(bidsContainer.children);
-
-        bids.sort(function (a, b) {
-            var bidValueA = parseFloat(a.dataset.bidvalue);
-            var bidValueB = parseFloat(b.dataset.bidvalue);
-            return bidValueB - bidValueA;
-        });
-
-        bids.forEach(function (bid) {
-            bidsContainer.appendChild(bid);
-        });
-    }
-
-    function sortBidsAscending(auctionId) {
-        var bidsContainer = document.querySelector(`#${auctionId} .bidsContainer`);
-        var bids = Array.from(bidsContainer.children);
-
-        bids.sort(function (a, b) {
-            var bidValueA = parseFloat(a.dataset.bidvalue);
-            var bidValueB = parseFloat(b.dataset.bidvalue);
-            return bidValueA - bidValueB;
-        });
-
-        bids.forEach(function (bid) {
-            bidsContainer.appendChild(bid);
-        });
-    }
-
-    function toggleSortOrder(auctionId) {
-        var triangleDown = document.querySelector(`#${auctionId} .triangle-down`);
-
-        if (triangleDown.classList.contains('ascending')) {
-            // Sort in descending order
-            sortBidsDescending(auctionId);
-            triangleDown.classList.remove('ascending');
-        } else {
-            // Sort in ascending order
-            sortBidsAscending(auctionId);
-            triangleDown.classList.add('ascending');
-        }
-    }
-
-    function initializeSorting() {
-        var sortButtons = document.querySelectorAll('.userLeiloes .additionalInfo .triangle-down');
-
-        sortButtons.forEach(function (sortButton) {
-            sortButton.addEventListener('click', function () {
-                // Get the current rotation value (as a string)
-                var currentRotation = this.style.transform.replace(/[^0-9]/g, '');
-
-                // Toggle between 0 and 180 degrees
-                var newRotation = currentRotation === '0' ? '180' : '0';
-
-                // Apply the new rotation to the triangle
-                this.style.transform = 'rotate(' + newRotation + 'deg)';
-
-                var auctionId = sortButton.getAttribute('data-auction-id');
-
-                toggleSortOrder(auctionId);
-            });
-        });
-    }
-
-    initializeSorting();
-
     document.getElementById('searchInput').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             e.preventDefault(); // Prevent form submission
@@ -297,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     break;
                 default:
                     inputValido = false;
+                    resetElements.forEach(a => a.style.display = 'block');
                     clearInput(false);
             }
 

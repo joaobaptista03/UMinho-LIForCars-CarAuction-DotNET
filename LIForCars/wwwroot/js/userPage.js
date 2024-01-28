@@ -101,11 +101,19 @@ document.addEventListener('DOMContentLoaded', function () {
             this.style.backgroundColor = 'green';
             this.style.borderColor = 'green';
 
-            var elementsWithClass = document.getElementsByClassName("auctionInfoExtendedExpired");
+            var auctions = document.querySelectorAll("auctionInfoExtended");
 
-            for (var i = 0; i < elementsWithClass.length; i++) {
-                elementsWithClass[i].style.display = "none";
-            }
+            auctions.forEach(function(auction) {
+                var endDateTimeString = auction.dataset.expired;
+                var [day, month, year] = endDateTimeString.split('/');
+                var endDateTime = new Date(`${month}/${day}/${year}`);
+                currentTime = new Date();
+                var timeLeft = (endDateTime - currentTime);
+
+                if (timeLeft<=0) {
+                    auction.style.display='none';
+                }
+            })
 
             isRemoveFinishedButtonLink = true;
         }
@@ -113,17 +121,17 @@ document.addEventListener('DOMContentLoaded', function () {
             this.style.backgroundColor = '';
             this.style.borderColor = '';
 
-            var elementsWithClass = document.getElementsByClassName("auctionInfoExtendedExpired");
+            var auctions = document.querySelectorAll("auctionInfoExtended");
 
-            for (var i = 0; i < elementsWithClass.length; i++) {
-                elementsWithClass[i].style.display = "block";
-            }
+            auctions.forEach(function(auction) {
+                auction.style.display='block';
+            })
 
             isRemoveFinishedButtonLink = false;
         }
     });
 
-    var moreInfoButtons = document.querySelectorAll('.userLeiloes button');
+    var moreInfoButtons = document.querySelectorAll('.userLeiloes .moreInfoButton');
 
     moreInfoButtons.forEach(function (button) {
         button.addEventListener('click', function () {
@@ -148,40 +156,72 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    var sortButtons = document.querySelectorAll('.userLeiloes .additionalInfo .triangle-down');
+    function sortBidsDescending(auctionId) {
+        var bidsContainer = document.querySelector(`#${auctionId} .bidsContainer`);
+        var bids = Array.from(bidsContainer.children);
 
-    sortButtons.forEach(function (sortButton) {
-        sortButton.addEventListener('click', function () {
-            // Get the current rotation value (as a string)
-            var currentRotation = this.style.transform.replace(/[^0-9]/g, '');
-
-            // Toggle between 0 and 180 degrees
-            var newRotation = currentRotation === '0' ? '180' : '0';
-
-            // Apply the new rotation to the triangle
-            this.style.transform = 'rotate(' + newRotation + 'deg)';
-
-            // Find the parent element with class 'auctionInfo'
-            var auctionInfoDiv = this.closest('.additionalInfoBox');
-
-            // Find the '.additionalInfo' element within the 'auctionInfo' div
-            var descendingBids = auctionInfoDiv.querySelector('.sortBidsDescending');
-            var ascendingBids = auctionInfoDiv.querySelector('.sortBidsAscending');
-
-            // Toggle visibility of the '.additionalInfo' element
-            toggleAscending(descendingBids, ascendingBids);
+        bids.sort(function (a, b) {
+            var bidValueA = parseFloat(a.dataset.bidvalue);
+            var bidValueB = parseFloat(b.dataset.bidvalue);
+            return bidValueB - bidValueA;
         });
-    });
 
-    function toggleAscending(descendingBids, ascendingBids) {
-        if (descendingBids && ascendingBids) {
-            if (descendingBids.style.display === 'none' || descendingBids.style.display === '') {
-                ascendingBids.style.display = 'none';
-                descendingBids.style.display = 'block';
-            } else {
-                descendingBids.style.display = 'none';
-                ascendingBids.style.display = 'block';
-            }
+        bids.forEach(function (bid) {
+            bidsContainer.appendChild(bid);
+        });
+    }
+
+    function sortBidsAscending(auctionId) {
+        var bidsContainer = document.querySelector(`#${auctionId} .bidsContainer`);
+        var bids = Array.from(bidsContainer.children);
+
+        bids.sort(function (a, b) {
+            var bidValueA = parseFloat(a.dataset.bidvalue);
+            var bidValueB = parseFloat(b.dataset.bidvalue);
+            return bidValueA - bidValueB;
+        });
+
+        bids.forEach(function (bid) {
+            bidsContainer.appendChild(bid);
+        });
+    }
+
+    function toggleSortOrder(auctionId) {
+        var triangleDown = document.querySelector(`#${auctionId} .triangle-down`);
+
+        if (triangleDown.classList.contains('ascending')) {
+            // Sort in descending order
+            sortBidsDescending(auctionId);
+            triangleDown.classList.remove('ascending');
+        } else {
+            // Sort in ascending order
+            sortBidsAscending(auctionId);
+            triangleDown.classList.add('ascending');
         }
     }
+
+    function initializeSorting() {
+        var sortButtons = document.querySelectorAll('.userLeiloes .additionalInfo .triangle-down');
+
+        sortButtons.forEach(function (sortButton) {
+            sortButton.addEventListener('click', function () {
+                // Get the current rotation value (as a string)
+                var currentRotation = this.style.transform.replace(/[^0-9]/g, '');
+
+                // Toggle between 0 and 180 degrees
+                var newRotation = currentRotation === '0' ? '180' : '0';
+
+                // Apply the new rotation to the triangle
+                this.style.transform = 'rotate(' + newRotation + 'deg)';
+
+                var auctionId = sortButton.getAttribute('data-auction-id');
+
+                toggleSortOrder(auctionId);
+            });
+        });
+    }
+
+    initializeSorting();
+
+
 });

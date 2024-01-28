@@ -366,6 +366,17 @@ div divLogOut:hover {
     cursor: pointer;
 }
 
+.infoBidBreaker {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(204, 202, 202);
+    border-left: 1px solid #292b2c;
+    border-top: 1px solid #292b2c;
+    box-shadow: inset 9px 0 10px -5px rgba(0, 0, 0, 0.7);
+}
+
 
 
 
