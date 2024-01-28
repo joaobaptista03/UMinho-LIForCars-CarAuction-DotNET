@@ -33,7 +33,7 @@
     </div>
 
     <div class="criarLeilaoDiv">
-        <button type="button" class="register" data-target="register" id="criar">Criar leilão</button>
+        <button type="button" class="register" data-target="register" id="criar">New Auction</button>
         <div id="register-page">
             <div class="modal-backdrop">
                 <div class="modal-content">
@@ -41,27 +41,31 @@
                         <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
                     </div>
                     <form id="carAuctionForm">
-                        <input type="text" name="Make" placeholder="Marca" required />
-                        <input type="text" name="Model" placeholder="Modelo" required />
-                        <input type="text" name="LaunchYear" placeholder="Ano de Lançamento" required />
-                        <input type="text" name="Plate" placeholder="Matrícula" required />
-                        <input type="text" name="Kms" placeholder="Quilometragem" required />
-                        <input type="text" name="Origin" placeholder="Origem do Veículo" required />
+                        <input type="text" name="Make" placeholder="Make" required />
+                        <input type="text" name="Model" placeholder="Model" required />
+                        <input type="text" name="LaunchYear" placeholder="LaunchYear" required />
+                        <input type="text" name="Plate" placeholder="Plate" required />
+                        <input type="text" name="Kms" placeholder="Kms" required />
+                        <input type="text" name="Origin" placeholder="Origin" required />
                         <input type="text" name="Motor" placeholder="Motor" required />
-                        <input type="text" name="FuelType" placeholder="Combustível" required />
-                        <input type="text" name="StatusDescription" placeholder="Avaliação do Estado" required />
-                        <input type="text" name="Category" placeholder="Tipo de Veículo" required />
-                        <input type="text" name="CertificateNr" placeholder="Certificado" required />
+                        <select name="FuelType" required>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Electric">Electric</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Petrol">Petrol</option>
+                            </select>                        <input type="text" name="StatusDescription" placeholder="StatusDescription" required />
+                        <input type="text" name="Category" placeholder="Category" required />
+                        <input type="text" name="CertificateNr" placeholder="CertificateNr" required />
 
                         <hr>
-                        <input type="text" name="BasePrice" placeholder="Preço Base" required />
-                        <input type="text" name="MinIncrement" placeholder="Incremento Mínimo" required />
-                        <input type="text" name="InitDateTime" placeholder="Data e Hora de Início" required />
-                        <input type="text" name="EndDateTime" placeholder="Data e Hora de Fim" required />
-                        <input type="text" name="BuyNowPrice" placeholder="Preço de Compra Imediata" required />
+                        <input type="text" name="BasePrice" placeholder="Base Price" required />
+                        <input type="text" name="MinIncrement" placeholder="Min Increment" required />
+                        <input type="text" name="InitDateTime" placeholder="Initial Date" required />
+                        <input type="text" name="EndDateTime" placeholder="End Date" required />
+                        <input type="text" name="BuyNowPrice" placeholder="Buy Now Price" required />
 
                         <div class="modal-footer">
-                            <button type="submit">Criar Leilão</button>
+                            <button type="submit">Create Auction</button>
                         </div>
                     </form>
                 </div>
