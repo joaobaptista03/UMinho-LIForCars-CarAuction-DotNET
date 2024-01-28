@@ -22,9 +22,10 @@ public class UserPageModel : PageModel
     public int CurrentPage { get; set; } = 1;
 
     public new User? User { get; private set; }
-    public int PageSize { get; set; } = 10;
+    public int PageSize { get; set; } = 100;
     public int TotalCount { get; private set; }
     public IEnumerable<Auction> Auctions { get; private set; } = Enumerable.Empty<Auction>();
+    public IEnumerable<Auction> AuctionsWaitingApproval { get; private set; } = Enumerable.Empty<Auction>();
     public Dictionary<Auction, (int TotalBids, IEnumerable<Bid> Bids)> BidsMap { get; private set; } = new Dictionary<Auction, (int, IEnumerable<Bid>)>();
     public Dictionary<Auction, IEnumerable<Bid>> AuctionsUserBidded { get; private set; } = new Dictionary<Auction, IEnumerable<Bid>>();
 
@@ -45,6 +46,8 @@ public class UserPageModel : PageModel
         var result = await _auctionRepository.GetAuctionsUserAsync(CurrentPage, PageSize, UserId);
         Auctions = result.auctions;
         TotalCount = result.totalCount;
+
+        AuctionsWaitingApproval = await _auctionRepository.GetAuctionsUserWaitingApprovalAsync(CurrentPage, PageSize, UserId);
 
         // Ir buscar as bids de um leilão
         foreach (Auction a in Auctions)

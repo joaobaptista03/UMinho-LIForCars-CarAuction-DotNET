@@ -102,7 +102,7 @@ namespace LIForCars.Data.Components
         {
             var query = _context.Auction
                 .Include(a => a.Car)
-                .Where(a => a.UserId == idUser);
+                .Where(a => a.Autorized && a.UserId == idUser);
 
             var totalCount = await query.CountAsync();
             var auctions = await query.OrderBy(a => a.InitDateTime)
@@ -111,6 +111,20 @@ namespace LIForCars.Data.Components
                                       .ToListAsync();
 
             return (auctions, totalCount);
+        }
+
+        public async Task<IEnumerable<Auction>> GetAuctionsUserWaitingApprovalAsync(int page, int pageSize, int idUser)
+        {
+            var query = _context.Auction
+                .Include(a => a.Car)
+                .Where(a => !a.Autorized && a.UserId == idUser);
+
+            var auctions = await query.OrderBy(a => a.InitDateTime)
+                                      .Skip((page - 1) * pageSize)
+                                      .Take(pageSize)
+                                      .ToListAsync();
+
+            return auctions;
         }
     }
 }

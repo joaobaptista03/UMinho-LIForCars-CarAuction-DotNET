@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var contactLink = document.getElementById('contactLink');
     var leiloesLink = document.getElementById('leiloesLink');
     var bidsLink = document.getElementById('bidsLink');
+    var waitingAuctionsLink = document.getElementById('waitingAuctionsLink');
     var leiloesContent = document.getElementById('leiloesContent'); // Replace with the actual ID of the element you want to show/hide
     var isLeiloesClicked = true;
     var bidsContent = document.getElementById('bidsContent'); // Replace with the actual ID of the element you want to show/hide
     var isBidsClicked = false;
+    var waitingAuctionsContent = document.getElementById('waitingAuctionsContent'); // Replace with the actual ID of the element you want to show/hide
+    var isWaitingAuctionsClicked = false;
     var highLightButtonLink = document.getElementById('higlLightButtonLink');
     var isHighLightButtonLink = false;
     var removeFinishedButtonLink = document.getElementById('removeFinishedButtonLink');
@@ -37,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetColorsUserBar() {
         leiloesLink.style.color = 'white';
         bidsLink.style.color = 'white';
+        waitingAuctionsLink.style.color = 'white';
     }
 
     leiloesLink.addEventListener('click', function () {
@@ -46,11 +50,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (leiloesContent.style.display === 'none') {
                 bidsContent.style.display = 'none';
+                waitingAuctionsContent.style.display = 'none';
                 leiloesContent.style.display = 'block';
             }
 
             isLeiloesClicked = true;
             isBidsClicked = false;
+            isWaitingAuctionsClicked = false;
         }
     });
 
@@ -61,11 +67,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (bidsContent.style.display === 'none') {
                 leiloesContent.style.display = 'none';
+                waitingAuctionsContent.style.display = 'none';
                 bidsContent.style.display = 'block';
             }
 
             isBidsClicked = true;
             isLeiloesClicked = false;
+            isWaitingAuctionsClicked = false;
+        }
+    });
+
+    waitingAuctionsLink.addEventListener('click', function () {
+        if (!isWaitingAuctionsClicked) {
+            resetColorsUserBar();
+            this.style.color = '#d9534f';
+
+            if (waitingAuctionsContent.style.display === 'none') {
+                leiloesContent.style.display = 'none';
+                bidsContent.style.display = 'none';
+                waitingAuctionsContent.style.display = 'block';
+            }
+
+            isBidsClicked = false;
+            isLeiloesClicked = false;
+            isWaitingAuctionsClicked = true;
         }
     });
 
