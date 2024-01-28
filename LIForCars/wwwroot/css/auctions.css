@@ -130,20 +130,20 @@ div divLogOut:hover {
 .criarLeilaoDiv {
     padding-top: 3%;
     padding-bottom: 1%;
-    width: 100%;
+    width: 85%;
     display: flex; /* Use flexbox to arrange child elements */
-    justify-content: center; /* Add space between child elements */
+    justify-content: flex-end; /* Add space between child elements */
     align-items: flex-start; /* Center child elements vertically */
 }
 
 .criarLeilaoDiv > div {
-    width: 70%; /* Adjust the width based on your preference */
+    width: 100%; /* Adjust the width based on your preference */
     display: flex;
     flex-direction: column; /* Align children in a column */
     align-items: flex-end; /* Align children to the left */
 }
 
-.criarLeilaoDiv > div > button {
+.criarLeilaoDiv button {
     font-size: 15px;
     box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
     border-radius: 1px;
@@ -505,3 +505,55 @@ footer {
     text-decoration: underline;
 }
 
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    background: #fff;
+    padding: 20px;
+    z-index: 1050;
+}
+
+.modal-header {
+    border-bottom: 2px solid #d9534f;
+}
+
+.modal-header h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal-footer a {
+    float: left;
+    color: #d9534f;
+    text-decoration: none;
+    padding-top: 25px;
+    zoom: 80%;
+}
+
+.modal-footer button {
+    float: right;
+}
+
+.close-btn {
+    float: right;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding-right: 3px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+}
