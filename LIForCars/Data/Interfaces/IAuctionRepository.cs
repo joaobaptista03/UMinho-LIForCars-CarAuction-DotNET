@@ -11,6 +11,7 @@ namespace LIForCars.Data.Interfaces
         bool Delete(int id);
         bool CarIdExists(int carId);
 
+        Task<Auction?> GetAuctionAsync(int idAuction);
         Task<(IEnumerable<Auction> auctions, int totalCount)> GetCurrentAuctionsAsync(int page, int pageSize, string orderBy);
         Task<(IEnumerable<Auction> auctions, int totalCount)> GetAuctionsUserAsync(int page, int pageSize, int idUser);
         Task<IEnumerable<Auction>> GetAuctionsUserWaitingApprovalAsync(int page, int pageSize, int idUser);

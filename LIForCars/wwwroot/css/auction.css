@@ -1,0 +1,512 @@
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Saira Condensed Bold', sans-serif;
+    background: #ABABAB;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Saira Condensed Bold', sans-serif;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 100) 0%, rgba(0, 0, 0, 0) 90%);
+}
+
+.cabecalho {
+    margin: 0;
+    padding: 0;
+    background: #292b2c;
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+header {
+    width: 100%;
+    margin-left: 80px;
+    margin-right: 80px;
+    color: white;
+    padding: 1% 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between the logo and the navigation */
+}
+
+header nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    text-transform: uppercase; /* Uppercase nav links */
+    font-weight: bold;
+    font-size: 22px;
+}
+
+header nav a:hover {
+    color: #d9534f;
+}
+
+header nav a aUltimo {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase; /* Uppercase nav links */
+    font-weight: bold;
+    font-size: 22px;
+}
+
+header nav span {
+    margin-left: 20px;
+    text-transform: uppercase; /* Uppercase nav links */
+    font-weight: bold;
+    font-size: 22px;
+}
+
+header nav span:hover {
+    cursor: pointer;
+    color: #d9534f;
+}
+
+header h2 {
+    margin: 0;
+    font-size: 110px;
+    text-shadow: -5px 10px 10px rgba(0, 0, 0, 0.94);
+}
+
+.hero {
+    position: relative; /* Set position relative to make ::before relative to .hero */
+    background: url('../images/gt3.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 30vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+}
+
+div divLogOut {
+    background-color: #d9534f;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 22px;
+    margin-left: 20px;
+}
+
+div divLogOut:hover {
+    background-color: #c9302c; /* Darken the background color on hover */
+    transform: translateY(2px); /* Move the button down slightly on hover */
+}
+
+.userLeiloes {
+    width: 70%; /* Adjust the width based on your preference */
+    background-color: white;
+    display: flex;
+    flex-direction: column; /* Align children in a column */
+    align-items: flex-start; /* Align children to the left */
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.userLeiloesCabecalho {
+    padding-top: 2%;
+    padding-right: 0;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    background-color: #292b2c;
+    display: flex;
+    flex-direction: row; /* Align children in a column */
+    align-items: flex-end; /* Align children to the left */
+    width: 98%;
+    justify-content: space-between;
+}
+
+.auctionInfoExtended {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.criarLeilaoDiv {
+    padding-top: 3%;
+    padding-bottom: 1%;
+    width: 100%;
+    display: flex; /* Use flexbox to arrange child elements */
+    justify-content: center; /* Add space between child elements */
+    align-items: flex-start; /* Center child elements vertically */
+}
+
+.criarLeilaoDiv > div {
+    width: 70%; /* Adjust the width based on your preference */
+    display: flex;
+    flex-direction: column; /* Align children in a column */
+    align-items: flex-end; /* Align children to the left */
+}
+
+.criarLeilaoDiv > div > button {
+    font-size: 15px;
+    box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 1px;
+    width: 14%;
+    height: 12%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+.auctionsDiv {
+    padding-bottom: 1%;
+    width: 100%;
+    display: flex; /* Use flexbox to arrange child elements */
+    justify-content: center; /* Add space between child elements */
+    align-items: flex-start; /* Center child elements vertically */
+    margin-top: 6%;
+    margin-bottom: 20%;
+}
+
+.auctionFilters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+    justify-content: space-between;
+    margin-right: 2%;
+}
+
+.auctionFilters > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 112%;
+}
+
+.auctionInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 2px solid #292b2c; /* Use your desired color */
+}
+
+.auctionInfoCabeçalho {
+    width: 20%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 1%;
+    background-color: #B9B9B9;
+}
+
+.auctionInfoCabeçalho > h3 {
+    margin-left: 15%;
+    margin-bottom: 0.5%;
+    margin-top: 0.5%;
+    font-size: 13px;
+}
+
+.auctionInfoCabeçalho > img {
+    width: 72%;
+    height: auto;
+    margin-left: 15%;
+}
+
+.auctionInfoResumo {
+    width: 77%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-left: 2%;
+    justify-content: space-between;
+}
+
+.auctionInfoResumo > div:not(.AuctionOptions) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 64%;
+    margin-left: 3%;
+    justify-content: space-between;
+}
+
+.auctionInfoResumo > div > div {
+    width: 50%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0%;
+}
+
+.auctionInfoResumo > div > div > p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 13px;
+}
+
+.AuctionOptions {
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.BidButton {
+    font-size: 16px;
+    box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 1px;
+    margin-right: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.additionalInfo {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: white;
+}
+
+.additionalInfoBox {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background-color: #B9B9B9;
+}
+
+.moreInfoEmptyColumn {
+    width: 20%;
+    height: auto;
+    background-color: #B9B9B9;
+}
+
+.infoBid {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    border-left: 1px solid #292b2c;
+    border-top: 1px solid #292b2c;
+    box-shadow: inset 9px 0 10px -5px rgba(0, 0, 0, 0.7);
+}
+
+.infoBidBreaker {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(204, 202, 202);
+    border-left: 1px solid #292b2c;
+    border-top: 1px solid #292b2c;
+    box-shadow: inset 9px 0 10px -5px rgba(0, 0, 0, 0.7);
+}
+
+.infoBid > span {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    font-size: 13px;
+    width: 33%;
+    text-align: center; /* Center the text */
+}
+
+.infoBid > div {
+    width: 33%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoBid > div > span {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    font-size: 13px;
+}
+
+.infoMyBids {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    border-left: 1px solid #292b2c;
+    border-top: 1px solid #292b2c;
+    box-shadow: inset 9px 0 10px -5px rgba(0, 0, 0, 0.7);
+}
+
+.infoMyBids > span {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    font-size: 13px;
+    width: 33%;
+    text-align: center; /* Center the text */
+}
+
+.infoMyBids > div {
+    width: 33%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoMyBids > div > span {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    font-size: 13px;
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid white; /* Change the color to your desired color */
+    transform: rotate(180deg);
+    margin-left: 5%;
+}
+
+.triangle-down-RemainigTime {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #292b2c; /* Change the color to your desired color */
+    transform: rotate(180deg);
+}
+
+.triangle-down-RemainigTime:hover {
+    cursor: pointer;
+    border-bottom: 5px solid white;
+}
+
+.triangle-up-RemainigTime {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #292b2c; /* Change the color to your desired color */
+}
+
+.triangle-up-RemainigTime:hover {
+    cursor: pointer;
+    border-bottom: 5px solid white;
+}
+
+.line {
+    border-top: 2px solid white;
+    margin-top: 45%;
+    margin-bottom: 50%;
+    border-left: 10px solid white;
+}
+
+.auctionFiltersOptions {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+.triangle-down:hover {
+    cursor: pointer;
+}
+
+.PageNavigationDiv {
+    padding-top: 1%;
+    padding-bottom: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.PageNavigationDiv > div {
+    color: #292b2c;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.arrow {
+    border: solid #292b2c;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin: 0;
+}
+
+.arrow:hover {
+    cursor: pointer;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+  
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.helpInfo {
+    background-color: rgba(255, 0, 0, 0.8);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    padding: 1%;
+    border-radius: 11%;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 14%;
+    margin-bottom: -9%;
+}
+
+.helpInfo > p {
+    color: white;
+    font-size: 19px;
+    margin: 0;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.helpInfo > span {
+    color: white;
+    font-size: 14px;
+}
+
+.helpInfo-trigger:hover + .helpInfo {
+    display: flex;
+}
+
+
+footer {
+    margin-top: 20px;
+    bottom: 0;
+    width: 100%;
+    background: #292b2c; /* Slightly lighter than the header for contrast */
+    color: white;
+    padding: 15px 0;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-icons a {
+    text-decoration: none;
+    color: #ad8214;
+    margin: 0 10px;
+}
+
+.bottom-icons a:hover {
+    text-decoration: underline;
+}
+

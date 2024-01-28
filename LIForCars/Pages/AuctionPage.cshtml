@@ -1,0 +1,133 @@
+@page
+@model AuctionModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIForCars</title>
+    <link href="~/css/fontStyles.css" rel="stylesheet" />
+    <link href="~/css/auction.css" rel="stylesheet" />
+    <script src="~/js/auctionPage.js"></script>
+
+</head>
+<body>
+    <div class="cabecalho">
+        <div class="hero">
+            <header>
+                <h2>LIFORCARS</h2>
+                <nav>
+                    <a id="homeLink" href="/">HOME</a>
+                    <a id="aboutLink" href="#" style="color: #d9534f">AUCTIONS</a>
+                    <a id="contactLink" href="#">CONTACT</a>
+                    <divLogOut>
+                        <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                    </divLogOut>
+                </nav>
+            </header>
+        </div>
+    </div>
+
+    @if(Model.Auction!=null) {
+        <div class="auctionsDiv">
+            <div id="leiloesContent" class="userLeiloes" style="display: block;">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">AUCTION #@Model.Auction.Id</h1>
+                </div>
+                <div class="englobaAuction">
+                    <div class="auctionInfoExtended" style="display: block">
+                        <div class="auctionInfo">
+                            <div class="auctionInfoCabeçalho">
+                                <h3 class="car-model">@Model.Auction.Car?.Make @Model.Auction.Car?.Model (@Model.Auction.Car?.LaunchYear)</h3>
+                                <img src="@Model.Auction.Car?.PicUrl" alt="@Model.Auction.Car?.Make @Model.Auction.Car?.Model">
+                            </div>
+                            <div class="auctionInfoResumo">
+                                <div>
+                                    <div>
+                                        <p>Origin: @Model.Auction.Car?.Origin</p>
+                                        <p>Motor: @Model.Auction.Car?.Motor (@Model.Auction.Car?.FuelType)</p>
+                                        <p>Milage: @Model.Auction.Car?.Kms</p>
+                                        <p>Status Description: @Model.Auction.Car?.StatusDescription</p>
+                                    </div>
+                                    <div>
+                                        <p>Base Price: @Model.Auction.BasePrice €</p>
+                                        <p>Buy Now: @Model.Auction.BuyNowPrice €</p>
+                                        <p>Starting Date: @Model.Auction.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                        <p>Ending Date: @Model.Auction.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                    </div>
+                                </div>
+                                <button class="BidButton">BID</button>
+                            </div>
+                        </div>
+                        <div class="additionalInfo" style="display: block;">
+                            <div class="additionalInfoBox">
+                                <div class="moreInfoEmptyColumn"></div>
+                                <div style="width: 80%;">
+                                    <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
+                                        <span>User</span>
+                                        <div>
+                                            <span>Bid Value</span>
+                                            <div class="triangle-down" data-ascending="true"></div>
+                                        </div>
+                                        <span>Time of Bid</span>
+                                    </div>
+                                    <div class="bidsContainer">
+                                        @foreach(var bid in Model.Bids) {
+                                            <div class="infoBid" data-bidvalue="@bid.BidValue">
+                                                <span>@bid.User.Username</span>
+                                                <span>@bid.BidValue €</span>
+                                                <span>@bid.bidTime</span>
+                                            </div>
+                                        }
+                                        <div class="infoBidBreaker">
+                                            <span>RELOAD THE PAGE TO CHECK FOR NEW BIDS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <footer>
+            <div class="bottom-icons">
+                <a href="#">Facebook</a>
+                <a> | </a>
+                <a href="#">Instagram</a>
+                <a> | </a>
+                <a href="#">LinkedIn</a>
+                <a> | </a>
+                <a href="#">help@LIForCars.pt</a>
+                <a> | </a>
+                <a href="#">Privacy Policy</a>
+                <a> | </a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+    } else {
+        <p>Auction not found or invalid ID.</p>
+
+        <footer style="position: fixed;">
+            <div class="bottom-icons">
+                <a href="#">Facebook</a>
+                <a> | </a>
+                <a href="#">Instagram</a>
+                <a> | </a>
+                <a href="#">LinkedIn</a>
+                <a> | </a>
+                <a href="#">help@LIForCars.pt</a>
+                <a> | </a>
+                <a href="#">Privacy Policy</a>
+                <a> | </a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+    }
+    
+
+</body>
+</html>

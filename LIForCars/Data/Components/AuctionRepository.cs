@@ -73,6 +73,14 @@ namespace LIForCars.Data.Components
 
         public bool CarIdExists(int carId) => _context.Auction.Any(a => a.CarId == carId);
 
+        public async Task<Auction?> GetAuctionAsync(int idAuction) {
+            var query = _context.Auction
+                                .Include(a => a.Car)
+                                .FirstOrDefault(a => a.Id == idAuction);
+
+            return query;
+        }
+
         public async Task<(IEnumerable<Auction> auctions, int totalCount)> GetCurrentAuctionsAsync(int page, int pageSize, string orderBy)
         {
             var query = _context.Auction
