@@ -8,14 +8,6 @@ $(document).ready(function() {
             $('#header-section').on('submit', '#logout-form', logout);
         }
     });
-    $.ajax({
-        url: '/Index?handler=FooterPartial',
-        type: 'GET',
-        success: function(data) {
-            $('#footer-section').html(data);
-            $('#footer-section').show();
-        }
-    });
 });
 
 function logout(event) {
@@ -42,25 +34,11 @@ function logout(event) {
 }
 
 function showAboutPage() {
-    $.ajax({
-        url: '/Index?handler=AboutPartial',
-        type: 'GET',
-        success: function (data) {
-            $('#about-section').html(data);
-            $('#about-section').show();
-        }
-    });
+    $('#about-section').show();
 }
 
 function showContactPage() {
-    $.ajax({
-        url: '/Index?handler=ContactPartial',
-        type: 'GET',
-        success: function (data) {
-            $('#contact-section').html(data);
-            $('#contact-section').show();
-        }
-    });
+    $('#contact-section').show();
 }
 
 function showLoginPage() {

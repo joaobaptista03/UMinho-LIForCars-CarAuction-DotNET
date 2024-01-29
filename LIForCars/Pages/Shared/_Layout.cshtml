@@ -14,12 +14,69 @@
 
         @RenderBody()
 
-    <div id="about-section" style="display:none;"></div>
-    <div id="contact-section" style="display:none;"></div>
-    <div id="login-section" style="display:none;"></div>
-    <div id="register-section" style="display:none;"></div>
+        <div id="about-section" style="display:none;">
+            <div id="about-page">
+                <div class="modal-backdrop">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close-btn" onclick="closeAboutPage()">&times;</span>
+                            <h2>About Us</h2>
+                        </div>
+                        <div class="modal-body">
+                            <p>&emsp; Welcome to LIForCars, your premier destination for bidding, winning, and riding your dream car. Our platform offers a seamless and transparent car auction experience, allowing you to find and purchase cars at competitive prices. With a commitment to quality and customer satisfaction, we're here to help you drive your dream car home.</p>
+                            <p>&emsp; Founded on the principles of integrity, transparency, and dedication, LIForCars has been at the forefront of revolutionizing the car auction industry. Our user-friendly platform and comprehensive support system ensure that from the moment you bid to the time you ride, your journey is smooth and enjoyable.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div id="footer-section"></div>
+        <div id="contact-section" style="display:none;">
+            <div id="contact-page">
+                <div class="modal-backdrop">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close-btn" onclick="closeContactPage()">&times;</span>
+                            <h2>Contact Us</h2>
+                        </div>
+                        <div class="modal-body">
+                            <form id="contactForm" method="post" action="/submit-contact-form">
+                                <input type="text" name="Name" placeholder="Your Name" required />
+                                <input type="email" name="Email" placeholder="Your Email" required />
+                                <textarea name="Message" placeholder="Your Message" required rows="5"></textarea>
+                                <div class="modal-footer">
+                                    <button type="submit">Send Message</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="login-section" style="display:none;"></div>
+        <div id="register-section" style="display:none;"></div>
+
+        <div id="footer-section">
+            <footer>
+                <div class="bottom-icons">
+                    <a href="#">Facebook</a>
+                    <a> | </a>
+                    <a href="#">Instagram</a>
+                    <a> | </a>
+                    <a href="#">LinkedIn</a>
+                </div>
+                <div class="email">
+                    <a>help@LIForCars.pt</a>
+                </div>
+                <div class="bottom-icons">
+                    <a href="#">Privacy Policy</a>
+                    <a> | </a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </footer>
+        </div>
+    </div>
 
     <script src="~/js/main.js"></script>
     <script src="~/js/auction.js"></script>
