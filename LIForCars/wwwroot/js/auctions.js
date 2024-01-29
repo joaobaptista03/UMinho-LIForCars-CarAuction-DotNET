@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (previousButton != null) {
         previousButton.addEventListener('click', function () {
-            window.location.href = '/Auctions?CurrentPage=' + (parseInt(previousButton.dataset.currentpage) - 1);
+            window.location.href = '/Auctions?CurrentPage=' + (parseInt(previousButton.dataset.currentpage) - 1) + '&OrderBy=' + previousButton.dataset.orderby + (previousButton.dataset.filterby!="" ? '&FilterBy=' + previousButton.dataset.filterby : "");
         });
     }
 
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (nextButton != null) {
         nextButton.addEventListener('click', function () {
-            window.location.href = '/Auctions?CurrentPage=' + (parseInt(nextButton.dataset.currentpage) + 1);
+            window.location.href = '/Auctions?CurrentPage=' + (parseInt(nextButton.dataset.currentpage) + 1) + '&OrderBy=' + nextButton.dataset.orderby + (nextButton.dataset.filterby!="" ? '&FilterBy=' + nextButton.dataset.filterby : "");
         });
     }
 
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         remainingTimeAscending.addEventListener('click', function () {
 
             if (this.style.borderBottom!="5px solid white") {
-                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeAscending.dataset.currentpage)) + '&OrderBy=RemainingTimeAscending';
+                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeAscending.dataset.currentpage)) + '&OrderBy=RemainingTimeAscending' + (remainingTimeAscending.dataset.filterby!="" ? '&FilterBy=' + remainingTimeAscending.dataset.filterby : "");
             }
         });
     }
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
         remainingTimeDescending.addEventListener('click', function () {
 
             if (this.style.borderBottom!="5px solid white") {
-                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeDescending.dataset.currentpage)) + '&OrderBy=RemainingTimeDescending';
+                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeDescending.dataset.currentpage)) + '&OrderBy=RemainingTimeDescending' + (remainingTimeDescending.dataset.filterby!="" ? '&FilterBy=' + remainingTimeDescending.dataset.filterby : "");
             }
         });
     }
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         highestBidAscending.addEventListener('click', function () {
 
             if (this.style.borderBottom!="5px solid white") {
-                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeAscending.dataset.currentpage)) + '&OrderBy=HighestBidAscending';
+                window.location.href = '/Auctions?CurrentPage=' + (parseInt(remainingTimeAscending.dataset.currentpage)) + '&OrderBy=HighestBidAscending' + (highestBidAscending.dataset.filterby!="" ? '&FilterBy=' + highestBidAscending.dataset.filterby : "");
             }
         });
     }
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
         highestBidDescending.addEventListener('click', function () {
 
             if (this.style.borderBottom!="5px solid white") {
-                window.location.href = '/Auctions?CurrentPage=' + (parseInt(highestBidDescending.dataset.currentpage)) + '&OrderBy=HighestBidDescending';
+                window.location.href = '/Auctions?CurrentPage=' + (parseInt(highestBidDescending.dataset.currentpage)) + '&OrderBy=HighestBidDescending' + (highestBidDescending.dataset.filterby!="" ? '&FilterBy=' + highestBidDescending.dataset.filterby : "");
             }
         });
     }
@@ -149,102 +149,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function performSearch() {
         // Your JavaScript logic for handling the search
-        var searchTerm = document.getElementById('searchInput').value;
-        console.log('Performing search for: ' + searchTerm);
+        var element = document.getElementById('searchInput');
+        var searchTerm = element.value;
 
         resetElements = document.querySelectorAll('.englobaAuction');
         if (searchTerm!="") {
-            resetElements.forEach(a => a.style.display = 'none');
-
             var separarFiltro = searchTerm.split(":");
 
             // Verifica pelo quê que o user pretende procurar
-            var filtrados = null;
             var inputValido = true;
             switch (capitalize(separarFiltro[0].trim())) {
-                case "Make":
-                    var filtro = separarFiltro[1].trim().replace(/\s+/g, '_');
-                    filtrados = document.querySelectorAll('.Make' + filtro);
+                case "Make" || "Model" || "Year" || "Origin" || "Status":
+                    window.location.href = '/Auctions?OrderBy=' + element.dataset.orderby +  "&FilterBy=" + searchTerm.trim();
                     break;
-                case "Model":
-                    var filtro = separarFiltro[1].trim().replace(/\s+/g, '_');
-                    filtrados = document.querySelectorAll('.Model' + filtro);
-                    break;
-                case "Year":
-                    var filtro = separarFiltro[1].trim();
-                    filtrados = document.querySelectorAll('.Year' + filtro);
-                    break;
-                case "Origin":
-                    var filtro = separarFiltro[1].trim().replace(/\s+/g, '_');
-                    filtrados = document.querySelectorAll('.Origin' + filtro);
-                    break;
-                case "Motor":
-                    var filtro = separarFiltro[1].trim().replace(/\s+/g, '_');
-                    filtrados = document.querySelectorAll('.Motor' + filtro);
-                    break;
-                case "Kms":
+                case "Kms" || "Base price" || "Price":
                     var limites = separarFiltro[1].trim().split("-");
                     var min = limites[0].trim();
                     var max = limites[1].trim();
-                    var intMin = parseInt(min);
-                    var intMax = parseInt(max);
-                    if (!isNaN(intMin) && !isNaN(intMax) && intMin<=intMax) {
-                        var filtradosAux = [];
-                        for (let i = intMin; i<=intMax; i++) {
-                            filtradosAux = [...filtradosAux, ...document.querySelectorAll('.Kms' + i + "_00")];
+                    if (!isNaN(min) && !isNaN(max)) {
+                        var intMin = parseInt(min);
+                        var intMax = parseInt(max);
+                        if (intMin<=intMax) {
+                            window.location.href = '/Auctions?OrderBy=' + element.dataset.orderby +  "&FilterBy=" + searchTerm.trim();
+                        } else {
+                            inputValido = false;
                         }
-                        filtrados = filtradosAux;
-                    }
-                    break;
-                case "Status":
-                    var filtro = separarFiltro[1].trim().replace(/\s+/g, '_');
-                    filtrados = document.querySelectorAll('.Status' + filtro);
-                    break;
-                case "Base price":
-                    var limites = separarFiltro[1].trim().split("-");
-                    var min = limites[0].trim();
-                    var max = limites[1].trim();
-                    var intMin = parseInt(min);
-                    var intMax = parseInt(max);
-                    if (!isNaN(intMin) && !isNaN(intMax) && intMin<=intMax) {
-                        var filtradosAux = [];
-                        for (let i = intMin; i<=intMax; i++) {
-                            filtradosAux = [...filtradosAux, ...document.querySelectorAll('.Base_Price' + i + "_00")];
-                        }
-                        filtrados = filtradosAux;
-                    }
-                    break;
-                case "Price":
-                    var limites = separarFiltro[1].trim().split("-");
-                    var min = limites[0].trim();
-                    var max = limites[1].trim();
-                    var intMin = parseInt(min);
-                    var intMax = parseInt(max);
-                    if (!isNaN(intMin) && !isNaN(intMax) && intMin<=intMax) {
-                        var filtradosAux = [];
-                        for (let i = intMin; i<=intMax; i++) {
-                            filtradosAux = [...filtradosAux, ... document.querySelectorAll('.Price' + i + "_00")];
-                        }
-                        filtrados = filtradosAux;
+                    } else {
+                        inputValido = false;
                     }
                     break;
                 default:
                     inputValido = false;
-                    resetElements.forEach(a => a.style.display = 'block');
-                    clearInput(false);
             }
 
             if (inputValido) {
-                filtrados.forEach(a => {
-                    a.style.display = 'block';
-                });
                 clearInput(true);
+            } else {
+                clearInput(false);
             }
         } else {
-            resetElements.forEach(a => {
-                a.style.display = 'block';
-            });
-            clearInput(true);
+            if (element.dataset.filterby!="") {
+                window.location.href = (window.location.href.split("&FilterBy="))[0];
+            }
         }
     }
 

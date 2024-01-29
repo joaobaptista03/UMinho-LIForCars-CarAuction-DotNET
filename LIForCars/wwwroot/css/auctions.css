@@ -251,7 +251,7 @@ div divLogOut:hover {
     justify-content: space-between;
 }
 
-.moreInfoButton {
+.moreInfoButton, .goToAuctionPage {
     font-size: 10px;
     box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
     border-radius: 1px;
@@ -416,7 +416,7 @@ div divLogOut:hover {
 
 .PageNavigationDiv {
     padding-top: 1%;
-    padding-bottom: 5%;
+    padding-bottom: 15%;
     width: 100%;
     display: flex;
     justify-content: center;

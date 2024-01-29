@@ -23,6 +23,8 @@ public class AuctionsModel : PageModel
     public int TotalCount { get; private set; }
     [BindProperty(SupportsGet = true)]
     public string OrderBy { get; set; } = "RemainingTimeAscending";
+    [BindProperty(SupportsGet = true)]
+    public string FilterBy { get; set; } = "";
 
     public IEnumerable<Auction> Auctions { get; private set; } = Enumerable.Empty<Auction>();
     public Dictionary<Auction, (int TotalBids, IEnumerable<Bid> Bids)> BidsMap { get; private set; } = new Dictionary<Auction, (int, IEnumerable<Bid>)>();
@@ -32,7 +34,7 @@ public class AuctionsModel : PageModel
     {
         if (OrderBy=="RemainingTimeDescending") {
             // Ir buscar os leilões do user
-            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending");
+            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending", FilterBy);
             Auctions = result.auctions;
             TotalCount = result.totalCount;
 
@@ -44,7 +46,7 @@ public class AuctionsModel : PageModel
             }
         } else if (OrderBy=="HighestBidAscending") {
             // Ir buscar os leilões do user
-            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending");
+            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending", FilterBy);
             Auctions = result.auctions;
             TotalCount = result.totalCount;
 
@@ -72,7 +74,7 @@ public class AuctionsModel : PageModel
             }
         } else if (OrderBy=="HighestBidDescending") {
              // Ir buscar os leilões do user
-            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending");
+            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending", FilterBy);
             Auctions = result.auctions;
             TotalCount = result.totalCount;
 
@@ -100,7 +102,7 @@ public class AuctionsModel : PageModel
             }
         } else {
             // Ir buscar os leilões do user
-            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeAscending");
+            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeAscending", FilterBy);
             Auctions = result.auctions;
             TotalCount = result.totalCount;
 
