@@ -16,12 +16,10 @@ public class LoginModel : PageModel
     public string Password { get; set; } = null!;
 
     private readonly IUserRepository userRepository;
-    private readonly IAdministratorRepository administratorRepository;
 
-    public LoginModel(IUserRepository userRepository, IAdministratorRepository administratorRepository)
+    public LoginModel(IUserRepository userRepository)
     {
         this.userRepository = userRepository;
-        this.administratorRepository = administratorRepository;
     }
 
     public async Task<IActionResult> OnPostAsync()
