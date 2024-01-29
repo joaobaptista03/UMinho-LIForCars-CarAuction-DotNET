@@ -1,58 +1,33 @@
 @page
 @model CurrentAuctionsModel
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Current Auctions - LIForCars</title>
-    <link href="~/css/main.css" rel="stylesheet" />
-    <link href="~/css/currentAuctions.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="~/js/main.js"></script>
-    <script src="~/js/currentAuctions.js"></script>
-    <link rel="icon" type="image/x-icon" href="~/images/favicon.ico">
-</head>
-<body>
-    <div class="hero">
-        <div id="header-section"></div>
+<link href="~/css/currentAuctions.css" rel="stylesheet" />
 
-        <div class="auctions-container">
-            <h2>Current Auctions</h2>
-            <div id="auctionsList" class="auctions-list">
-                @foreach(var auction in Model.Auctions) {
-                    <div class="auction-info">
-                    <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
-                        <p>Milage: @auction.Car?.Kms</p>
-                        <p>Status Description: @auction.Car?.StatusDescription</p>
-                        <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
-                        <p>Category: @auction.Car?.Category</p>
-                        <p>Origin: @auction.Car?.Origin</p>
-                        <p>Auction Dates: @auction.InitDateTime.ToString("yyyy-MM-dd HH:mm:SS") - @auction.EndDateTime.ToString("yyyy-MM-dd HH:mm:SS")</p>
-                        <p>Base Price: @auction.BasePrice</p>
+<div class="auctions-container">
+    <h2>Current Auctions</h2>
+    <div id="auctionsList" class="auctions-list">
+        @foreach(var auction in Model.Auctions) {
+            <div class="auction-info">
+            <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
+                <p>Milage: @auction.Car?.Kms</p>
+                <p>Status Description: @auction.Car?.StatusDescription</p>
+                <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
+                <p>Category: @auction.Car?.Category</p>
+                <p>Origin: @auction.Car?.Origin</p>
+                <p>Auction Dates: @auction.InitDateTime.ToString("yyyy-MM-dd HH:mm:SS") - @auction.EndDateTime.ToString("yyyy-MM-dd HH:mm:SS")</p>
+                <p>Base Price: @auction.BasePrice</p>
 
-                        <button class="btn" onclick="navigateToAuction(@auction.Id)">View Auction</button>
-                    </div>
-                }
+                <button class="btn" onclick="navigateToAuction(@auction.Id)">View Auction</button>
             </div>
-            <div class="pagination">
-                <button class="page-btn @(Model.CurrentPage <= 1 ? "invisible-btn" : "")" 
-                        onclick="navigateToPage(@(Model.CurrentPage - 1), @Model.PageSize)">&lt;</button>
- 
-                <span>Auction @Model.CurrentPage</span>
-
-                <button class="page-btn @(Model.CurrentPage * Model.PageSize >= Model.TotalCount ? "invisible-btn" : "")" 
-                        onclick="navigateToPage(@(Model.CurrentPage + 1), @Model.PageSize)">&gt;</button>
-            </div>
-        </div>
+        }
     </div>
+    <div class="pagination">
+        <button class="page-btn @(Model.CurrentPage <= 1 ? "invisible-btn" : "")" 
+                onclick="navigateToPage(@(Model.CurrentPage - 1), @Model.PageSize)">&lt;</button>
 
-    <div id="about-section" style="display:none;"></div>
-    <div id="contact-section" style="display:none;"></div>
-    <div id="login-section" style="display:none;"></div>
-    <div id="register-section" style="display:none;"></div>
+        <span>Auction @Model.CurrentPage</span>
 
-    <div id="footer-section"></div>
-</body>
-</html>
+        <button class="page-btn @(Model.CurrentPage * Model.PageSize >= Model.TotalCount ? "invisible-btn" : "")" 
+                onclick="navigateToPage(@(Model.CurrentPage + 1), @Model.PageSize)">&gt;</button>
+    </div>
+</div>
