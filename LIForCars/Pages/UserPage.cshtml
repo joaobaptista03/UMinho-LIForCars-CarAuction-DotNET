@@ -1,0 +1,484 @@
+@page
+@model UserPageModel
+
+@using System.Globalization
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIForCars</title>
+    <link href="~/css/fontStyles.css" rel="stylesheet" />
+    <link href="~/css/user.css" rel="stylesheet" />
+    <script src="~/js/userPage.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    @if (Model.User != null && !Model.IsAdmin)
+    {
+        <div class="cabecalho">
+            <div class="hero">
+                <header>
+                    <h2>LIFORCARS</h2>
+                    <nav>
+                        <a id="homeLink" href="/">HOME</a>
+                        <a id="aboutLink" href="#">AUCTIONS</a>
+                        <a id="contactLink" href="#" style="color: #d9534f">PROFILE</a>
+                        <divLogOut>
+                            <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                        </divLogOut>
+                    </nav>
+                </header>
+            </div>
+            <header class="userBar">
+                <nav>
+                    <span id="leiloesLink" style="color: #d9534f">AUCTIONS</span>
+                    <span id="bidsLink" style="color: white">BIDS</span>
+                    <span id="waitingAuctionsLink" style="color: white">AWAITING APPROVAL</span>
+                    <span id="statusLink" style="color: white">STATISTICS</span>
+                </nav>
+            </header>
+        </div>
+
+        <div id="perfilContent" class="userInfo">
+            <div class="userDados">
+                <div class="userDadosCabecalho">
+                    <h1 class="listaDados" style="color: white; margin-bottom: 0;">@Model.User.Name</h1>
+                    <img src="../images/avatarIcon.png" alt="Avatar Icon" style="width: 53%; height: auto; margin-top: 3%; margin-bottom: 17%;">
+                </div>
+                <span class="listaDados">Username: @Model.User.Username</span>
+                <span class="listaDados">NIF: @Model.User.Nif</span>
+                <span class="listaDados">CC: @Model.User.CC</span>
+                <span class="listaDados">Address: @Model.User.Address</span>
+                <span class="listaDados">Phone Number: @Model.User.Phone</span>
+                <span class="listaDados">Gender: @(Model.User.Gender == 'F' ? "Female" : "Male")</span>
+                <span class="listaDados">BirthDate: @Model.User.BirthDate.ToString("yyyy-MM-dd")</span>
+                <span class="listaDados">Email: @Model.User.Email</span>
+                <span class="listaDados">Password: *****</span>
+            </div>
+            <div id="leiloesContent" class="userLeiloes" style="display: block;">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">MY AUCTIONS</h1>
+                    <button id="removeFinishedButtonLink" class="removeFinishedButton">REMOVE FINISHED</button>
+                </div>
+                <div>
+                    @foreach(var auction in Model.Auctions) {
+                        <div id="auction_@auction.Id" class="englobaAuction">
+                            <div class="auctionInfoExtended" data-expired="@auction.EndDateTime" style="display: block">
+                                <div class="auctionInfo">
+                                    <div class="auctionInfoCabeçalho">
+                                        <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
+                                        <img src="@auction.Car?.PicUrl" alt="@auction.Car?.Make @auction.Car?.Model">
+                                    </div>
+                                    <div class="auctionInfoResumo">
+                                        <div>
+                                            <div>
+                                                <p>Origin: @auction.Car?.Origin</p>
+                                                <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
+                                                <p>Milage: @auction.Car?.Kms</p>
+                                                <p>Status Description: @auction.Car?.StatusDescription</p>
+                                            </div>
+                                            <div>
+                                                <p>Base Price: @auction.BasePrice €</p>
+                                                <p>Buy Now: @auction.BuyNowPrice €</p>
+                                                <p>Starting Date: @auction.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                                <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                            </div>
+                                        </div>
+                                        @if(auction.InitDateTime>DateTime.Now) {
+                                            <div class="ErrorClass" style="width: 23%; display: flex; flex-direction: column; align-items: flex-end;">
+                                                <span class="errorCancelingAuction" style="color: red; font-size: 10px; display: none">ERROR: Auction Already Started</span>
+                                                <form method="post" action="UserPage?handler=DeleteAuction">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="idAuction" value=@auction.Id />
+                                                    <button type="submit" class="cancelButton" data-inittimeauction="@auction.InitDateTime">Cancel Auction</button>
+                                                </form>                                            </div>
+                                        } else {
+                                            <button class="moreInfoButton">BIDS</button>
+                                        }
+                                        
+                                    </div>
+                                </div>
+                                <div class="additionalInfo" style="display: none;">
+                                    <div class="additionalInfoBox">
+                                        <div class="moreInfoEmptyColumn"></div>
+                                        <div style="width: 80%;">
+                                            <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
+                                                <span>User</span>
+                                                <div>
+                                                    <span>Bid Value</span>
+                                                    <div class="triangle-down" data-auction-id="auction_@auction.Id" data-ascending="true"></div>
+                                                </div>
+                                                <span>Time of Bid</span>
+                                            </div>
+                                            <div class="bidsContainer">
+                                                @foreach(var bid in Model.BidsMap[auction].Bids) {
+                                                    <div class="infoBid" data-bidvalue="@bid.BidValue">
+                                                        @if(!auction.Anonymous) {
+                                                            <span>@bid.User.Username</span>
+                                                        } else {
+                                                            <span>[Anonymous]</span>
+                                                        }
+                                                        <span>@bid.BidValue €</span>
+                                                        <span>@bid.bidTime</span>
+                                                    </div>
+                                                }
+                                                <div class="infoBidBreaker">
+                                                    <span>RELOAD THE PAGE TO CHECK FOR NEW BIDS</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                
+            </div>
+            <div id="bidsContent" class="userLeiloes" style="display: none;">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">MY BIDS</h1>
+                    <button id="higlLightButtonLink" class="highLightButton">HIGHLIGHT</button>
+                </div>
+                <div>
+                    @foreach(var auction in Model.AuctionsUserBidded) {
+                        <div id="auction_@auction.Key.Id" class="englobaAuction">
+                            <div class="auctionInfoExtended">
+                                <div class="auctionInfo">
+                                    <div class="auctionInfoCabeçalho">
+                                        <h3 class="car-model">@auction.Key.Car?.Make @auction.Key.Car?.Model (@auction.Key.Car?.LaunchYear)</h3>
+                                        <img src="@auction.Key.Car?.PicUrl" alt="@auction.Key.Car?.Make @auction.Key.Car?.Model">
+                                    </div>
+                                    <div class="auctionInfoResumo">
+                                        <div>
+                                            <div>
+                                                <p>Origin: @auction.Key.Car?.Origin</p>
+                                                <p>Motor: @auction.Key.Car?.Motor (@auction.Key.Car?.FuelType)</p>
+                                                <p>Milage: @auction.Key.Car?.Kms</p>
+                                                <p>Status Description: @auction.Key.Car?.StatusDescription</p>
+                                            </div>
+                                            <div>
+                                                <p>Base Price: @auction.Key.BasePrice €</p>
+                                                <p>Buy Now: @auction.Key.BuyNowPrice €</p>
+                                                <p>Starting Date: @auction.Key.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                                <p>Ending Date: @auction.Key.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                            </div>
+                                        </div>
+                                        <div class="AuctionOptions" style="flex-direction: row; width: 20%;">
+                                            <button class="goToAuctionPage" onclick="window.location.href = 'https://localhost:7233/AuctionPage?AuctionId=@auction.Key.Id';">MORE INFO</button>
+                                            <button class="moreInfoButton">BIDS</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="additionalInfo" style="display: none;">
+                                    <div class="additionalInfoBox">
+                                        <div class="moreInfoEmptyColumn"></div>
+                                        <div style="width: 80%;">
+                                            <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
+                                                <span>User</span>
+                                                <div>
+                                                    <span>Bid Value</span>                                                </div>
+                                                <span>Time of Bid</span>
+                                            </div>
+                                            <div class="bidsContainer">
+                                                @foreach(var bid in auction.Value.Take(6)) {
+                                                    <div class="infoBid" data-bidvalue="@bid.BidValue">
+                                                        @if(!auction.Key.Anonymous) {
+                                                            <span>@bid.User.Username</span>
+                                                        } else {
+                                                            <span>[Anonymous]</span>
+                                                        }
+                                                        <span>@bid.BidValue €</span>
+                                                        <span>@bid.bidTime</span>
+                                                    </div>
+                                                }
+                                                @if (auction.Value.Count()>6) {
+                                                    <div class="infoBidBreaker">
+                                                        <span>PRESS "MORE INFO" TO CHECK ALL BIDS</span>
+                                                    </div>
+                                                } else if (auction.Value.Count()>0 && auction.Value.Count()<=6) {
+                                                    <div class="infoBidBreaker">
+                                                        <span>RELOAD THE PAGE TO CHECK FOR NEW BIDS</span>
+                                                    </div>
+                                                } else {
+                                                    <div class="infoBidBreaker">
+                                                        <span>NO BIDS YET, RELOAD THE PAGE TO CHECK FOR NEW BIDS</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div id="waitingAuctionsContent" class="userLeiloes" style="display: none;">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">AWAITING APPROVAL</h1>
+                </div>
+                <div>
+                    @foreach(var auction in Model.AuctionsWaitingApproval) {
+                        <div id="auction_@auction.Id" class="englobaAuction">
+                            <div class="auctionInfoExtended">
+                                <div class="auctionInfo">
+                                    <div class="auctionInfoCabeçalho">
+                                        <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
+                                        <img src="@auction.Car?.PicUrl" alt="@auction.Car?.Make @auction.Car?.Model">
+                                    </div>
+                                    <div class="auctionInfoResumo">
+                                        <div>
+                                            <div>
+                                                <p>Origin: @auction.Car?.Origin</p>
+                                                <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
+                                                <p>Milage: @auction.Car?.Kms</p>
+                                                <p>Status Description: @auction.Car?.StatusDescription</p>
+                                            </div>
+                                            <div>
+                                                <p>Base Price: @auction.BasePrice €</p>
+                                                <p>Buy Now: @auction.BuyNowPrice €</p>
+                                                <p>Starting Date: @auction.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                                <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                            </div>
+                                        </div>
+                                        <form method="post" action="UserPage?handler=DeleteAuction">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="idAuction" value=@auction.Id />
+                                            <button type="submit" class="cancelButtonAwaiting">Cancel Auction</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div id="statusContent" class="userLeiloes" style="display: none;">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">MY STATISTICS</h1>
+                </div>
+                <div class="statusDiv">
+                    <div class="statusDivStats">
+                        <span>Total Number Auctions: @Model.NrTotalAuctions</span>
+                        <span>Auctions Waiting For Approval: @Model.NrWaitingForApprovalAuctions</span>
+                        <span>Auctions Waiting To Start: @Model.NrFutureApprovedAuctions</span>
+                        <span>Finished Auctions: @Model.NrFinishedAuctions</span>
+                        <span>On Going Auctions: @Model.NrOnGoingAuctions</span>
+                        <span>Average Auction Sell Value: @Model.MeanSellValueAuctions</span>
+                        <span>Average Number Of Bids Per Auction: @Model.MeanNrBidsPerAuction</span>
+                        <span style="margin-bottom: 2%;">Total Earnings: @(Model.TotalEarnedAuctions * 0.98)</span>
+                    </div>
+                    <div class="GraphWithTitleDiv" style="width: 63%;">
+                        <p style="font-size: 18px; margin-bottom: 0px;">AUCTIONS PER MONTH</p>
+                        <div class="statusDivGraph">
+                            <div>
+                                <span style="width: 10%;"></span>
+                                <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                            </div>
+                            @foreach(var bar in Model.AuctionsPerMonth) {
+                                CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+                                DateTimeFormatInfo dateTimeFormat = cultureInfo.DateTimeFormat;
+                                var monthName = dateTimeFormat.GetMonthName(bar.Key.M);
+                                <div>
+                                    <span style="width: 10%;">@monthName @bar.Key.A</span>
+                                    <siv style="height: 23px; width: 1px; background-color: black;"></siv>
+                                    <div style="width: @(bar.Value*10)%; height: 23px; background-color: black; margin-right: 0.5%;"></div>
+                                    <span style="font-size: 11px;">@bar.Value</span>
+                                </div>
+                            }
+                            <div>
+                                <span style="width: 10%;"></span>
+                                <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="bottom-icons">
+                <a href="#">Facebook</a>
+                <a> | </a>
+                <a href="#">Instagram</a>
+                <a> | </a>
+                <a href="#">LinkedIn</a>
+                <a> | </a>
+                <a href="#">help@LIForCars.pt</a>
+                <a> | </a>
+                <a href="#">Privacy Policy</a>
+                <a> | </a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+    } else if (Model.User != null && Model.IsAdmin) {
+        <div class="cabecalho">
+            <div class="hero">
+                <header>
+                    <h2>LIFORCARS</h2>
+                    <nav>
+                        <a id="homeLink" href="/">HOME</a>
+                        <a id="aboutLink" href="#">AUCTIONS</a>
+                        <a id="contactLink" href="#" style="color: #d9534f">PROFILE</a>
+                        <divLogOut>
+                            <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                        </divLogOut>
+                    </nav>
+                </header>
+            </div>
+            <header class="userBar">
+                <nav>
+                    <span id="statusLink" style="color: #d9534f">STATISTICS</span>
+                </nav>
+            </header>
+        </div>
+
+        <div id="perfilContent" class="userInfo">
+            <div class="userDados">
+                <div class="userDadosCabecalho">
+                    <h1 class="listaDados" style="color: white; margin-bottom: 0;">@Model.User.Name [ADMIN]</h1>
+                    <img src="../images/avatarIcon.png" alt="Avatar Icon" style="width: 53%; height: auto; margin-top: 3%; margin-bottom: 17%;">
+                </div>
+                <span class="listaDados">Username: @Model.User.Username</span>
+                <span class="listaDados">NIF: @Model.User.Nif</span>
+                <span class="listaDados">CC: @Model.User.CC</span>
+                <span class="listaDados">Address: @Model.User.Address</span>
+                <span class="listaDados">Phone Number: @Model.User.Phone</span>
+                <span class="listaDados">Gender: @(Model.User.Gender == 'F' ? "Female" : "Male")</span>
+                <span class="listaDados">BirthDate: @Model.User.BirthDate.ToString("yyyy-MM-dd")</span>
+                <span class="listaDados">Email: @Model.User.Email</span>
+                <span class="listaDados">Password: @Model.User.Password</span>
+            </div>
+            <div id="statusContent" class="userLeiloes">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">AWAITING APPROVAL</h1>
+                </div>
+                <div class="statusDiv">
+                    <div class="statusDivStats">
+                        <span>Total Number Auctions: @Model.NrTotalAuctions</span>
+                        <span>Auctions Waiting For Approval: @Model.NrWaitingForApprovalAuctions</span>
+                        <span>Auctions Waiting To Start: @Model.NrFutureApprovedAuctions</span>
+                        <span>Finished Auctions: @Model.NrFinishedAuctions</span>
+                        <span>On Going Auctions: @Model.NrOnGoingAuctions</span>
+                        <span>Average Auction Sell Value: @Model.MeanSellValueAuctions</span>
+                        <span>Average Number Of Bids Per Auction: @Model.MeanNrBidsPerAuction</span>
+                        <span style="margin-bottom: 2%;">Total Earnings: @(Model.TotalEarnedAuctions * 0.02)</span>
+                    </div>
+                    <div class="Graphs">
+                        <div class="GraphWithTitleDiv">
+                            <p style="font-size: 18px; margin-bottom: 0px;">AUCTIONS PER MONTH</p>
+                            <div class="statusDivGraph">
+                                <div>
+                                    <span style="width: 12%;"></span>
+                                    <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                                </div>
+                                @foreach(var bar in Model.AuctionsPerMonthAdmin) {
+                                    CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+                                    DateTimeFormatInfo dateTimeFormat = cultureInfo.DateTimeFormat;
+                                    var monthName = dateTimeFormat.GetMonthName(bar.Key.M);
+                                    <div>
+                                        <span style="width: 12%;">@monthName @bar.Key.A</span>
+                                        <siv style="height: 23px; width: 1px; background-color: black;"></siv>
+                                        <div style="width: @(bar.Value.q*3)%; height: 19px; background-color: black; margin-right: 0.5%;"></div>
+                                        <span style="font-size: 11px;">@bar.Value.q</span>
+                                    </div>
+                                }
+                                <div>
+                                    <span style="width: 12%;"></span>
+                                    <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="GraphWithTitleDiv">
+                            <p style="font-size: 18px; margin-bottom: 0px;">EARNINGS PER MONTH</p>
+                            <div class="statusDivGraph">
+                                <div>
+                                    <span style="width: 12%;"></span>
+                                    <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                                </div>
+                                @foreach(var bar in Model.AuctionsPerMonthAdmin) {
+                                    CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+                                    DateTimeFormatInfo dateTimeFormat = cultureInfo.DateTimeFormat;
+                                    var monthName = dateTimeFormat.GetMonthName(bar.Key.M);
+                                    <div>
+                                        <span style="width: 12%;">@monthName @bar.Key.A</span>
+                                        <siv style="height: 23px; width: 1px; background-color: black;"></siv>
+                                        <div style="width: @(bar.Value.t*0.3)%; height: 19px; background-color: black; margin-right: 0.5%;"></div>
+                                        <span style="font-size: 11px;">@(bar.Value.t*0.02) €</span>
+                                    </div>
+                                }
+                                <div>
+                                    <span style="width: 12%;"></span>
+                                    <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="bottom-icons">
+                <a href="#">Facebook</a>
+                <a> | </a>
+                <a href="#">Instagram</a>
+                <a> | </a>
+                <a href="#">LinkedIn</a>
+                <a> | </a>
+                <a href="#">help@LIForCars.pt</a>
+                <a> | </a>
+                <a href="#">Privacy Policy</a>
+                <a> | </a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+    } else {
+        <div class="cabecalho">
+            <div class="hero">
+                <header>
+                    <h2>LIFORCARS</h2>
+                    <nav>
+                        <a id="homeLink" href="/">HOME</a>
+                        <a id="aboutLink" href="#">AUCTIONS</a>
+                        <a id="contactLink" href="#" style="color: #d9534f">PROFILE</a>
+                        <divLogOut>
+                            <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                        </divLogOut>
+                    </nav>
+                </header>
+            </div>
+        </div>
+
+        <p>User not found or invalid Username.</p>
+
+        <footer style="position: fixed;">
+            <div class="bottom-icons">
+                <a href="#">Facebook</a>
+                <a> | </a>
+                <a href="#">Instagram</a>
+                <a> | </a>
+                <a href="#">LinkedIn</a>
+                <a> | </a>
+                <a href="#">help@LIForCars.pt</a>
+                <a> | </a>
+                <a href="#">Privacy Policy</a>
+                <a> | </a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+    }
+
+
+
+
+
+
+
+
+</body>
+</html>

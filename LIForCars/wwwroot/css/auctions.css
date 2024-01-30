@@ -159,8 +159,6 @@ div divLogOut:hover {
     display: flex; /* Use flexbox to arrange child elements */
     justify-content: center; /* Add space between child elements */
     align-items: flex-start; /* Center child elements vertically */
-    margin-top: 6%;
-    margin-bottom: 20%;
 }
 
 .auctionFilters {
@@ -253,13 +251,10 @@ div divLogOut:hover {
     justify-content: space-between;
 }
 
-.BidButton {
-    font-size: 16px;
+.moreInfoButton, .goToAuctionPage {
+    font-size: 10px;
     box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
     border-radius: 1px;
-    margin-right: 2%;
-    padding-left: 3%;
-    padding-right: 3%;
 }
 
 .additionalInfo {
@@ -421,7 +416,7 @@ div divLogOut:hover {
 
 .PageNavigationDiv {
     padding-top: 1%;
-    padding-bottom: 5%;
+    padding-bottom: 15%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -510,74 +505,3 @@ footer {
     text-decoration: underline;
 }
 
-.container,
-.highestbid {
-    position: absolute;
-    top: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: rgb(0, 0, 0);
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.7);
-    width: 300px;
-    text-align: center; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-}
-
-.container {
-    left: 20%;
-}
-
-.highestbid {
-    left: 80%;
-}
-
-.containerImg {
-    left: 50%;
-    position: absolute;
-    top: 30%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    padding: 20px; /* Padding to create space between the border and the image */
-    box-sizing: border-box; /* Include padding and border in the element's dimensions */
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-.containerImg img {
-    width: 600px;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.bidbutton,
-.buybutton {
-    margin-top: 20px; /* Add margin between buttons and other content */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: rgb(0, 0, 0);
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    font-family: 'Saira Condensed Bold', sans-serif;
-    cursor: pointer;
-}
-
-.bidbutton:hover,
-.buybutton:hover {
-    background-color: #d9534f;
-}
-
-.modal-content p, .modal-content h2, .modal-content span {
-    color: black;
-}

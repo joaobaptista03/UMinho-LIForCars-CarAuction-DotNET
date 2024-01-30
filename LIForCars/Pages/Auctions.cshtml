@@ -1,0 +1,227 @@
+@page
+@model AuctionsModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIForCars</title>
+    <link href="~/css/fontStyles.css" rel="stylesheet" />
+    <link href="~/css/auctions.css" rel="stylesheet" />
+    <script src="~/js/auctions.js"></script>
+
+</head>
+<body>
+    <div class="cabecalho">
+        <div class="hero">
+            <header>
+                <h2>LIFORCARS</h2>
+                <nav>
+                    <a id="homeLink" href="/">HOME</a>
+                    <a id="aboutLink" href="#" style="color: #d9534f">AUCTIONS</a>
+                    <a id="contactLink" href="#">PROFILE</a>
+                    <divLogOut>
+                        <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                    </divLogOut>
+                </nav>
+            </header>
+        </div>
+    </div>
+
+    <div class="criarLeilaoDiv">
+        <div>
+            <button>NEW AUCTION</button>
+        </div>
+    </div>
+
+    <div class="auctionsDiv">
+        <div id="leiloesContent" class="userLeiloes" style="display: block;">
+            <div class="userLeiloesCabecalho">
+                <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">ON GOING AUCTIONS</h1>
+                <div class="auctionFilters">
+                    <div>
+                        <span id="sortByTimeRemaining" style="color: white">REMAINING TIME</span>
+                        <div class="auctionFiltersOptions">
+                            @if (@Model.OrderBy=="RemainingTimeAscending") {
+                                <div id="remainingTimeAscending" data-filterby="@Model.FilterBy" data-currentpage="@Model.CurrentPage" class="triangle-up-RemainigTime" style="border-bottom: 5px solid white;"></div>
+                            } else {
+                                <div id="remainingTimeAscending" data-filterby="@Model.FilterBy" data-currentpage="@Model.CurrentPage" class="triangle-up-RemainigTime"></div>
+                            }
+                            <div class="line"></div>
+                            @if (@Model.OrderBy=="RemainingTimeDescending") {
+                                <div id="remainingTimeDescending" data-filterby="@Model.FilterBy" data-currentpage="@Model.CurrentPage" class="triangle-down-RemainigTime" style="border-bottom: 5px solid white;"></div>
+                            } else {
+                                <div id="remainingTimeDescending" data-filterby="@Model.FilterBy" data-currentpage="@Model.CurrentPage" class="triangle-down-RemainigTime"></div>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <span style="color: white">Highest Bid</span>
+                        <div class="auctionFiltersOptions">
+                            @if (@Model.OrderBy=="HighestBidAscending") {
+                                <div id="highestBidAscending" data-filterby="@Model.FilterBy" data-currentpage="@Model.CurrentPage" class="triangle-up-RemainigTime" style="border-bottom: 5px solid white;"></div>
+                            } else {
+                                <div id="highestBidAscending" data-filterby="@Model.FilterBy" data-currentpage="@Model.CurrentPage" class="triangle-up-RemainigTime"></div>
+                            }
+                            <div class="line"></div>
+                            @if (@Model.OrderBy=="HighestBidDescending") {
+                                <div id="highestBidDescending" data-filterby="@Model.FilterBy" data-currentpage="@Model.CurrentPage" class="triangle-down-RemainigTime" style="border-bottom: 5px solid white;"></div>
+                            } else {
+                                <div id="highestBidDescending" data-filterby="@Model.FilterBy" data-currentpage="@Model.CurrentPage" class="triangle-down-RemainigTime"></div>
+                            }
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 108%;">
+                        <input type="text" id="searchInput" data-orderby="@Model.OrderBy" data-filterby="@Model.FilterBy" placeholder="Category, Motor ..." style=" width: 80%;"/>
+                        <img class="helpInfo-trigger" src="../images/help.svg" alt="Help Icon" style="width: 14%; height: auto;">
+                        <div class="helpInfo">
+                            <p>Use the following formats to filter auctions</p>
+                            <span>Make: {Name}</span>
+                            <span>Model: {Name}</span>
+                            <span>Year: {Number}</span>
+                            <span>Origin: {Name}</span>
+                            <span>Motor: {Name}</span>
+                            <span>Status: {Name}</span>
+                            <span>Kms: {minValue} - {maxValue}</span>
+                            <span>Base price: {minValue} - {maxValue}</span>
+                            <span>Price: {minValue} - {maxValue}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div>
+                @foreach(var auction in Model.Auctions) {
+                    <div id="auction_@auction.Id" class="englobaAuction @("Make" + auction.Car?.Make?.Replace(" ", "_")) @("Model" + auction.Car?.Model?.Replace(" ", "_")) @("Year" + auction.Car?.LaunchYear) @("Origin" + auction.Car?.Origin?.Replace(" ", "_")) @("Motor" + auction.Car?.Motor?.Replace(" ", "_")) @("Kms" + auction.Car?.Kms.ToString("F2").Replace(".", "_")) @("Status" + auction.Car?.StatusDescription?.Replace(" ", "_")) @("Base_Price" + auction.BasePrice.ToString("F2").Replace(".", "_")) @("Price" + auction.BuyNowPrice.ToString("F2").Replace(".", "_"))" style="display:block">
+                        <div class="auctionInfoExtended">
+                            <div class="auctionInfo">
+                                <div class="auctionInfoCabeçalho">
+                                    <h3 class="car-model">@auction.Car?.Make @auction.Car?.Model (@auction.Car?.LaunchYear)</h3>
+                                    <img src="@auction.Car?.PicUrl" alt="@auction.Car?.Make @auction.Car?.Model">
+                                </div>
+                                <div class="auctionInfoResumo">
+                                    <div>
+                                        <div>
+                                            <p>Origin: @auction.Car?.Origin</p>
+                                            <p>Motor: @auction.Car?.Motor (@auction.Car?.FuelType)</p>
+                                            <p>Milage: @auction.Car?.Kms</p>
+                                            <p>Status Description: @auction.Car?.StatusDescription</p>
+                                        </div>
+                                        <div>
+                                            <p>Base Price: @auction.BasePrice €</p>
+                                            <p>Buy Now: @auction.BuyNowPrice €</p>
+                                            <p>Starting Date: @auction.InitDateTime.ToString("yyyy-MM-dd")</p>
+                                            <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
+                                        </div>
+                                    </div>
+                                    <div style="flex-direction: column; align-items: flex-end;">
+                                        <span class="timeToEndAuction" data-enddatetime="@auction.EndDateTime" style="margin-bottom: 9.5%; color: black; font-size: 14px; margin-right: 1%;"></span>
+                                        <div class="AuctionOptions" style="flex-direction: row; width: 31%;">
+                                            <button class="goToAuctionPage" onclick="window.location.href = 'https://localhost:7233/AuctionPage?AuctionId=@auction.Id';">MORE INFO</button>
+                                            <button class="moreInfoButton">BIDS</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="additionalInfo" style="display: none;">
+                                <div class="additionalInfoBox">
+                                    <div class="moreInfoEmptyColumn"></div>
+                                    <div style="width: 80%;">
+                                        <div class="infoBid" style="background-color: rgb(113, 121, 125); color: white;">
+                                            <span>User</span>
+                                            <div>
+                                                <span>Bid Value</span>                                            </div>
+                                            <span>Time of Bid</span>
+                                        </div>
+                                        <div class="bidsContainer">
+                                            @foreach(var bid in Model.BidsMap[auction].Bids.Take(6)) {
+                                                <div class="infoBid" data-bidvalue="@bid.BidValue">
+                                                    @if(!auction.Anonymous) {
+                                                        <span>@bid.User.Username</span>
+                                                    } else {
+                                                        <span>[Anonymous]</span>
+                                                    }
+                                                    <span>@bid.BidValue €</span>
+                                                    <span>@bid.bidTime</span>
+                                                </div>
+                                            }
+                                            @if (Model.BidsMap[auction].Bids.Count()>6) {
+                                                <div class="infoBidBreaker">
+                                                    <span>PRESS "MORE INFO" TO CHECK ALL BIDS</span>
+                                                </div>
+                                            } else if (Model.BidsMap[auction].Bids.Count()>0 && Model.BidsMap[auction].Bids.Count()<=6) {
+                                                <div class="infoBidBreaker">
+                                                    <span>RELOAD THE PAGE TO CHECK FOR NEW BIDS</span>
+                                                </div>
+                                            } else {
+                                                <div class="infoBidBreaker">
+                                                    <span>NO BIDS YET, RELOAD THE PAGE TO CHECK FOR NEW BIDS</span>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="PageNavigationDiv">
+        @if(Model.CurrentPage>1) {
+            <div>
+                <span id="previousButton" data-filterby="@Model.FilterBy" data-orderby="@Model.OrderBy" data-currentpage="@Model.CurrentPage" class="arrow left"></span>
+            </div>
+        }
+        <div style="margin-left: 1%; margin-right: 1%;">
+            <span>@Model.CurrentPage</span>
+        </div>
+        @if(Model.TotalCount>Model.PageSize*Model.CurrentPage) {
+            <div>
+                <span id="nextButton" data-filterby="@Model.FilterBy" data-orderby="@Model.OrderBy" data-currentpage="@Model.CurrentPage" class="arrow right"></span>
+            </div>
+        }
+        
+    </div>
+
+    @if (Model.TotalCount==0) {
+        <footer style="position: fixed">
+            <div class="bottom-icons">
+                <a href="#">Facebook</a>
+                <a> | </a>
+                <a href="#">Instagram</a>
+                <a> | </a>
+                <a href="#">LinkedIn</a>
+                <a> | </a>
+                <a href="#">help@LIForCars.pt</a>
+                <a> | </a>
+                <a href="#">Privacy Policy</a>
+                <a> | </a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+    } else {
+        <footer>
+            <div class="bottom-icons">
+                <a href="#">Facebook</a>
+                <a> | </a>
+                <a href="#">Instagram</a>
+                <a> | </a>
+                <a href="#">LinkedIn</a>
+                <a> | </a>
+                <a href="#">help@LIForCars.pt</a>
+                <a> | </a>
+                <a href="#">Privacy Policy</a>
+                <a> | </a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+    }
+
+
+</body>
+</html>

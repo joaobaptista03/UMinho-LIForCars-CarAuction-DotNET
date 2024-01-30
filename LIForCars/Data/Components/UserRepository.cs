@@ -82,6 +82,18 @@ namespace LIForCars.Data.Components
             }
         }
 
+        public async Task<User?> GetUserByIdAsync(int userId)
+        {
+            var user = await _context.User.FindAsync(userId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
         public async Task<bool> IsAdminAsync(string username)
         {
             var user = await _context.User.FirstOrDefaultAsync(u => u.Username == username);
@@ -89,5 +101,7 @@ namespace LIForCars.Data.Components
                 return user is Administrator;
             return false;
         }
+
     }
+
 }
