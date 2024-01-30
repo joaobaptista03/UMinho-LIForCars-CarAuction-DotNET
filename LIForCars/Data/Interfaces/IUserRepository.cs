@@ -18,5 +18,6 @@ namespace LIForCars.Data.Interfaces
         bool Delete(User newUser);
 
         Task<User?> GetUserByIdAsync(int userId);
+        Task<bool> IsAdminAsync(string username);
     }
 }

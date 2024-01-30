@@ -15,5 +15,6 @@ namespace LIForCars.Data.Interfaces
         bool CCExists(int cc);
         bool PhoneExists(int phone);
         bool UsernameExists(string username);
+        bool IsAdmin(string username);
     }
 }

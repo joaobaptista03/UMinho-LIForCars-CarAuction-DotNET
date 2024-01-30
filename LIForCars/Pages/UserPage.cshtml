@@ -15,34 +15,33 @@
 
 </head>
 <body>
-    <div class="cabecalho">
-        <div class="hero">
-            <header>
-                <h2>LIFORCARS</h2>
+
+    @if (Model.User != null && !Model.IsAdmin)
+    {
+        <div class="cabecalho">
+            <div class="hero">
+                <header>
+                    <h2>LIFORCARS</h2>
+                    <nav>
+                        <a id="homeLink" href="/">HOME</a>
+                        <a id="aboutLink" href="#">AUCTIONS</a>
+                        <a id="contactLink" href="#" style="color: #d9534f">PROFILE</a>
+                        <divLogOut>
+                            <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                        </divLogOut>
+                    </nav>
+                </header>
+            </div>
+            <header class="userBar">
                 <nav>
-                    <a id="homeLink" href="/">HOME</a>
-                    <a id="aboutLink" href="#">AUCTIONS</a>
-                    <a id="contactLink" href="#">PROFILE</a>
-                    <divLogOut>
-                        <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
-                    </divLogOut>
+                    <span id="leiloesLink" style="color: #d9534f">AUCTIONS</span>
+                    <span id="bidsLink" style="color: white">BIDS</span>
+                    <span id="waitingAuctionsLink" style="color: white">AWAITING APPROVAL</span>
+                    <span id="statusLink" style="color: white">STATISTICS</span>
                 </nav>
             </header>
         </div>
-        <header class="userBar">
-            <nav>
-                <span id="leiloesLink" style="color: #d9534f">AUCTIONS</span>
-                <span id="bidsLink" style="color: white">BIDS</span>
-                <span id="waitingAuctionsLink" style="color: white">AWAITING APPROVAL</span>
-                <span id="statusLink" style="color: white">STATISTICS</span>
-            </nav>
-        </header>
-    </div>
 
-
-
-    @if (Model.User != null)
-    {
         <div id="perfilContent" class="userInfo">
             <div class="userDados">
                 <div class="userDadosCabecalho">
@@ -236,12 +235,12 @@
             </div>
             <div id="statusContent" class="userLeiloes" style="display: none;">
                 <div class="userLeiloesCabecalho">
-                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">AWAITING APPROVAL</h1>
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">MY STATISTICS</h1>
                 </div>
                 <div class="statusDiv">
                     <div class="statusDivStats">
                         <span>Total Number Auctions: @Model.NrTotalAuctions</span>
-                        <span>Auctions WAITTING FOR APPROVAL: @Model.NrWaitingForApprovalAuctions</span>
+                        <span>Auctions Waiting For Approval: @Model.NrWaitingForApprovalAuctions</span>
                         <span>Auctions Waiting To Start: @Model.NrFutureApprovedAuctions</span>
                         <span>Finished Auctions: @Model.NrFinishedAuctions</span>
                         <span>On Going Auctions: @Model.NrOnGoingAuctions</span>
@@ -292,9 +291,153 @@
                 <a href="#">Terms & Conditions</a>
             </div>
         </footer>
-    }
-    else
-    {
+    } else if (Model.User != null && Model.IsAdmin) {
+        <div class="cabecalho">
+            <div class="hero">
+                <header>
+                    <h2>LIFORCARS</h2>
+                    <nav>
+                        <a id="homeLink" href="/">HOME</a>
+                        <a id="aboutLink" href="#">AUCTIONS</a>
+                        <a id="contactLink" href="#" style="color: #d9534f">PROFILE</a>
+                        <divLogOut>
+                            <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                        </divLogOut>
+                    </nav>
+                </header>
+            </div>
+            <header class="userBar">
+                <nav>
+                    <span id="statusLink" style="color: #d9534f">STATISTICS</span>
+                </nav>
+            </header>
+        </div>
+
+        <div id="perfilContent" class="userInfo">
+            <div class="userDados">
+                <div class="userDadosCabecalho">
+                    <h1 class="listaDados" style="color: white; margin-bottom: 0;">@Model.User.Name [ADMIN]</h1>
+                    <img src="../images/avatarIcon.png" alt="Avatar Icon" style="width: 53%; height: auto; margin-top: 3%; margin-bottom: 17%;">
+                </div>
+                <span class="listaDados">Username: @Model.User.Username</span>
+                <span class="listaDados">NIF: @Model.User.Nif</span>
+                <span class="listaDados">CC: @Model.User.CC</span>
+                <span class="listaDados">Address: @Model.User.Address</span>
+                <span class="listaDados">Phone Number: @Model.User.Phone</span>
+                <span class="listaDados">Gender: @(Model.User.Gender == 'F' ? "Female" : "Male")</span>
+                <span class="listaDados">BirthDate: @Model.User.BirthDate.ToString("yyyy-MM-dd")</span>
+                <span class="listaDados">Email: @Model.User.Email</span>
+                <span class="listaDados">Password: @Model.User.Password</span>
+            </div>
+            <div id="statusContent" class="userLeiloes">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">AWAITING APPROVAL</h1>
+                </div>
+                <div class="statusDiv">
+                    <div class="statusDivStats">
+                        <span>Total Number Auctions: @Model.NrTotalAuctions</span>
+                        <span>Auctions Waiting For Approval: @Model.NrWaitingForApprovalAuctions</span>
+                        <span>Auctions Waiting To Start: @Model.NrFutureApprovedAuctions</span>
+                        <span>Finished Auctions: @Model.NrFinishedAuctions</span>
+                        <span>On Going Auctions: @Model.NrOnGoingAuctions</span>
+                        <span>Average Auction Sell Value: @Model.MeanSellValueAuctions</span>
+                        <span>Average Number Of Bids Per Auction: @Model.MeanNrBidsPerAuction</span>
+                        <span style="margin-bottom: 2%;">Total Earnings: @(Model.TotalEarnedAuctions * 0.02)</span>
+                    </div>
+                    <div class="Graphs">
+                        <div class="GraphWithTitleDiv">
+                            <p style="font-size: 18px; margin-bottom: 0px;">AUCTIONS PER MONTH</p>
+                            <div class="statusDivGraph">
+                                <div>
+                                    <span style="width: 12%;"></span>
+                                    <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                                </div>
+                                @foreach(var bar in Model.AuctionsPerMonthAdmin) {
+                                    CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+                                    DateTimeFormatInfo dateTimeFormat = cultureInfo.DateTimeFormat;
+                                    var monthName = dateTimeFormat.GetMonthName(bar.Key.M);
+                                    <div>
+                                        <span style="width: 12%;">@monthName @bar.Key.A</span>
+                                        <siv style="height: 23px; width: 1px; background-color: black;"></siv>
+                                        <div style="width: @(bar.Value.q*3)%; height: 19px; background-color: black; margin-right: 0.5%;"></div>
+                                        <span style="font-size: 11px;">@bar.Value.q</span>
+                                    </div>
+                                }
+                                <div>
+                                    <span style="width: 12%;"></span>
+                                    <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="GraphWithTitleDiv">
+                            <p style="font-size: 18px; margin-bottom: 0px;">EARNINGS PER MONTH</p>
+                            <div class="statusDivGraph">
+                                <div>
+                                    <span style="width: 12%;"></span>
+                                    <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                                </div>
+                                @foreach(var bar in Model.AuctionsPerMonthAdmin) {
+                                    CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+                                    DateTimeFormatInfo dateTimeFormat = cultureInfo.DateTimeFormat;
+                                    var monthName = dateTimeFormat.GetMonthName(bar.Key.M);
+                                    <div>
+                                        <span style="width: 12%;">@monthName @bar.Key.A</span>
+                                        <siv style="height: 23px; width: 1px; background-color: black;"></siv>
+                                        <div style="width: @(bar.Value.t*0.3)%; height: 19px; background-color: black; margin-right: 0.5%;"></div>
+                                        <span style="font-size: 11px;">@(bar.Value.t*0.02) €</span>
+                                    </div>
+                                }
+                                <div>
+                                    <span style="width: 12%;"></span>
+                                    <siv style="height: 10px; width: 1px; background-color: black;"></siv>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="bottom-icons">
+                <a href="#">Facebook</a>
+                <a> | </a>
+                <a href="#">Instagram</a>
+                <a> | </a>
+                <a href="#">LinkedIn</a>
+                <a> | </a>
+                <a href="#">help@LIForCars.pt</a>
+                <a> | </a>
+                <a href="#">Privacy Policy</a>
+                <a> | </a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+        </footer>
+    } else {
+        <div class="cabecalho">
+            <div class="hero">
+                <header>
+                    <h2>LIFORCARS</h2>
+                    <nav>
+                        <a id="homeLink" href="/">HOME</a>
+                        <a id="aboutLink" href="#">AUCTIONS</a>
+                        <a id="contactLink" href="#" style="color: #d9534f">PROFILE</a>
+                        <divLogOut>
+                            <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
+                        </divLogOut>
+                    </nav>
+                </header>
+            </div>
+            <header class="userBar">
+                <nav>
+                    <span id="leiloesLink" style="color: #d9534f">AUCTIONS</span>
+                    <span id="bidsLink" style="color: white">BIDS</span>
+                    <span id="waitingAuctionsLink" style="color: white">AWAITING APPROVAL</span>
+                    <span id="statusLink" style="color: white">STATISTICS</span>
+                </nav>
+            </header>
+        </div>
+
         <p>User not found or invalid Username.</p>
 
         <footer style="position: fixed;">

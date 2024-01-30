@@ -106,7 +106,7 @@ namespace LIForCars.Data.Components
             return highestBidRecord?.BidValue != null ? (float?)highestBidRecord.BidValue : null;
         }
 
-        public async Task<List<IGrouping<Auction, Bid>>?> GetGetBidsAuctionsUserAsync(IEnumerable<Auction> auctions) {
+        public async Task<List<IGrouping<Auction, Bid>>?> GetBidsAuctionsUserAsync(IEnumerable<Auction> auctions) {
 
             var highestBidRecords = await _context.Bid
                                            .Include(a => a.Auction)

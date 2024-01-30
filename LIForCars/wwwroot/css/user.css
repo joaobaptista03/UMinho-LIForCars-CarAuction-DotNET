@@ -382,13 +382,14 @@ div divLogOut:hover {
     flex-direction: row;
     align-items: flex-start;
     margin-bottom: 2%;
+    width: 100%;
 }
 
 .GraphWithTitleDiv {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 63%;
+    width: 100%;
     margin-left: 5%;
     margin-right: 0%;
 }
@@ -418,12 +419,19 @@ div divLogOut:hover {
     padding-bottom: 1%;
 }
 
+.Graphs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 63%;
+}
+
 .statusDivGraph > div {
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 85%;
-    font-size: 8px;
+    font-size: 9px;
 }
 
 .statusDivStats > span {

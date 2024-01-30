@@ -12,6 +12,6 @@ namespace LIForCars.Data.Interfaces
         Task<(int totalBids, IEnumerable<Bid> auctions)> GetBidsAuctionAsync(int idAuction);
         Task<IEnumerable<Bid>> GetBidsUserParticipatedAsync(int userId);
         Task<float?> GetHighestBidAuctionAsync(int auctionId);
-        Task<List<IGrouping<Auction, Bid>>?> GetGetBidsAuctionsUserAsync(IEnumerable<Auction> auctions);
+        Task<List<IGrouping<Auction, Bid>>?> GetBidsAuctionsUserAsync(IEnumerable<Auction> auctions);
     }
 }
