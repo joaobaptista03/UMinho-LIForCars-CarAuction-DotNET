@@ -6,3 +6,8 @@ li4_g9_2324.sln
 LIForCars/LIForCars.sln
 UMinho-LIForCars-CarAuction-DotNET.sln
 /.vs
+/LIForCars/.vs/LIForCars
+/LIForCars/Properties/serviceDependencies.json
+/LIForCars/Properties/serviceDependencies.local.json
+/LIForCars/Properties/serviceDependencies.local.json.user
+/LIForCars/LIForCars.csproj
