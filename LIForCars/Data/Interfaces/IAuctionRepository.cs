@@ -15,6 +15,7 @@ namespace LIForCars.Data.Interfaces
         Task<(IEnumerable<Auction> auctions, int totalCount)> GetCurrentAuctionsAsync(int page, int pageSize, string orderBy, string filterBy);
         Task<(IEnumerable<Auction> auctions, int totalCount)> GetAuctionsUserAsync(int page, int pageSize, int idUser);
         Task<IEnumerable<Auction>> GetAuctionsUserWaitingApprovalAsync(int page, int pageSize, int idUser);
+        Task<IEnumerable<Auction>> GetAllAuctionsUserAsync(int idUser);
 
     }
 }

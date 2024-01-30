@@ -20,7 +20,7 @@
                 <nav>
                     <a id="homeLink" href="/">HOME</a>
                     <a id="aboutLink" href="#">AUCTIONS</a>
-                    <a id="contactLink" href="#">CONTACT</a>
+                    <a id="contactLink" href="#">PROFILE</a>
                     <divLogOut>
                         <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
                     </divLogOut>
@@ -32,6 +32,7 @@
                 <span id="leiloesLink" style="color: #d9534f">AUCTIONS</span>
                 <span id="bidsLink" style="color: white">BIDS</span>
                 <span id="waitingAuctionsLink" style="color: white">AWAITING APPROVAL</span>
+                <span id="statusLink" style="color: white">STATISTICS</span>
             </nav>
         </header>
     </div>
@@ -196,7 +197,7 @@
                     }
                 </div>
             </div>
-             <div id="waitingAuctionsContent" class="userLeiloes" style="display: none;">
+            <div id="waitingAuctionsContent" class="userLeiloes" style="display: none;">
                 <div class="userLeiloesCabecalho">
                     <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">AWAITING APPROVAL</h1>
                 </div>
@@ -231,6 +232,26 @@
                     }
                 </div>
             </div>
+            <div id="statusContent" class="userLeiloes" style="display: none;">
+                <div class="userLeiloesCabecalho">
+                    <h1 class="listaDados" style="margin-left: 4%; color: white; margin-bottom: 0;">AWAITING APPROVAL</h1>
+                </div>
+                <div class="statusDiv">
+                    <div class="statusDivGraph">
+                        @foreach(var bar in Model.AuctionsPerMonth)
+                    </div>
+                    <div class="statusDivStats">
+                        <span>Total Number Auctions: @Model.NrTotalAuctions</span>
+                        <span>Auctions WAITTING FOR APPROVAL: @Model.NrWaitingForApprovalAuctions</span>
+                        <span>Auctions Waiting To Start: @Model.NrFutureApprovedAuctions</span>
+                        <span>Finished Auctions: @Model.NrFinishedAuctions</span>
+                        <span>On Going Auctions: @Model.NrOnGoingAuctions</span>
+                        <span>Average Auction Sell Value: @Model.MeanSellValueAuctions</span>
+                        <span>Average Number Of Bids Per Auction: @Model.MeanNrBidsPerAuction</span>
+                        <span>Total Earnings: @Model.TotalEarnedAuctions</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <footer>
@@ -251,7 +272,7 @@
     }
     else
     {
-        <p>User not found or invalid ID.</p>
+        <p>User not found or invalid Username.</p>
 
         <footer style="position: fixed;">
             <div class="bottom-icons">

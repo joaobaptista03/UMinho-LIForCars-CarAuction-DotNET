@@ -5,10 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var leiloesLink = document.getElementById('leiloesLink');
     var bidsLink = document.getElementById('bidsLink');
     var waitingAuctionsLink = document.getElementById('waitingAuctionsLink');
+    var statusLink = document.getElementById('statusLink');
     var leiloesContent = document.getElementById('leiloesContent'); // Replace with the actual ID of the element you want to show/hide
     var isLeiloesClicked = true;
     var bidsContent = document.getElementById('bidsContent'); // Replace with the actual ID of the element you want to show/hide
     var isBidsClicked = false;
+    var statusContent = document.getElementById('statusContent'); // Replace with the actual ID of the element you want to show/hide
+    var isStatusContentClicked = false;
     var waitingAuctionsContent = document.getElementById('waitingAuctionsContent'); // Replace with the actual ID of the element you want to show/hide
     var isWaitingAuctionsClicked = false;
     var highLightButtonLink = document.getElementById('higlLightButtonLink');
@@ -41,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         leiloesLink.style.color = 'white';
         bidsLink.style.color = 'white';
         waitingAuctionsLink.style.color = 'white';
+        statusLink.style.color = 'white';
     }
 
     leiloesLink.addEventListener('click', function () {
@@ -48,15 +52,17 @@ document.addEventListener('DOMContentLoaded', function () {
             resetColorsUserBar();
             this.style.color = '#d9534f';
 
-            if (leiloesContent.style.display === 'none') {
+            if (leiloesContent!=null && leiloesContent.style.display === 'none') {
                 bidsContent.style.display = 'none';
                 waitingAuctionsContent.style.display = 'none';
                 leiloesContent.style.display = 'block';
+                statusContent.style.display = 'none';
             }
 
             isLeiloesClicked = true;
             isBidsClicked = false;
             isWaitingAuctionsClicked = false;
+            isStatusContentClicked = false;
         }
     });
 
@@ -65,15 +71,17 @@ document.addEventListener('DOMContentLoaded', function () {
             resetColorsUserBar();
             this.style.color = '#d9534f';
 
-            if (bidsContent.style.display === 'none') {
+            if (bidsContent!=null && bidsContent.style.display === 'none') {
                 leiloesContent.style.display = 'none';
                 waitingAuctionsContent.style.display = 'none';
                 bidsContent.style.display = 'block';
+                statusContent.style.display = 'none';
             }
 
             isBidsClicked = true;
             isLeiloesClicked = false;
             isWaitingAuctionsClicked = false;
+            isStatusContentClicked = false;
         }
     });
 
@@ -82,79 +90,105 @@ document.addEventListener('DOMContentLoaded', function () {
             resetColorsUserBar();
             this.style.color = '#d9534f';
 
-            if (waitingAuctionsContent.style.display === 'none') {
+            if (waitingAuctionsContent!=null && waitingAuctionsContent.style.display === 'none') {
                 leiloesContent.style.display = 'none';
                 bidsContent.style.display = 'none';
                 waitingAuctionsContent.style.display = 'block';
+                statusContent.style.display = 'none';
             }
 
             isBidsClicked = false;
             isLeiloesClicked = false;
             isWaitingAuctionsClicked = true;
+            isStatusContentClicked = false;
         }
     });
 
-    highLightButtonLink.addEventListener('click', function () {
-        if (!isHighLightButtonLink) {
-            this.style.backgroundColor = 'green';
-            this.style.borderColor = 'green';
+    statusLink.addEventListener('click', function () {
+        if (!isStatusContentClicked) {
+            resetColorsUserBar();
+            this.style.color = '#d9534f';
 
-            var elementsWithClass = document.getElementsByClassName("infoMyBids");
-
-            for (var i = 0; i < elementsWithClass.length; i++) {
-                elementsWithClass[i].style.backgroundColor = "green";
+            if (statusContent!=null && statusContent.style.display === 'none') {
+                leiloesContent.style.display = 'none';
+                bidsContent.style.display = 'none';
+                waitingAuctionsContent.style.display = 'none';
+                statusContent.style.display = 'block';
             }
 
-            isHighLightButtonLink = true;
-        }
-        else {
-            this.style.backgroundColor = '';
-            this.style.borderColor = '';
-
-            var elementsWithClass = document.getElementsByClassName("infoMyBids");
-
-            for (var i = 0; i < elementsWithClass.length; i++) {
-                elementsWithClass[i].style.backgroundColor = "white";
-            }
-
-            isHighLightButtonLink = false;
+            isBidsClicked = false;
+            isLeiloesClicked = false;
+            isWaitingAuctionsClicked = false;
+            isStatusContentClicked = true;
         }
     });
 
-    removeFinishedButtonLink.addEventListener('click', function () {
-        if (!isRemoveFinishedButtonLink) {
-            this.style.backgroundColor = 'green';
-            this.style.borderColor = 'green';
+    if (highLightButtonLink!=null) {
+        highLightButtonLink.addEventListener('click', function () {
+            if (!isHighLightButtonLink) {
+                this.style.backgroundColor = 'green';
+                this.style.borderColor = 'green';
 
-            var auctions = document.querySelectorAll("auctionInfoExtended");
+                var elementsWithClass = document.getElementsByClassName("infoMyBids");
 
-            auctions.forEach(function(auction) {
-                var endDateTimeString = auction.dataset.expired;
-                var [day, month, year] = endDateTimeString.split('/');
-                var endDateTime = new Date(`${month}/${day}/${year}`);
-                currentTime = new Date();
-                var timeLeft = (endDateTime - currentTime);
-
-                if (timeLeft<=0) {
-                    auction.style.display='none';
+                for (var i = 0; i < elementsWithClass.length; i++) {
+                    elementsWithClass[i].style.backgroundColor = "green";
                 }
-            })
 
-            isRemoveFinishedButtonLink = true;
-        }
-        else {
-            this.style.backgroundColor = '';
-            this.style.borderColor = '';
+                isHighLightButtonLink = true;
+            }
+            else {
+                this.style.backgroundColor = '';
+                this.style.borderColor = '';
 
-            var auctions = document.querySelectorAll("auctionInfoExtended");
+                var elementsWithClass = document.getElementsByClassName("infoMyBids");
 
-            auctions.forEach(function(auction) {
-                auction.style.display='block';
-            })
+                for (var i = 0; i < elementsWithClass.length; i++) {
+                    elementsWithClass[i].style.backgroundColor = "white";
+                }
 
-            isRemoveFinishedButtonLink = false;
-        }
-    });
+                isHighLightButtonLink = false;
+            }
+        });
+    }
+    
+    if (removeFinishedButtonLink!=null) {
+        removeFinishedButtonLink.addEventListener('click', function () {
+            if (!isRemoveFinishedButtonLink) {
+                this.style.backgroundColor = 'green';
+                this.style.borderColor = 'green';
+
+                var auctions = document.querySelectorAll("auctionInfoExtended");
+
+                auctions.forEach(function(auction) {
+                    var endDateTimeString = auction.dataset.expired;
+                    var [day, month, year] = endDateTimeString.split('/');
+                    var endDateTime = new Date(`${month}/${day}/${year}`);
+                    currentTime = new Date();
+                    var timeLeft = (endDateTime - currentTime);
+
+                    if (timeLeft<=0) {
+                        auction.style.display='none';
+                    }
+                })
+
+                isRemoveFinishedButtonLink = true;
+            }
+            else {
+                this.style.backgroundColor = '';
+                this.style.borderColor = '';
+
+                var auctions = document.querySelectorAll("auctionInfoExtended");
+
+                auctions.forEach(function(auction) {
+                    auction.style.display='block';
+                })
+
+                isRemoveFinishedButtonLink = false;
+            }
+        });
+    }
+    
 
     var moreInfoButtons = document.querySelectorAll('.userLeiloes .moreInfoButton');
 

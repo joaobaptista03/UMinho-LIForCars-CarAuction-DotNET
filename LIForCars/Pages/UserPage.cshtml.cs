@@ -28,6 +28,15 @@ public class UserPageModel : PageModel
     public IEnumerable<Auction> AuctionsWaitingApproval { get; private set; } = Enumerable.Empty<Auction>();
     public Dictionary<Auction, (int TotalBids, IEnumerable<Bid> Bids)> BidsMap { get; private set; } = new Dictionary<Auction, (int, IEnumerable<Bid>)>();
     public Dictionary<Auction, IEnumerable<Bid>> AuctionsUserBidded { get; private set; } = new Dictionary<Auction, IEnumerable<Bid>>();
+    public Dictionary<(int M, int A), int> AuctionsPerMonth { get; private set; } = new Dictionary<(int M, int A), int>();
+    public int NrTotalAuctions { get; private set; }
+    public int NrWaitingForApprovalAuctions { get; private set; }
+    public int NrFutureApprovedAuctions { get; private set; }
+    public int NrFinishedAuctions { get; private set; }
+    public int NrOnGoingAuctions { get; private set; }
+    public float? MeanSellValueAuctions { get; private set; }
+    public float MeanNrBidsPerAuction { get; private set; }
+    public float? TotalEarnedAuctions { get; private set; }
 
     public async Task OnGetAsync(String Username)
     {
@@ -65,5 +74,80 @@ public class UserPageModel : PageModel
             }
             ((List<Bid>)AuctionsUserBidded[b.Auction]).Add(b);
         }
+
+        var allAuctions = await _auctionRepository.GetAllAuctionsUserAsync(UserId);
+
+        NrTotalAuctions = 0;
+        NrWaitingForApprovalAuctions = 0;
+        NrFutureApprovedAuctions = 0;
+        NrFinishedAuctions = 0;
+        NrOnGoingAuctions = 0;
+        
+        DateTime currentDateTime = DateTime.Now;
+        foreach (Auction a in allAuctions) {
+            NrTotalAuctions++;
+            if (a.Autorized==true) {
+                if (a.InitDateTime<=currentDateTime && a.EndDateTime>=currentDateTime) {
+                    NrOnGoingAuctions++;
+                } else if (a.InitDateTime>currentDateTime) {
+                    NrFutureApprovedAuctions++;
+                } else {
+                    NrFinishedAuctions++;
+                }
+            } else {
+                NrWaitingForApprovalAuctions++;
+            }
+        }
+
+        var auctionsGroupedById = await _bidRepository.GetMeanSellValueAuctionsUserAsync(allAuctions);
+
+        MeanSellValueAuctions = 0;
+        MeanNrBidsPerAuction = 0;
+        TotalEarnedAuctions = 0;
+        if (auctionsGroupedById!=null && auctionsGroupedById.Any()) {
+
+            auctionsGroupedById = auctionsGroupedById.OrderBy(group => group.Key.InitDateTime).ToList();
+
+            var firstDate = true;
+            DateTime maxDate = DateTime.MinValue;
+            foreach (IGrouping<Auction, Bid> g in auctionsGroupedById) {
+
+                int month = g.Key.EndDateTime.Month;
+                int year = g.Key.EndDateTime.Year;
+                if (firstDate) {
+                    AuctionsPerMonth[(month, year)] = 1;
+                    firstDate = false;
+                    maxDate = new DateTime(year, month, 1);
+                } else {
+                    if (AuctionsPerMonth.ContainsKey((month, year))) {
+                        AuctionsPerMonth[(month, year)] += 1;
+                    } else {
+                        while (maxDate<g.Key.EndDateTime) {
+                            AuctionsPerMonth[(maxDate.Month,maxDate.Year)] = 0;
+                        }
+                        if (AuctionsPerMonth.ContainsKey((month, year))) {
+                            AuctionsPerMonth[(month, year)] += 1;
+                        } else {
+                            AuctionsPerMonth[(month, year)] = 1;
+                        }
+                    }
+                }
+
+                MeanNrBidsPerAuction += g.Count();
+                var i = 0;
+                foreach (Bid bid in g) {
+                    if (i==0) {
+                        TotalEarnedAuctions += (float) bid.BidValue;
+                    }
+                    i++;
+                }
+            }
+
+            var nrAuctions = auctionsGroupedById.Count();
+            MeanSellValueAuctions = TotalEarnedAuctions / nrAuctions;
+            MeanNrBidsPerAuction = MeanNrBidsPerAuction / nrAuctions;
+        }
+
+
     }
 }

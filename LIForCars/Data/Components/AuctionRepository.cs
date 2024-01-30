@@ -322,5 +322,14 @@ namespace LIForCars.Data.Components
 
             return auctions;
         }
+
+        public async Task<IEnumerable<Auction>> GetAllAuctionsUserAsync(int idUser)
+        {
+            var query = await _context.Auction
+                .Where(a => a.UserId == idUser)
+                .ToListAsync();
+
+            return query;
+        }
     }
 }

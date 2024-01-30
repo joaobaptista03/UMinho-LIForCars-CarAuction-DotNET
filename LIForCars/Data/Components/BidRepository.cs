@@ -105,5 +105,17 @@ namespace LIForCars.Data.Components
 
             return highestBidRecord?.BidValue != null ? (float?)highestBidRecord.BidValue : null;
         }
+
+        public async Task<List<IGrouping<Auction, Bid>>?> GetMeanSellValueAuctionsUserAsync(IEnumerable<Auction> auctions) {
+
+            var highestBidRecords = await _context.Bid
+                                           .Include(a => a.Auction)
+                                           .Where(a => auctions.Contains(a.Auction))
+                                           .OrderByDescending(a => a.BidValue)
+                                           .GroupBy(a => a.Auction)
+                                           .ToListAsync();
+
+            return highestBidRecords;
+        }
     }
 }
