@@ -282,8 +282,62 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         initializeSorting();
+
+        var cancelAuctionsButton = document.querySelectorAll('.userLeiloes .cancelButton')
+
+        cancelAuctionsButton.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                var initDateTimeString = this.dataset.inittimeauction;
+                console.log(initDateTimeString);
+                var [date, time] = initDateTimeString.split(' ');
+                var [day, month, year] = date.split('/');
+                var [hours, minutes, seconds] = time.split(':');
+                var initDateTime = new Date(year, month - 1, day, hours, minutes, seconds);
+                currentTime = new Date();
+                if (initDateTime<currentTime) {
+                    var error = this.closest('.ErrorClass');
+                    error = error.querySelector('.errorCancelingAuction');
+                    error.style.display = 'block';
+                } else {
+                    event.preventDefault();
+                    var form = this.closest('form');
+                    deleteAuction(form);
+
+                    var auctionInfoDiv = this.closest('.englobaAuction');
+                    auctionInfoDiv.remove();
+                }
+            });
+        });
+
+        var cancelAuctionsButton = document.querySelectorAll('.userLeiloes .cancelButtonAwaiting')
+
+        cancelAuctionsButton.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                var form = this.closest('form');
+                deleteAuction(form);
+
+                var auction = this.closest('.englobaAuction');
+                auction.remove();
+            });
+        });
+
+        function deleteAuction(form) {
+            $.ajax({
+                url: form.getAttribute('action'),
+                type: 'POST',
+                data: new FormData(form),  // Use FormData to serialize the form data
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Handle the success response, if needed
+                    console.log('Auction deleted successfully.');
+                },
+                error: function (error) {
+                    // Handle the error response, if needed
+                    console.error('Error deleting auction:', error);
+                }
+            });
+        }
     }
-    
-
-
 });

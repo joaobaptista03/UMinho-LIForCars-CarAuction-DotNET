@@ -137,7 +137,11 @@
                                         <div class="bidsContainer">
                                             @foreach(var bid in Model.BidsMap[auction].Bids.Take(6)) {
                                                 <div class="infoBid" data-bidvalue="@bid.BidValue">
-                                                    <span>@bid.User.Username</span>
+                                                    @if(!auction.Anonymous) {
+                                                        <span>@bid.User.Username</span>
+                                                    } else {
+                                                        <span>[Anonymous]</span>
+                                                    }
                                                     <span>@bid.BidValue €</span>
                                                     <span>@bid.bidTime</span>
                                                 </div>

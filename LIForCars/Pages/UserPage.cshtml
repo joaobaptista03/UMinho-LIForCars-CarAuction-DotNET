@@ -12,7 +12,7 @@
     <link href="~/css/fontStyles.css" rel="stylesheet" />
     <link href="~/css/user.css" rel="stylesheet" />
     <script src="~/js/userPage.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -56,7 +56,7 @@
                 <span class="listaDados">Gender: @(Model.User.Gender == 'F' ? "Female" : "Male")</span>
                 <span class="listaDados">BirthDate: @Model.User.BirthDate.ToString("yyyy-MM-dd")</span>
                 <span class="listaDados">Email: @Model.User.Email</span>
-                <span class="listaDados">Password: @Model.User.Password</span>
+                <span class="listaDados">Password: *****</span>
             </div>
             <div id="leiloesContent" class="userLeiloes" style="display: block;">
                 <div class="userLeiloesCabecalho">
@@ -87,7 +87,18 @@
                                                 <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
                                             </div>
                                         </div>
-                                        <button class="moreInfoButton">MORE INFO</button>
+                                        @if(auction.InitDateTime>DateTime.Now) {
+                                            <div class="ErrorClass" style="width: 23%; display: flex; flex-direction: column; align-items: flex-end;">
+                                                <span class="errorCancelingAuction" style="color: red; font-size: 10px; display: none">ERROR: Auction Already Started</span>
+                                                <form method="post" action="UserPage?handler=DeleteAuction">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="idAuction" value=@auction.Id />
+                                                    <button type="submit" class="cancelButton" data-inittimeauction="@auction.InitDateTime">Cancel Auction</button>
+                                                </form>                                            </div>
+                                        } else {
+                                            <button class="moreInfoButton">BIDS</button>
+                                        }
+                                        
                                     </div>
                                 </div>
                                 <div class="additionalInfo" style="display: none;">
@@ -105,7 +116,11 @@
                                             <div class="bidsContainer">
                                                 @foreach(var bid in Model.BidsMap[auction].Bids) {
                                                     <div class="infoBid" data-bidvalue="@bid.BidValue">
-                                                        <span>@bid.User.Username</span>
+                                                        @if(!auction.Anonymous) {
+                                                            <span>@bid.User.Username</span>
+                                                        } else {
+                                                            <span>[Anonymous]</span>
+                                                        }
                                                         <span>@bid.BidValue €</span>
                                                         <span>@bid.bidTime</span>
                                                     </div>
@@ -153,7 +168,7 @@
                                             </div>
                                         </div>
                                         <div class="AuctionOptions" style="flex-direction: row; width: 20%;">
-                                            <button class="moreInfoButton">MORE INFO</button>
+                                            <button class="goToAuctionPage" onclick="window.location.href = 'https://localhost:7233/AuctionPage?AuctionId=@auction.Key.Id';">MORE INFO</button>
                                             <button class="moreInfoButton">BIDS</button>
                                         </div>
                                     </div>
@@ -171,7 +186,11 @@
                                             <div class="bidsContainer">
                                                 @foreach(var bid in auction.Value.Take(6)) {
                                                     <div class="infoBid" data-bidvalue="@bid.BidValue">
-                                                        <span>@bid.User.Username</span>
+                                                        @if(!auction.Key.Anonymous) {
+                                                            <span>@bid.User.Username</span>
+                                                        } else {
+                                                            <span>[Anonymous]</span>
+                                                        }
                                                         <span>@bid.BidValue €</span>
                                                         <span>@bid.bidTime</span>
                                                     </div>
@@ -226,6 +245,11 @@
                                                 <p>Ending Date: @auction.EndDateTime.ToString("yyyy-MM-dd")</p>
                                             </div>
                                         </div>
+                                        <form method="post" action="UserPage?handler=DeleteAuction">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="idAuction" value=@auction.Id />
+                                            <button type="submit" class="cancelButtonAwaiting">Cancel Auction</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +272,7 @@
                         <span>Average Number Of Bids Per Auction: @Model.MeanNrBidsPerAuction</span>
                         <span style="margin-bottom: 2%;">Total Earnings: @(Model.TotalEarnedAuctions * 0.98)</span>
                     </div>
-                    <div class="GraphWithTitleDiv">
+                    <div class="GraphWithTitleDiv" style="width: 63%;">
                         <p style="font-size: 18px; margin-bottom: 0px;">AUCTIONS PER MONTH</p>
                         <div class="statusDivGraph">
                             <div>

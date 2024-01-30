@@ -301,4 +301,9 @@ public class UserPageModel : PageModel
             }
         }
     }
+
+    public void OnPostDeleteAuction(int idAuction) {
+        Console.WriteLine("TESTE");
+        _auctionRepository.Delete(idAuction);
+    }
 }

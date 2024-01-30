@@ -117,6 +117,7 @@ div divLogOut:hover {
     display: flex; /* Use flexbox to arrange child elements */
     justify-content: center; /* Add space between child elements */
     align-items: flex-start; /* Center child elements vertically */
+    margin-bottom: 13%;
 }
 
 .listaDados {
@@ -242,7 +243,7 @@ div divLogOut:hover {
     font-size: 13px;
 }
 
-.moreInfoButton {
+.moreInfoButton, .goToAuctionPage, .cancelButton, .cancelButtonAwaiting {
     font-size: 10px;
     box-shadow: -1px 1px 0px rgba(0, 0, 0, 0.1);
     border-radius: 1px;
