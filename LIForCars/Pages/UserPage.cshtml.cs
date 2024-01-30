@@ -99,31 +99,52 @@ public class UserPageModel : PageModel
             }
         }
 
-        var auctionsGroupedById = await _bidRepository.GetMeanSellValueAuctionsUserAsync(allAuctions);
+        var auctionsGroupedById = await _bidRepository.GetGetBidsAuctionsUserAsync(allAuctions);
+        Dictionary<Auction, List<Bid>> auctionsGroupedByIdAux = new Dictionary<Auction, List<Bid>>();
+        if (auctionsGroupedById!=null && auctionsGroupedById.Any()) {
+            foreach (IGrouping<Auction, Bid> g in auctionsGroupedById) {
+                List<Bid> bidsAuction = new List<Bid>();
+                foreach (Bid b in g) {
+                    bidsAuction.Add(b);
+                }
+                auctionsGroupedByIdAux[g.Key] = bidsAuction;
+            }
+        }
+
+        foreach (Auction a in allAuctions) {
+            if (!auctionsGroupedByIdAux.ContainsKey(a)) {
+                auctionsGroupedByIdAux[a] = new List<Bid>();
+            }
+        }
+
+        List<(Auction, List<Bid>)> bidsGroupedByAuction = auctionsGroupedByIdAux.Select(kv => (kv.Key, kv.Value))
+                                                                                .OrderBy(a => a.Key.EndDateTime) // Use OrderBy for sorting
+                                                                                .ToList();
 
         MeanSellValueAuctions = 0;
         MeanNrBidsPerAuction = 0;
         TotalEarnedAuctions = 0;
-        if (auctionsGroupedById!=null && auctionsGroupedById.Any()) {
-
-            auctionsGroupedById = auctionsGroupedById.OrderBy(group => group.Key.InitDateTime).ToList();
+        if (bidsGroupedByAuction!=null && bidsGroupedByAuction.Any()) {
 
             var firstDate = true;
             DateTime maxDate = DateTime.MinValue;
-            foreach (IGrouping<Auction, Bid> g in auctionsGroupedById) {
+            var checkIfLastDate = 0;
+            foreach ((Auction a , List<Bid> bids) g in bidsGroupedByAuction) {
 
-                int month = g.Key.EndDateTime.Month;
-                int year = g.Key.EndDateTime.Year;
+                int month = g.a.EndDateTime.Month;
+                int year = g.a.EndDateTime.Year;
                 if (firstDate) {
                     AuctionsPerMonth[(month, year)] = 1;
                     firstDate = false;
                     maxDate = new DateTime(year, month, 1);
+                    maxDate = maxDate.AddMonths(1);
                 } else {
                     if (AuctionsPerMonth.ContainsKey((month, year))) {
                         AuctionsPerMonth[(month, year)] += 1;
                     } else {
-                        while (maxDate<g.Key.EndDateTime) {
+                        while (maxDate<g.a.EndDateTime) {
                             AuctionsPerMonth[(maxDate.Month,maxDate.Year)] = 0;
+                            maxDate = maxDate.AddMonths(1);
                         }
                         if (AuctionsPerMonth.ContainsKey((month, year))) {
                             AuctionsPerMonth[(month, year)] += 1;
@@ -133,17 +154,30 @@ public class UserPageModel : PageModel
                     }
                 }
 
-                MeanNrBidsPerAuction += g.Count();
-                var i = 0;
-                foreach (Bid bid in g) {
-                    if (i==0) {
-                        TotalEarnedAuctions += (float) bid.BidValue;
+                checkIfLastDate++;
+                if (checkIfLastDate==bidsGroupedByAuction.Count()) {
+                    DateTime presentDate = DateTime.Now;
+                    while(presentDate>g.a.EndDateTime) {
+                        g.a.EndDateTime = g.a.EndDateTime.AddMonths(1);
+                        AuctionsPerMonth[(g.a.EndDateTime.Month, g.a.EndDateTime.Year)] = 1;
                     }
-                    i++;
                 }
+
+                if (g.a.Autorized && g.a.EndDateTime<DateTime.Now) {
+
+                    MeanNrBidsPerAuction += g.bids.Count();
+                    var i = 0;
+                    foreach (Bid bid in g.bids) {
+                        if (i==0) {
+                            TotalEarnedAuctions += (float) bid.BidValue;
+                        }
+                        i++;
+                    }
+                }
+                
             }
 
-            var nrAuctions = auctionsGroupedById.Count();
+            var nrAuctions = bidsGroupedByAuction.Count();
             MeanSellValueAuctions = TotalEarnedAuctions / nrAuctions;
             MeanNrBidsPerAuction = MeanNrBidsPerAuction / nrAuctions;
         }
