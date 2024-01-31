@@ -8,9 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIForCars</title>
     <link href="~/css/fontStyles.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="~/css/auctions.css" rel="stylesheet" />
     <script src="~/js/auctionsAdmin.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/main.js"></script>
+    @Html.AntiForgeryToken()
 
 </head>
 <body>
@@ -21,10 +23,8 @@
                 <nav>
                     <a id="homeLink" href="/">HOME</a>
                     <a id="aboutLink" href="#" style="color: #d9534f">AUCTIONS</a>
-                    <a id="contactLink" href="#">PROFILE</a>
-                    <divLogOut>
-                        <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
-                    </divLogOut>
+                    <a id="contactLink" href="/UserPage">PROFILE</a>
+                    <button id="logoutButton" class="signoutin-button">LOG OUT</button>
                 </nav>
             </header>
         </div>
