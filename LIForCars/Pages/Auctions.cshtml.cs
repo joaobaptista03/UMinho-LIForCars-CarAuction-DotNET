@@ -121,4 +121,21 @@ public class AuctionsModel : PageModel
         
         return Page();
     }
+
+[ValidateAntiForgeryToken]
+public Task<IActionResult> OnPostCreateAuctionAsync([FromForm] Auction newAuction)
+{
+    // Your logic to validate and insert the new auction into the database
+    if (ModelState.IsValid)
+    {
+        // Assuming you have a method in _auctionRepository to create a new auction
+        _auctionRepository.Create(newAuction);
+
+        return Task.FromResult<IActionResult>(new JsonResult(new { success = true, message = "Auction created successfully" }));
+    }
+
+    return Task.FromResult<IActionResult>(new JsonResult(new { success = false, message = "Invalid form data" }));
+}
+
+
 }

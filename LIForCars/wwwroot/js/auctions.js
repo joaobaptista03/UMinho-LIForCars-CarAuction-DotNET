@@ -210,3 +210,48 @@ document.addEventListener('DOMContentLoaded', function () {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const registerButton = document.getElementById('criar');
+    const registerPage = document.getElementById('register-page');
+
+    registerPage.style.display = 'none';
+
+    // Event listener to toggle the visibility of the register page when the button is clicked
+    registerButton.addEventListener('click', function () {
+        toggleRegisterPage();
+    });
+
+    function toggleRegisterPage() {
+        if (registerPage.style.display === 'none' || registerPage.style.display === '') {
+            // If the register page is hidden or not set, show it
+            registerPage.style.display = 'block';
+
+            // Attach event listener for closing the register page
+            document.addEventListener('click', closeRegisterPageOnClick);
+        } else {
+            // If the register page is visible, hide it
+            registerPage.style.display = 'none';
+
+            // Remove event listener for closing the register page
+            document.removeEventListener('click', closeRegisterPageOnClick);
+        }
+    }
+
+    // Function to close the register page
+    function closeRegisterPage() {
+        registerPage.style.display = 'none';
+
+        // Remove event listener for closing the register page
+        document.removeEventListener('click', closeRegisterPageOnClick);
+    }
+
+    // Event listener for closing the register page
+    function closeRegisterPageOnClick(event) {
+        if (!registerPage.contains(event.target) && event.target !== registerButton) {
+            // If the click is outside the register page and not on the register button, close the register page
+            closeRegisterPage();
+        }
+    }
+});

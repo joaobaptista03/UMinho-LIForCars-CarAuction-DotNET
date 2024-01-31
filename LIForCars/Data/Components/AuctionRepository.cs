@@ -34,9 +34,11 @@ namespace LIForCars.Data.Components
                 _context.SaveChanges();
                 return true;
             }
-            catch (DbUpdateException)
+            catch (Exception ex)
             {
-                return false;
+            // Log or print the exception details
+            Console.WriteLine($"Exception: {ex.Message}");
+            return false;
             }
         }
 
