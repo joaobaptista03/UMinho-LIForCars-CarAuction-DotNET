@@ -9,6 +9,7 @@ namespace LIForCars.Data.Interfaces
         bool Create(Auction auction);
         bool Update(Auction auction);
         bool Delete(int id);
+        bool UpdateAuthorizationStatus(int auctionId);
         bool CarIdExists(int carId);
 
         Task<Auction?> GetAuctionAsync(int idAuction);
@@ -16,6 +17,7 @@ namespace LIForCars.Data.Interfaces
         Task<(IEnumerable<Auction> auctions, int totalCount)> GetAuctionsUserAsync(int page, int pageSize, int idUser);
         Task<IEnumerable<Auction>> GetAuctionsUserWaitingApprovalAsync(int page, int pageSize, int idUser);
         Task<IEnumerable<Auction>> GetAllAuctionsUserAsync(int idUser);
+        Task<(IEnumerable<Auction> auctions, int totalCount)> GetAllWaittingAuctionsAsync(int page, int pageSize);
 
     }
 }
