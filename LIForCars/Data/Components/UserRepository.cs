@@ -20,6 +20,11 @@ namespace LIForCars.Data.Components
 
         public IEnumerable<User> GetAll() => _context.User.ToList();
 
+
+        public User? GetById(int id) {
+          return _context.User.FirstOrDefault(a => a.Id == id);  
+        }
+         
         public User? GetByUsername(string username) => _context.User.FirstOrDefault(c => c.Username == username);
         public bool NifExists(int nif) => _context.User.Any(u => u.Nif == nif);
         public bool CcExists(int cc) => _context.User.Any(u => u.CC == cc);

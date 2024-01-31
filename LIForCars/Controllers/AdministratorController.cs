@@ -20,6 +20,16 @@ namespace LIForCars.Controllers
             return Ok(_repository.GetAll());
         }
 
+        //GET api/User/ById/{id} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpGet("ById/{id}")]
+        public ActionResult<Administrator> GetById(int id)
+        {
+            var result = _repository.GetById(id);
+
+            return Ok(result);
+        }
+
+
         [HttpGet("{username}")]
         public ActionResult<Administrator> GetByUsername(string username)
         {

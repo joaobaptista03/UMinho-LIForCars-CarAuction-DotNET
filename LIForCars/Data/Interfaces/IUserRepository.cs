@@ -10,6 +10,7 @@ namespace LIForCars.Data.Interfaces
         bool NifExists(int nif);
         bool CcExists(int cc);
         bool PhoneExists(int phone);
+        public User? GetById(int userId);
         bool UsernameExists(string username);
         bool EmailExists(string email);
         bool CheckPassword(string username, string password);

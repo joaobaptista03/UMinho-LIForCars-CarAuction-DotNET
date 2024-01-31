@@ -33,6 +33,10 @@ namespace LIForCars.Data.Components
             return true;
         }
 
+        public Car? GetById(int id) {
+          return _context.Car.FirstOrDefault(a => a.Id == id);  
+        }
+
         public bool Update(Car car)
         {
             try {

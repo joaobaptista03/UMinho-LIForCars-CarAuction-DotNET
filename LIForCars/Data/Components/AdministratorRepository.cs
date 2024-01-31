@@ -33,6 +33,10 @@ namespace LIForCars.Data.Components
             return true;
         }
 
+        public Administrator? GetById(int id) {
+          return _context.Administrators.FirstOrDefault(a => a.Id == id);  
+        }
+
         public bool Update(Administrator admin)
         {
             try {

@@ -6,6 +6,7 @@ namespace LIForCars.Data.Interfaces
     {
         IEnumerable<Car> GetAll();
         Car? GetByPlate(string plate);
+        public Car? GetById(int carId);
         bool Create(Car car);
         bool Update(Car car);
         bool Delete(string plate);

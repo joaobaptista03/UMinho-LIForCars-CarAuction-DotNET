@@ -6,6 +6,7 @@ namespace LIForCars.Data.Interfaces
     {
         IEnumerable<Administrator> GetAll();
         Administrator? GetByUsername(string username);
+        public Administrator? GetById(int userId);
         bool Create(Administrator admin);
         bool Update(Administrator admin);
         bool Delete(string username);

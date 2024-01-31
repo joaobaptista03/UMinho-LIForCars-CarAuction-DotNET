@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using LIForCars.Models;
 using LIForCars.Data.Interfaces;
 
+
 namespace LIForCars.Controllers {
 
     [Route("api/User")]
@@ -24,14 +25,24 @@ namespace LIForCars.Controllers {
             return Ok(result);
         }
 
-        //GET api/User/{username} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
-        [HttpGet("{username}")]
+        //GET api/User/ByUsername/{username} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpGet("ByUsername/{username}")]
         public ActionResult<User> GetByUsername(string username)
         {
             var result = _repository.GetByUsername(username);
 
             return Ok(result);
         }
+
+        //GET api/User/ById/{id} <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
+        [HttpGet("ById/{id}")]
+        public ActionResult<User> GetById(int id)
+        {
+            var result = _repository.GetById(id);
+
+            return Ok(result);
+        }
+
 
         // PUT api/User/{username}  <- MUDAR PERMISSÕES PARA QUE APENAS ADMINS POSSAM ACEDER
         [HttpPut("{username}")]
@@ -148,7 +159,7 @@ namespace LIForCars.Controllers {
             {
                 return NotFound();
             }
-
+    
             return Ok(user);
         }
 

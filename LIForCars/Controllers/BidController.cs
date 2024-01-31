@@ -1,16 +1,23 @@
+using LIForCars.Data.Components;
 using LIForCars.Data.Interfaces;
 using LIForCars.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LIForCars.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class BidController : ControllerBase {
         private readonly IBidRepository _repository;
+        private readonly IAuctionRepository _auctionRepository;
 
-        public BidController(IBidRepository repository) {
+        private readonly IUserRepository _userRepository;
+
+
+        public BidController(IBidRepository repository,IAuctionRepository auctionRepository, IUserRepository userRepository) {
             _repository = repository;
+            _auctionRepository = auctionRepository;     
+            _userRepository = userRepository;   
         }
 
         [HttpGet]
@@ -27,9 +34,15 @@ namespace LIForCars.Controllers
             return Ok(bid);
         }
 
-        [HttpPost]
-        public ActionResult Create([FromBody] Bid bid) {
+        //[Consumes("application/json")]
+        [HttpPost("create")]
+        public ActionResult Create([FromBody] Bid bid)
+        {
+            // Verify the AuctionId in bid is correct
+
+            // Save the bid to the database
             _repository.Create(bid);
+
             return CreatedAtAction(nameof(GetById), new { id = bid.Id }, bid);
         }
 

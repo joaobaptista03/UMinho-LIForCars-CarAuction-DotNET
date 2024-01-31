@@ -25,13 +25,20 @@ namespace LIForCars.Data.Components
 
         public bool Create(Bid bid)
         {
-            try {
+            try
+            {
+                Console.WriteLine($"AuctionId: {bid.AuctionId}");
+
                 _context.Bid.Add(bid);
                 _context.SaveChanges();
-            } catch (Exception) {
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details for debugging
+                Console.WriteLine($"Error creating bid: {ex.Message}");
                 return false;
             }
-            return true;
         }
 
         public bool Update(Bid bid)

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LIForCars.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/Auction")]
     public class AuctionController : ControllerBase
     {
         private readonly IAuctionRepository _repository;
@@ -32,10 +32,9 @@ namespace LIForCars.Controllers
             return Ok(auction);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public ActionResult Create([FromBody] Auction auction)
         {
-            if (_repository.CarIdExists(auction.CarId)) return BadRequest("CarId already exists");
             
             _repository.Create(auction);
             return CreatedAtAction(nameof(GetById), new { id = auction.Id }, auction);

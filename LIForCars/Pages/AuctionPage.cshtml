@@ -57,7 +57,28 @@
                                         <p>Ending Date: @Model.Auction.EndDateTime.ToString("yyyy-MM-dd")</p>
                                     </div>
                                 </div>
-                                <button class="BidButton">BID</button>
+                                <button type="button" class="BidButton" data-target="register" id="criar">Bid</button>
+                                <div id="register-page">
+                                    <div class="modal-backdrop">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <span class="close-btn" onclick="closeRegisterPage()">&times;</span>
+                                            </div>
+                                            <!-- Bid Information -->
+                                        <form id="bidForm">
+                                            <input type="text" name="UserId" placeholder="User Id" required />
+                                            <input type="text" name="BidValue" placeholder="Bid Value" required />
+                                            <input type="text" name="bidTime" placeholder="Bid Time" required />
+
+                                            <div class="modal-footer">
+                                            <button type="submit" id = "este" class="BidButton" data-target="register" data-auction-id="@Model.Auction.Id">Confirm Bid</button>
+                                            <div>Auction ID: @Model.Auction.Id</div>
+
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="additionalInfo" style="display: block;">
