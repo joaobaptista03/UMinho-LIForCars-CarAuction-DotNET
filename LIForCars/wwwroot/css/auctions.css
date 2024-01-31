@@ -504,3 +504,16 @@ footer {
 .bottom-icons a:hover {
     text-decoration: underline;
 }
+
+.signoutin-button {
+    background-color: #d9534f;
+    padding: 4px 10px;
+    font-size: 22px;
+    color: white;
+    border: none;
+    margin-left: 20px;
+    border-radius: 0;
+    font-family: 'Saira Condensed Bold', sans-serif;
+    margin-top: 0;
+    cursor: pointer;
+}

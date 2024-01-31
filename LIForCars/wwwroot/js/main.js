@@ -1,37 +1,26 @@
-$(document).ready(function() {
-    $.ajax({
-        url: '/Index?handler=HeaderPartial',
-        type: 'GET',
-        success: function(data) {
-            $('#header-section').html(data);
-            $('#header-section').show();
-            $('#header-section').on('submit', '#logout-form', logout);
-        }
+$(document).ready(function () {
+    $('#logoutButton').click(function (event) {
+        event.preventDefault();
+        var token = document.getElementsByName("__RequestVerificationToken")[0].value;
+        $.ajax({
+            url: '/Index',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': token
+            },
+            success: function (result) {
+                if (result.hasOwnProperty('success') && result.success) {
+                    window.location.reload();
+                } else {
+                    console.error('Logout failed:', result);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Logout failed:', xhr, status, error);
+            }
+        });
     });
 });
-
-function logout(event) {
-    event.preventDefault();
-    var form = $(this);
-    var token = form.find('input[name="__RequestVerificationToken"]').val();
-    $.ajax({
-        url: form.attr('action'),
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': token
-        },
-        success: function(result) {
-            if (result.hasOwnProperty('success') && result.success) {
-                window.location.reload();
-            } else {
-                console.error('Logout failed:', result);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('Logout failed:', xhr, status, error);
-        }
-    });
-}
 
 function showAboutPage() {
     $('#about-section').show();

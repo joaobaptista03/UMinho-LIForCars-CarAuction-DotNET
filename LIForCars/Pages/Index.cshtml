@@ -10,10 +10,32 @@
     <link href="~/css/main.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" type="image/x-icon" href="~/images/favicon.ico">
+
+    @Html.AntiForgeryToken()
+
 </head>
 <body>
     <div class="hero">
-        <div id="header-section"></div>
+        <header>
+            <h2>LIFORCARS</h2>
+            <nav>
+                <a href="/">HOME</a>
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a href="/Auctions">AUCTIONS</a>
+                    <a href="/UserPage">PROFILE</a>
+                    <button id="logoutButton" class="signout-button">LOG OUT</button>
+                }
+                else
+                {
+                    <a href="#" onclick="showAboutPage()">ABOUT</a>
+                    <a href="#" onclick="showContactPage()">CONTACT</a>
+                    <divSignIn>
+                        <a2 href="#" onclick="showLoginPage()" class="signin">SIGN IN</a2>
+                    </divSignIn>
+                }
+            </nav>
+        </header>
 
         <h1>Drive Your Dreams.<br> Bid, Win, Ride!</h1>
 

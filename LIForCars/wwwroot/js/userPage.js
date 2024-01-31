@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         bidsLink.addEventListener('click', function () {
             if (!isBidsClicked) {
+                console.log("aaaaa");
                 resetColorsUserBar();
                 this.style.color = '#d9534f';
 

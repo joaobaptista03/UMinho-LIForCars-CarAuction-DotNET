@@ -7,10 +7,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIForCars</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="~/css/fontStyles.css" rel="stylesheet" />
     <link href="~/css/auction.css" rel="stylesheet" />
     <script src="~/js/auctionPage.js"></script>
-
+    <script src="~/js/main.js"></script>
+    @Html.AntiForgeryToken()
 </head>
 <body>
     <div class="cabecalho">
@@ -18,12 +20,21 @@
             <header>
                 <h2>LIFORCARS</h2>
                 <nav>
-                    <a id="homeLink" href="/">HOME</a>
-                    <a id="aboutLink" href="#" style="color: #d9534f">AUCTIONS</a>
-                    <a id="contactLink" href="#">PROFILE</a>
-                    <divLogOut>
-                        <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
-                    </divLogOut>
+                    <a id="homeLink" href=" /">HOME</a>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <a id="aboutLink" href="/Auctions">AUCTIONS</a>
+                        <a id="contactLink" href="/UserPage">PROFILE</a>
+                    <button id="logoutButton" class="signout-button">LOG OUT</button>
+                    }
+                    else
+                    {
+                        <a href="#" onclick="showAboutPage()">ABOUT</a>
+                        <a href="#" onclick="showContactPage()">CONTACT</a>
+                        <divSignIn>
+                            <a2 href="#" onclick="showLoginPage()" class="signin">SIGN IN</a2>
+                        </divSignIn>
+                    }
                 </nav>
             </header>
         </div>
@@ -57,8 +68,31 @@
                                         <p>Ending Date: @Model.Auction.EndDateTime.ToString("yyyy-MM-dd")</p>
                                     </div>
                                 </div>
-                                <button class="BidButton">BID</button>
+                                <button href="#" name="bidAmount" onclick="showBidPage()" class="BidButton">BID</button>
                             </div>
+
+                            <div id="bid-page" style="display: none;">
+                                <div class="modal-backdrop">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="close-btn" onclick="closeBidPage()">&times;</span>
+                                            <h2>Place bid</h2>
+                                        </div>
+                                        <div id="bid-error" style="color:red; text-align: center; padding:10px; display:none;"></div>
+                                        <div id="bid-success" style="color:green; text-align:center; padding:10px; display:none"></div>
+                                        <p>(Your bid must be at least @Model.Auction.MinIncrement above the current highest bid)</p>
+                                        <form id="bid-form" asp-page-handler="OnPostPlaceBid">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="auctionId" value="@Model.Auction.Id" />
+                                            <input type="text" id="bid" name="bidValue" placeholder="Your Bid" required />
+                                            <div class="modal-footer">
+                                                <button class="bidButton2" type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="additionalInfo" style="display: block;">
                             <div class="additionalInfoBox">

@@ -17,6 +17,7 @@ public class AuctionsModel : PageModel
         _bidRepository = bidRepository;
     }
 
+
     [BindProperty(SupportsGet = true)]
     public int CurrentPage { get; set; } = 1;
     public int PageSize { get; set; } = 5;

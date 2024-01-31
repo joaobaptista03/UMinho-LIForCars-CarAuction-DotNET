@@ -4,6 +4,9 @@ using LIForCars.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using System.ComponentModel.DataAnnotations;
 
 public class UserPageModel : PageModel
 {
@@ -40,9 +43,9 @@ public class UserPageModel : PageModel
     public float MeanNrBidsPerAuction { get; private set; }
     public float? TotalEarnedAuctions { get; private set; }
 
-    public async Task OnGetAsync(String Username)
+    public async Task OnGetAsync()
     {
-        User? user = _userRepository.GetByUsername(Username);
+        User? user = _userRepository.GetByUsername(base.User.Identity.Name);
         if (user==null)
         {
             return;
@@ -51,7 +54,7 @@ public class UserPageModel : PageModel
         
         // Ir buscar o user
         User = await _userRepository.GetUserByIdAsync(UserId);
-        IsAdmin = await _userRepository.IsAdminAsync(Username);
+        IsAdmin = await _userRepository.IsAdminAsync(user.Username);
 
         // Ir buscar os leilões do user
         var result = await _auctionRepository.GetAuctionsUserAsync(CurrentPage, PageSize, UserId);

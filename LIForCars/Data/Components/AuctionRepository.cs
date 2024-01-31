@@ -87,6 +87,8 @@ namespace LIForCars.Data.Components
                 .Include(a => a.Car)
                 .Where(a => a.Autorized && a.InitDateTime <= DateTime.Now && a.EndDateTime >= DateTime.Now);
 
+
+
             IEnumerable<Auction> auctions = Enumerable.Empty<Auction>();
             if (orderBy=="RemainingTimeDescending") {
                 if (filterBy=="") {

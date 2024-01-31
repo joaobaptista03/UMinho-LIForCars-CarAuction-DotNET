@@ -9,10 +9,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIForCars</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="~/css/fontStyles.css" rel="stylesheet" />
     <link href="~/css/user.css" rel="stylesheet" />
     <script src="~/js/userPage.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/main.js"></script>
+    @Html.AntiForgeryToken()
 </head>
 <body>
 
@@ -23,12 +25,21 @@
                 <header>
                     <h2>LIFORCARS</h2>
                     <nav>
-                        <a id="homeLink" href="/">HOME</a>
-                        <a id="aboutLink" href="#">AUCTIONS</a>
-                        <a id="contactLink" href="#" style="color: #d9534f">PROFILE</a>
-                        <divLogOut>
-                            <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
-                        </divLogOut>
+                        <a id="homeLink" href=" /">HOME</a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a id="aboutLink" href="/Auctions">AUCTIONS</a>
+                            <a id="contactLink" href="/UserPage">PROFILE</a>
+                            <button id="logoutButton" class="signoutin-button">LOG OUT</button>
+                        }
+                        else
+                        {
+                            <a href="#" onclick="showAboutPage()">ABOUT</a>
+                            <a href="#" onclick="showContactPage()">CONTACT</a>
+                            <divSignIn>
+                                <a2 href="#" onclick="showLoginPage()" class="signoutin-button">SIGN IN</a2>
+                            </divSignIn>
+                        }
                     </nav>
                 </header>
             </div>
@@ -321,12 +332,21 @@
                 <header>
                     <h2>LIFORCARS</h2>
                     <nav>
-                        <a id="homeLink" href="/">HOME</a>
-                        <a id="aboutLink" href="#">AUCTIONS</a>
-                        <a id="contactLink" href="#" style="color: #d9534f">PROFILE</a>
-                        <divLogOut>
-                            <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
-                        </divLogOut>
+                        <a id="homeLink" href=" /">HOME</a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a id="aboutLink" href="/Auctions">AUCTIONS</a>
+                            <a id="contactLink" href="/UserPage">PROFILE</a>
+                            <button type="submit" class="signoutin-button">LOG OUT</button>
+                        }
+                        else
+                        {
+                            <a href="#" onclick="showAboutPage()">ABOUT</a>
+                            <a href="#" onclick="showContactPage()">CONTACT</a>
+                            <divSignIn>
+                                <a2 href="#" onclick="showLoginPage()" class="signoutin-button">SIGN IN</a2>
+                            </divSignIn>
+                        }
                     </nav>
                 </header>
             </div>

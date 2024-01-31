@@ -9,8 +9,10 @@
     <title>LIForCars</title>
     <link href="~/css/fontStyles.css" rel="stylesheet" />
     <link href="~/css/auctions.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/main.js"></script>
     <script src="~/js/auctions.js"></script>
-
+    @Html.AntiForgeryToken()
 </head>
 <body>
     <div class="cabecalho">
@@ -18,12 +20,21 @@
             <header>
                 <h2>LIFORCARS</h2>
                 <nav>
-                    <a id="homeLink" href="/">HOME</a>
-                    <a id="aboutLink" href="#" style="color: #d9534f">AUCTIONS</a>
-                    <a id="contactLink" href="#">PROFILE</a>
-                    <divLogOut>
-                        <aUltimo href="#" data-target="login" class="signin">LOG OUT</aUltimo>
-                    </divLogOut>
+                    <a id="homeLink" href=" /">HOME</a>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <a id="aboutLink" href="/Auctions">AUCTIONS</a>
+                        <a id="contactLink" href="/UserPage">PROFILE</a>
+                        <button id="logoutButton" class="signoutin-button">LOG OUT</button>
+                    }
+                    else
+                    {
+                        <a href="#" onclick="showAboutPage()">ABOUT</a>
+                        <a href="#" onclick="showContactPage()">CONTACT</a>
+                        <divSignIn>
+                            <a2 href="#" class="signoutin-button"  onclick="showLoginPage()">SIGN IN</a2>
+                        </divSignIn>
+                    }
                 </nav>
             </header>
         </div>
