@@ -30,6 +30,46 @@ function showContactPage() {
     $('#contact-section').show();
 }
 
+function showAuctionPage() {
+    $('#new-auction-page').show();
+    $('#new-auction-page').on('submit', '#carAuctionForm', function(event) {
+        event.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: form.serialize(),
+            success: function(result) {
+                console.log('AJAX success response:', result);
+
+                if (result.hasOwnProperty('success')) {
+                    if (result.success) {
+                        $('#auction-success').html('Auction created successfully!').show();
+                        $('#auction-error').html('').hide();
+                        form.trigger('reset');
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    } else {
+                        $('#auction-success').html('').hide();
+                        var errorMessage = result.errors ? result.errors.join('<br>') : "An unknown error occurred.";
+                        $('#auction-error').html(errorMessage).show();
+                    }
+                } else {
+                    console.error('Unexpected response format:', result);
+                    $('#auction-success').html('').hide();
+                    $('#auction-error').html("An unknown error occurred.").show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', status, error);
+                $('#auction-success').html('').hide();
+                $('#auction-error').html("An error occurred during creation.").show();
+            }
+        });
+    });
+}
+
 function showLoginPage() {
     closeRegisterPage();
     $.ajax({
@@ -141,6 +181,10 @@ function closeRegisterPage() {
     $('#register-section').hide();
 }
 
+function closeAuctionPage() {
+    $('#new-auction-page').hide();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('nav a');
@@ -151,3 +195,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+

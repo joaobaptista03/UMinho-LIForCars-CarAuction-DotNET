@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function deleteAuction(form) {
+        form.preventDefault();
         $.ajax({
             url: form.getAttribute('action'),
             type: 'POST',

@@ -10,12 +10,21 @@ public class AuctionsModel : PageModel
 {
     private readonly IAuctionRepository _auctionRepository;
     private readonly IBidRepository _bidRepository;
+    private readonly ICarRepository _carRepository;
+    private readonly IUserRepository _userRepository;
 
-    public AuctionsModel (IAuctionRepository auctionRepository, IBidRepository bidRepository)
+    public AuctionsModel (IAuctionRepository auctionRepository, IBidRepository bidRepository, ICarRepository carRepository, IUserRepository userRepository)
     {
         _auctionRepository = auctionRepository;
         _bidRepository = bidRepository;
+        _carRepository = carRepository;
+        _userRepository = userRepository;
     }
+
+    [BindProperty]
+    public Car NewCar { get; set; } = null!;
+    [BindProperty]
+    public Auction NewAuction { get; set; } = null!;
 
 
     [BindProperty(SupportsGet = true)]
@@ -38,6 +47,7 @@ public class AuctionsModel : PageModel
         }
 
         if (OrderBy=="RemainingTimeDescending") {
+
             // Ir buscar os leilões do user
             var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending", FilterBy);
             Auctions = result.auctions;
@@ -51,7 +61,7 @@ public class AuctionsModel : PageModel
             }
         } else if (OrderBy=="HighestBidAscending") {
             // Ir buscar os leilões do user
-            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending", FilterBy);
+            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "HighestBidAscending", FilterBy);
             Auctions = result.auctions;
             TotalCount = result.totalCount;
 
@@ -69,7 +79,7 @@ public class AuctionsModel : PageModel
             var sortedAuctionsAux = AuctionsAux.OrderBy(tuple => tuple.Item1).ToList();
 
             // Deixar só as auctions
-            Auctions = sortedAuctionsAux.Select(tuple => tuple.Item2).ToList();
+            Auctions = sortedAuctionsAux.Select(tuple => tuple.Item2).ToList().Skip((CurrentPage - 1) * PageSize).Take(PageSize);
 
             // Ir buscar as bids de um leilão
             foreach (Auction a in Auctions)
@@ -79,7 +89,7 @@ public class AuctionsModel : PageModel
             }
         } else if (OrderBy=="HighestBidDescending") {
              // Ir buscar os leilões do user
-            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending", FilterBy);
+            var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "HighestBidDescending", FilterBy);
             Auctions = result.auctions;
             TotalCount = result.totalCount;
 
@@ -97,7 +107,7 @@ public class AuctionsModel : PageModel
             var sortedAuctionsAux = AuctionsAux.OrderByDescending(tuple => tuple.Item1).ToList();
 
             // Deixar só as auctions
-            Auctions = sortedAuctionsAux.Select(tuple => tuple.Item2).ToList();
+            Auctions = sortedAuctionsAux.Select(tuple => tuple.Item2).ToList().Skip((CurrentPage - 1) * PageSize).Take(PageSize);
 
             // Ir buscar as bids de um leilão
             foreach (Auction a in Auctions)
@@ -120,5 +130,23 @@ public class AuctionsModel : PageModel
         }
         
         return Page();
+    }
+
+    public IActionResult OnPostNewAuction()
+    {
+
+        _carRepository.Create(NewCar);
+
+        var car = _carRepository.GetByPlate(NewCar.Plate);
+        NewAuction.Car = car;
+        NewAuction.CarId = (int) car.Id;
+
+        NewAuction.AdministratorId = 2;
+
+        NewAuction.UserId = (int)_userRepository.GetIdByUsername(User.Identity.Name);
+
+        _auctionRepository.Create(NewAuction);
+
+        return new JsonResult(new { success = true });
     }
 }

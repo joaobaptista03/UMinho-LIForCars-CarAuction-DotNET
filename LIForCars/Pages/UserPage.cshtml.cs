@@ -130,6 +130,7 @@ public class UserPageModel : PageModel
             MeanSellValueAuctions = 0;
             MeanNrBidsPerAuction = 0;
             TotalEarnedAuctions = 0;
+            var FinishedAuctions = 0;
             if (bidsGroupedByAuction!=null && bidsGroupedByAuction.Any()) {
 
                 var firstDate = true;
@@ -170,7 +171,8 @@ public class UserPageModel : PageModel
                     }
 
                     if (g.a.Autorized && g.a.EndDateTime<DateTime.Now) {
-
+                        
+                        FinishedAuctions++;
                         MeanNrBidsPerAuction += g.bids.Count();
                         var i = 0;
                         foreach (Bid bid in g.bids) {
@@ -184,8 +186,8 @@ public class UserPageModel : PageModel
                 }
 
                 var nrAuctions = bidsGroupedByAuction.Count();
-                MeanSellValueAuctions = TotalEarnedAuctions / nrAuctions;
-                MeanNrBidsPerAuction = MeanNrBidsPerAuction / nrAuctions;
+                MeanSellValueAuctions = TotalEarnedAuctions / FinishedAuctions;
+                MeanNrBidsPerAuction = MeanNrBidsPerAuction / FinishedAuctions;
             }
         } else {
             var allAuctions = _auctionRepository.GetAll();
@@ -237,6 +239,7 @@ public class UserPageModel : PageModel
             MeanSellValueAuctions = 0;
             MeanNrBidsPerAuction = 0;
             TotalEarnedAuctions = 0;
+            var FinishedAuctions = 0;
             if (bidsGroupedByAuction!=null && bidsGroupedByAuction.Any()) {
 
                 var firstDate = true;
@@ -283,6 +286,7 @@ public class UserPageModel : PageModel
 
                         if (g.a.Autorized && g.a.EndDateTime<DateTime.Now) {
 
+                            FinishedAuctions++;
                             MeanNrBidsPerAuction += g.bids.Count();
                             var i = 0;
                             foreach (Bid bid in g.bids) {
@@ -299,8 +303,8 @@ public class UserPageModel : PageModel
                 }
 
                 var nrAuctions = bidsGroupedByAuction.Count();
-                MeanSellValueAuctions = TotalEarnedAuctions / nrAuctions;
-                MeanNrBidsPerAuction = MeanNrBidsPerAuction / nrAuctions;
+                MeanSellValueAuctions = TotalEarnedAuctions / FinishedAuctions;
+                MeanNrBidsPerAuction = MeanNrBidsPerAuction / FinishedAuctions;
             }
         }
     }

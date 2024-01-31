@@ -63,6 +63,9 @@ public class AuctionModel : PageModel
             ModelState.AddModelError("BidValue", "Value must be at least " + (currBidValue + AuctionDetails.MinIncrement));
         }
 
+        if (AuctionDetails.InitDateTime > DateTime.Now) ModelState.AddModelError("", "Auction still waiting for start.");
+        if (AuctionDetails.EndDateTime < DateTime.Now) ModelState.AddModelError("", "Auction already ended.");
+
         var modelErrors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
         if (!ModelState.IsValid) return new JsonResult(new { success = false, errors = modelErrors });
 

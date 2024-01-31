@@ -288,6 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         cancelAuctionsButton.forEach(function (button) {
             button.addEventListener('click', function (event) {
+                event.preventDefault();
                 var initDateTimeString = this.dataset.inittimeauction;
                 console.log(initDateTimeString);
                 var [date, time] = initDateTimeString.split(' ');
@@ -300,7 +301,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     error = error.querySelector('.errorCancelingAuction');
                     error.style.display = 'block';
                 } else {
-                    event.preventDefault();
                     var form = this.closest('form');
                     deleteAuction(form);
 

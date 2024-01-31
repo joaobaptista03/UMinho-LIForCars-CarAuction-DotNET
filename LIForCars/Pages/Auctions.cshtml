@@ -42,7 +42,59 @@
 
     <div class="criarLeilaoDiv">
         <div>
-            <button>NEW AUCTION</button>
+            <button onclick=showAuctionPage()>NEW AUCTION</button>
+            <div id="new-auction-page" style="display:none;">
+                <div class="modal-backdrop">
+                    <div class="modal-content" style="width: 40%;">
+                        <div class="modal-header">
+                            <span class="close-btn" onclick="closeAuctionPage()">&times;</span>
+                            <h2>NEW AUCTIONS</h2>
+                        </div>
+                        <div id="auction-error" style="color:red; text-align: center; padding:10px; display: none;"></div>
+                        <div id="auction-success" style="color:green; text-align:center; padding:10px; display: none;"></div>
+                        <form id="carAuctionForm" method="post" action="Auctions?handler=NewAuction">
+                            @Html.AntiForgeryToken()
+                            <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+                                <div style="width: 46%;">
+                                    <input style="padding-right: 0;" type="text" name="Make" placeholder="Make" required />
+                                    <input style="padding-right: 0;" type="text" name="Model" placeholder="Model" required />
+                                    <input style="padding-right: 0;" type="text" name="LaunchYear" placeholder="LaunchYear" required />
+                                    <input style="padding-right: 0;" type="text" name="Plate" placeholder="Plate" required />
+                                    <input style="padding-right: 0;" type="text" name="Kms" placeholder="Kms" required />
+                                    <input style="padding-right: 0;" type="text" name="Origin" placeholder="Origin" required />
+                                    <input style="padding-right: 0;" type="text" name="Motor" placeholder="Motor" required />
+                                    <select name="FuelType" required>
+                                        <option value="" disabled selected>Fuel Type</option>
+                                        <option value="Diesel">Diesel</option>
+                                        <option value="Electric">Electric</option>
+                                        <option value="Hybrid">Hybrid</option>
+                                        <option value="Petrol">Petrol</option>
+                                    </select>
+                                    <input style="padding-right: 0;" type="text" name="StatusDescription" placeholder="StatusDescription" required />
+                                    <input style="padding-right: 0;" type="text" name="Category" placeholder="Category" required />
+                                    <input style="padding-right: 0;" type="text" name="CertificateNr" placeholder="CertificateNr" required />
+                                    <input style="padding-right: 0;" type="text" name="PicUrl" placeholder="Picture URL" required />
+                                </div>
+                                <div style="width: 49%;">
+                                    <input style="padding-right: 0;" type="text" name="BasePrice" placeholder="Base Price" required />
+                                    <input style="padding-right: 0;" type="text" name="MinIncrement" placeholder="Min Increment" required />
+                                    <input style="padding-right: 0;" type="text" name="InitDateTime" placeholder="Initial Date" required />
+                                    <input style="padding-right: 0;" type="text" name="EndDateTime" placeholder="End Date" required />
+                                    <input style="padding-right: 0;" type="text" name="BuyNowPrice" placeholder="Buy Now Price" required />
+                                    <select name="Anonymous" required>
+                                        <option value="" disabled selected>Anonymous</option>
+                                        <option value=true>Yes</option>
+                                        <option value=false>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="submit">Create Auction</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

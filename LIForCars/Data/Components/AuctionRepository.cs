@@ -252,6 +252,124 @@ namespace LIForCars.Data.Components
                             break;
                     }
                 }
+            } else if (orderBy=="HighestBidAscending" || orderBy=="HighestBidDescending") {
+                if (string.IsNullOrEmpty(filterBy)) {
+                    filtered = query.OrderBy(a => a.EndDateTime);
+
+                    totalCount = filtered.Count();
+
+                    auctions = await filtered.ToListAsync();
+                } else {
+                    var separarFiltro = filterBy.Split(':');
+                    TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+                    var filtro = textInfo.ToTitleCase(separarFiltro[0].ToLower());
+                    filtro = filtro.Trim();
+
+                    switch (filtro) {
+                        case "Make":
+                            var makeName = separarFiltro[1].Trim();
+                            filtered = query.Where(a => a.Car!= null && a.Car.Make == makeName)
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+
+                            break;
+                        case "Model":
+                            var modelName = separarFiltro[1].Trim();
+                            filtered = query.Where(a => a.Car!= null && a.Car.Model == modelName)
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+
+                            break;
+                        case "Year":
+                            var yearValue = separarFiltro[1].Trim();
+                            filtered = query.Where(a => a.Car!= null && a.Car.LaunchYear == int.Parse(yearValue))
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+
+                            break;
+                        case "Origin":
+                            var originName = separarFiltro[1].Trim();
+                            filtered = query.Where(a => a.Car!= null && a.Car.Origin == originName)
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+
+                            break;
+                        case "Motor":
+                            var motorName = separarFiltro[1].Trim();
+                            filtered = query.Where(a => a.Car!= null && a.Car.Motor == motorName)
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+
+                            break;
+                        case "Status":
+                            var statusName = separarFiltro[1].Trim();
+                            filtered = query.Where(a => a.Car!= null && a.Car.StatusDescription == statusName)
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+
+                            break;
+                        case "Kms":
+                            var limitesKms = separarFiltro[1].Trim().Split("-");
+                            var minKmsString = limitesKms[0].Trim();
+                            var maxKmsString = limitesKms[1].Trim();
+                            var minKms = int.Parse(minKmsString);
+                            var maxKms = int.Parse(maxKmsString);
+                            filtered = query.Where(a => a.Car!= null && a.Car.Kms >= minKms && a.Car.Kms <= maxKms)
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+
+                            break;
+                        case "Base price":
+                            var limitesBasePrice = separarFiltro[1].Trim().Split("-");
+                            var minBasePriceString = limitesBasePrice[0].Trim();
+                            var maxBasePriceString = limitesBasePrice[1].Trim();
+                            var minBasePrice = int.Parse(minBasePriceString);
+                            var maxBasePrice = int.Parse(maxBasePriceString);
+                            filtered = query.Where(a => a.BasePrice >= minBasePrice && a.BasePrice <= maxBasePrice)
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+
+                            break;
+                        case "Price":
+                            var limitesPrice = separarFiltro[1].Trim().Split("-");
+                            var minPriceString = limitesPrice[0].Trim();
+                            var maxPriceString = limitesPrice[1].Trim();
+                            var minPrice = int.Parse(minPriceString);
+                            var maxPrice = int.Parse(maxPriceString);
+                            filtered = query.Where(a => a.BuyNowPrice >= minPrice && a.BuyNowPrice <= maxPrice)
+                                                  .OrderBy(a => a.EndDateTime);
+
+                            totalCount = filtered.Count();
+
+                            auctions = await filtered.ToListAsync();
+                            
+                            break;
+                    }
+                }
             } else {
                 if (string.IsNullOrEmpty(filterBy)) {
                     filtered = query.OrderBy(a => a.EndDateTime);
