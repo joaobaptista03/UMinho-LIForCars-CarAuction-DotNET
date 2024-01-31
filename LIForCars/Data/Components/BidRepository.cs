@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using LIForCars.Data.Interfaces;
 using LIForCars.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace LIForCars.Data.Components
 {
