@@ -31,8 +31,12 @@ public class AuctionsModel : PageModel
     public Dictionary<Auction, (int TotalBids, IEnumerable<Bid> Bids)> BidsMap { get; private set; } = new Dictionary<Auction, (int, IEnumerable<Bid>)>();
 
 
-    public async Task OnGetAsync()
+    public async Task<IActionResult> OnGetAsync()
     {
+        if (User.IsInRole("Administrator")) {
+            return RedirectToPage("/AuctionsAdmin");
+        }
+
         if (OrderBy=="RemainingTimeDescending") {
             // Ir buscar os leilões do user
             var result = await _auctionRepository.GetCurrentAuctionsAsync(CurrentPage, PageSize, "RemainingTimeDescending", FilterBy);
@@ -115,5 +119,6 @@ public class AuctionsModel : PageModel
             }
         }
         
+        return Page();
     }
 }

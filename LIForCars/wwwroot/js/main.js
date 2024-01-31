@@ -10,7 +10,7 @@ $(document).ready(function () {
             },
             success: function (result) {
                 if (result.hasOwnProperty('success') && result.success) {
-                    window.location.reload();
+                    window.location.href= "/";
                 } else {
                     console.error('Logout failed:', result);
                 }
