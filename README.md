@@ -2,6 +2,8 @@
 
 LIForCars is a comprehensive auction platform designed to facilitate online car auctions. It allows users to list cars for auction, place bids on vehicles, and manage auctions and bids with ease. Built with ASP.NET Core and Entity Framework, the platform offers a robust and scalable solution for online car auction businesses.
 
+<img src="https://i.ibb.co/gmZqTW9/image.png" alt="LIForCars">
+
 ## Features
 
 - **User Authentication and Authorization:** Secure login and registration functionality, with support for both regular users and administrators.
